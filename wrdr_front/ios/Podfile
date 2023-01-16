@@ -19,9 +19,7 @@ target 'wrdr_front' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
-  pod 'RNTextGradientView', :path => '../node_modules/react-native-text-gradient'
 
   target 'wrdr_frontTests' do
     inherit! :complete
@@ -37,5 +35,5 @@ target 'wrdr_front' do
   post_install do |installer|
     react_native_post_install(installer)
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
-  end
+  end  
 end
