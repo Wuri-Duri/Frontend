@@ -1,5 +1,7 @@
+//실제 화면에 어떻게 보이는지 보려고 app.js에 옮겨놓은거에용~~
+
 import React from 'react';
-import {View, StyleSheet, ImageBackground} from 'react-native';
+import {View, StyleSheet,} from 'react-native';
 import Title from './components/Title';
 import Ticket from './components/Ticket';
 
