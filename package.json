@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "react-native-cli": "^2.0.1"
+    "react-native-cli": "^2.0.1",
+    "react-native-snap-carousel": "^3.9.1"
   }
 }
