@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import PlusButton from './PlusButton';
 
 const TicketAdd = ({onAddTicket}) => {
   const [newTicketItem, setNewTicketItem] = useState('');
@@ -19,9 +20,7 @@ const TicketAdd = ({onAddTicket}) => {
       <LinearGradient
         colors={['#418DF1', '#418DF100']}
         style={styles.linearGradient}>
-        <TouchableOpacity style={styles.button}>
-          <Image source={require('../images/plusButton.png')} />
-        </TouchableOpacity>
+        <PlusButton style={styles.button} />
         <Text style={styles.text}>
           새로운 이야기 행성으로 {'\n'} 떠나볼까요?
         </Text>
@@ -36,19 +35,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   linearGradient: {
-    width: 390,
-    height: 550,
+    width: 360,
+    height: 510,
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'center',
     borderRadius: 20,
     paddingLeft: 28,
     paddingRight: 28,
-    //alignSelf: 'center',
   },
   button: {
     alignItems: 'center',
     justifyContent: 'center',
+    width: 59,
+    height: 59,
   },
   text: {
     fontSize: 25,

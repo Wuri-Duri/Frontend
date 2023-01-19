@@ -6,6 +6,7 @@ import Title from './components/Title';
 import TicketItem from './components/TicketItem';
 import TicketAdd from './components/TicketAdd';
 import TicketList from './components/TicketList';
+import PlusButton from './components/PlusButton';
 
 const App = () => {
   //tickets : {id:Number, subTitle: string, storyTitle: string}
@@ -31,6 +32,7 @@ const App = () => {
           storyTitle="피터팬과 콩쥐야 좆됐어"></TicketItem>
         <TicketAdd onAddTicket={addTicket} />
       </View>
+      <PlusButton style={styles.button} />
     </View>
   );
 };
@@ -43,6 +45,11 @@ const styles = StyleSheet.create({
   ticketContainer: {
     flex: 1,
     flexDirection: 'row',
+    padding: 20,
+  },
+  button: {
+    width: 114,
+    height: 114,
   },
 });
 

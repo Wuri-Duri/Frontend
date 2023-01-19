@@ -17,28 +17,26 @@ const TicketItem = ({id, subTitle, storyTitle}) => { //titleImage, id
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //flexDirection: 'column',
     marginRight: 28,
+    marginLeft: 28,
     alignSelf: 'center',
   },
   image: {
-    width: 390,
-    height: 390,
+    width: 360,
+    height: 360,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
-    //alignSelf: 'center',
     paddingBottom: 0,
   },
   titleCard: {
-    width: 390,
-    height: 160,
+    width: 360,
+    height: 150,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
     paddingTop: 0,
     backgroundColor: '#ffffff',
-    //alignSelf: 'center',
   },
   subTitle: {
     fontSize: 20,

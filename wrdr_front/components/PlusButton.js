@@ -1,19 +1,20 @@
 import React from 'react';
-import { TouchableOpacity,StyleSheet } from 'react-native';
-import {images} from '../images';
+import {View, TouchableOpacity, Image, StyleSheet} from 'react-native';
 
 const PlusButton = () => {
-    return (
-        <TouchableOpacity style={StyleSheet.button}>
-            <Image source={require('../images/plusButton.png')} />
-        </TouchableOpacity>
-    );
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity>
+        <Image source={require('../images/plusButton.png')} />
+      </TouchableOpacity>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    button: {
-        margin: 10,
-    },
+  container: {
+    alignItems: 'center',
+  },
 });
 
-export default IconButton;
+export default PlusButton;
