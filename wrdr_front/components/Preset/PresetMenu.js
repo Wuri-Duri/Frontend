@@ -55,17 +55,13 @@ const styles = StyleSheet.create({
   },
   buttonContainer1: {
     alignItems: 'center',
-    //justifyContent: 'center',
     paddingLeft: '20%',
     paddingBottom: 20,
-    //paddingTop: 23,
   },
   buttonContainer2: {
     alignItems: 'center',
     paddingLeft: '13%',
-    //paddingRight: '10%',
     paddingBottom: 20,
-   // paddingTop: 23,
   },
   image: {
     width: 70,
