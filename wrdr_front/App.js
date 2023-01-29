@@ -1,38 +1,16 @@
 //실제 화면에 어떻게 보이는지 보려고 app.js에 옮겨놓은거에용~~
 
-import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
-import Title from './components/Title';
-import TicketItem from './components/TicketItem';
-import TicketAdd from './components/TicketAdd';
-import TicketList from './components/TicketList';
-import PlusButton from './components/PlusButton';
+import React from 'react';
+import {View, StyleSheet, Text} from 'react-native';
+import PresetMenu from './components/Preset/PresetMenu';
+import CircleBG from './components/Preset/CircleBG';
 
 const App = () => {
-  //tickets : {id:Number, subTitle: string, storyTitle: string}
-  const [tickets, setTickets] = useState([]);
-
-  const addTicket = () => {
-    setTickets([
-      ...tickets,
-      {id: Math.random().toString(), subTitle: text, storyTitle: text},
-    ]);
-  };
-
   return (
     <View style={styles.container}>
-      <Title title="우리두리"></Title>
-      <View
-        horizontal={true}
-        showsHorizontalScrollIndication={true}
-        style={styles.ticketContainer}>
-        <TicketList tickets={tickets} />
-        <TicketItem
-          subTitle="1번째 이야기"
-          storyTitle="피터팬과 콩쥐야 좆됐어"></TicketItem>
-        <TicketAdd onAddTicket={addTicket} />
-      </View>
-      <PlusButton style={styles.button} />
+      <PresetMenu />
+      <Text style={styles.text}>우리의 이야기는 어디서 시작하나요?</Text>
+      <CircleBG style={styles.circle1} />
     </View>
   );
 };
@@ -40,16 +18,20 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    alignContent: 'center',
     backgroundColor: '#151B3B',
   },
-  ticketContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    padding: 20,
+  text: {
+    textAlign: 'center',
+    fontSize: 35,
+    color: '#FFFFFF',
+    fontFamily: 'Jalnan',
+    paddingTop: 30,
+    paddingBottom: 30,
   },
-  button: {
-    width: 114,
-    height: 114,
+  circle1: {
+    alignContent: 'center',
   },
 });
 
