@@ -17,16 +17,17 @@ const GradientText = props => {
   );
 };
 
-const Title = ({title}) => {
-  return <GradientText style={styles.title}>{title}</GradientText>;
+const Title = () => {
+  return <GradientText style={styles.title}>우리두리</GradientText>;
 };
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 55,
+    fontSize: 45,
     fontFamily: 'Jalnan',
     textAlign: 'center',
-    margin: 50,
+    marginTop: 40,
+    marginBottom : 30,
   },
 });
 

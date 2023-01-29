@@ -1,54 +1,34 @@
 import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
-import Title from './components/Title';
-import TicketItem from './components/TicketItem';
-import TicketAdd from './components/TicketAdd';
-import TicketList from './components/TicketList';
-import PlusButton from './components/PlusButton';
+import styled from 'styled-components/native';
+import Title from '../components/MyLibrary/Title';
+import TicketList from '../components/MyLibrary/TicketList';
+
+const TicketListContainer = styled.View`
+  width: 100%;
+  height: 62%;
+  position: relative;
+  display: flex;
+`
 
 const MyLibraryPage = () => {
-  //tickets : {id:Number, subTitle: string, storyTitle: string}
-  const [tickets, setTickets] = useState([]);
 
-  const addTicket = () => {
-    setTickets([
-      ...tickets,
-      {id: Math.random().toString(), subTitle: text, storyTitle: text},
-    ]);
-  };
+  //서버에서 받는 정보 형태랑 맞춰서 테스트 필요 - 이미지도 넣어야됨!
+  //우선 여기다가 임시로 데이터 적어둘게용
+  const [tickets, setTickets] = useState([
+    { id: 1, title: '예시로 만들어 봤어요' },
+    { id: 2, title: '제목 글자수 제한' },
+    { id: 3, title: '있어야 될 것 같아요' },
+    { id: 4, title: '아님 ... 쓰거나?' }
+  ]);
 
   return (
-    <View style={styles.container}>
-      <Title title="우리두리"></Title>
-      <View
-        horizontal={true}
-        showsHorizontalScrollIndication={true}
-        style={styles.ticketContainer}>
-        <TicketList tickets={tickets} />
-        <TicketItem
-          subTitle="1번째 이야기"
-          storyTitle="피터팬과 콩쥐야 좆됐어"></TicketItem>
-        <TicketAdd onAddTicket={addTicket} />
-      </View>
-      <PlusButton style={styles.button} />
-    </View>
+    <>
+      <Title/>
+      <TicketListContainer>
+        <TicketList tickets = {tickets}/>
+      </TicketListContainer>
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#151B3B',
-  },
-  ticketContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    padding: 20,
-  },
-  button: {
-    width: 114,
-    height: 114,
-  },
-});
 
 export default MyLibraryPage;
