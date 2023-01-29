@@ -29,7 +29,6 @@ const CircleBG = () => {
             <Image
               source={require('../../images/bgDeepSea.png')}
               style={styles.image}
-              onPress={clickBtnFunction}
             />
           </TouchableOpacity>
         </View>
