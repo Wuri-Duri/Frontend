@@ -1,7 +1,7 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '11.0'
+platform :ios, '16.0'
 install! 'cocoapods', :deterministic_uuids => false
 
 target 'wrdr_front' do
@@ -19,6 +19,8 @@ target 'wrdr_front' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+
+
   target 'wrdr_frontTests' do
     inherit! :complete
     # Pods for testing
@@ -33,5 +35,5 @@ target 'wrdr_front' do
   post_install do |installer|
     react_native_post_install(installer)
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
-  end
+  end  
 end
