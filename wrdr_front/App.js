@@ -3,14 +3,14 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import PresetMenu from './components/Preset/PresetMenu';
-import CircleBG from './components/Preset/CircleBG';
+import AddChar from './components/Preset/AddChar';
 
 const App = () => {
   return (
     <View style={styles.container}>
       <PresetMenu />
-      <Text style={styles.text}>우리의 이야기는 어디서 시작하나요?</Text>
-      <CircleBG />
+      <Text style={styles.text}>이야기에 등장할 인물을 골라볼까요?</Text>
+      <AddChar />
     </View>
   );
 };
