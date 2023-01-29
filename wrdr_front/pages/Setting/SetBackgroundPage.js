@@ -8,7 +8,7 @@ const SetBackgroundPage = () => {
     <View style={styles.container}>
       <PresetMenu />
       <Text style={styles.text}>우리의 이야기는 어디서 시작하나요?</Text>
-      <CircleBG style={styles.circle1} />
+      <CircleBG />
     </View>
   );
 };
@@ -27,9 +27,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Jalnan',
     paddingTop: 30,
     paddingBottom: 30,
-  },
-  circle1: {
-    alignContent: 'center',
   },
 });
 

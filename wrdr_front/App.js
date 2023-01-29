@@ -3,14 +3,14 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import PresetMenu from './components/Preset/PresetMenu';
-import CircleBG from './components/Preset/CircleBG';
+import BookLen from './components/Preset/BookLen';
 
 const App = () => {
   return (
     <View style={styles.container}>
       <PresetMenu />
-      <Text style={styles.text}>우리의 이야기는 어디서 시작하나요?</Text>
-      <CircleBG style={styles.circle1} />
+      <Text style={styles.text}>이 이야기의 길이는?</Text>
+      <BookLen />
     </View>
   );
 };
@@ -29,9 +29,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Jalnan',
     paddingTop: 30,
     paddingBottom: 30,
-  },
-  circle1: {
-    alignContent: 'center',
   },
 });
 

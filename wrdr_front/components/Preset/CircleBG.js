@@ -50,14 +50,12 @@ const CircleBG = () => {
         </View>
       </ScrollView>
       <Image
-        source={require('../../images/NextButton.png')}
+        source={require('../../images/nextButton.png')}
         style={styles.button}
       />
     </View>
   );
 };
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -94,7 +92,6 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   button: {
-    alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
     width: 95,
