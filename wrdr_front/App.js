@@ -3,14 +3,14 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import PresetMenu from './components/Preset/PresetMenu';
-import BookLen from './components/Preset/BookLen';
+import CircleBG from './components/Preset/CircleBG';
 
 const App = () => {
   return (
     <View style={styles.container}>
       <PresetMenu />
-      <Text style={styles.text}>이 이야기의 길이는?</Text>
-      <BookLen />
+      <Text style={styles.text}>우리의 이야기는 어디서 시작하나요?</Text>
+      <CircleBG />
     </View>
   );
 };

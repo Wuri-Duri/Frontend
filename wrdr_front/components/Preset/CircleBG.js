@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   ScrollView,
   View,
   Image,
   StyleSheet,
   TouchableOpacity,
+  Button,
 } from 'react-native';
 
 //presetmenu에서 선택시 해당 아이콘 선명하게 바꾸기
 //배경 선택시 => 배경circle 버튼 투명도 바뀜, nextbutton 이미지 변경
 const CircleBG = () => {
+ 
   return (
     <View style={styles.container}>
       <ScrollView
