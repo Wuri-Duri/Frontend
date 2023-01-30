@@ -13,9 +13,16 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		4530B8E35A1999CCCA6D23BC /* libPods-wrdr_front-wrdr_frontTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E755FA4DEC37BE2DC7445A1A /* libPods-wrdr_front-wrdr_frontTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+<<<<<<< HEAD
 		86C74E68726A4477E567592C /* libPods-wrdr_front.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 196BA90AC20B2F060A59436E /* libPods-wrdr_front.a */; };
 		C72993342982AD48007EE00C /* Font in Resources */ = {isa = PBXBuildFile; fileRef = C72993332982AD48007EE00C /* Font */; };
 		C72993362982AE3E007EE00C /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = C72993352982AE3D007EE00C /* Fonts */; };
+=======
+		A48B8BE8742748E1984471EB /* Jalnan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF72DF1BC98748C8AF7625E1 /* Jalnan.ttf */; };
+		A7CF31D523884982474E9DF3 /* libPods-wrdr_front.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16E853F3DDABEE00505886D6 /* libPods-wrdr_front.a */; };
+		C194192C17AEE2960A2C542B /* libPods-wrdr_front-wrdr_frontTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A4C68FC4CD25AC0F36AA9BF /* libPods-wrdr_front-wrdr_frontTests.a */; };
+		C723D52E2975891D003516A6 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = C723D52A29758627003516A6 /* Fonts */; };
+>>>>>>> 9db68d783d5b36bb38aaf97918ec313e45e32622
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +55,7 @@
 		C72993352982AE3D007EE00C /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = "../node_modules/react-native-vector-icons/Fonts"; sourceTree = "<group>"; };
 		E755FA4DEC37BE2DC7445A1A /* libPods-wrdr_front-wrdr_frontTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-wrdr_front-wrdr_frontTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EF72DF1BC98748C8AF7625E1 /* Jalnan.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Jalnan.ttf; path = ../assets/fonts/Jalnan.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +125,15 @@
 			name = Libraries;
 			sourceTree = "<group>";
 		};
+		83B414E27D954B2E82E57D08 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EF72DF1BC98748C8AF7625E1 /* Jalnan.ttf */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +145,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				83B414E27D954B2E82E57D08 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -251,7 +269,11 @@
 				C72993362982AE3E007EE00C /* Fonts in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+<<<<<<< HEAD
 				C72993342982AD48007EE00C /* Font in Resources */,
+=======
+				A48B8BE8742748E1984471EB /* Jalnan.ttf in Resources */,
+>>>>>>> 9db68d783d5b36bb38aaf97918ec313e45e32622
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
