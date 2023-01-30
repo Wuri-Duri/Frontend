@@ -21,7 +21,7 @@ const CircleBG = () => {
         <View style={styles.circleContainer1}>
           <TouchableOpacity>
             <Image
-              source={require('../../images/bgCabin.png')}
+              source={require('../../assets/SetBackground/bgCabin.png')}
               style={styles.image}
             />
           </TouchableOpacity>
@@ -29,7 +29,7 @@ const CircleBG = () => {
         <View style={styles.circleContainer2}>
           <TouchableOpacity>
             <Image
-              source={require('../../images/bgDeepSea.png')}
+              source={require('../../assets/SetBackground/bgDeepSea.png')}
               style={styles.image}
             />
           </TouchableOpacity>
@@ -37,7 +37,7 @@ const CircleBG = () => {
         <View style={styles.circleContainer3}>
           <TouchableOpacity>
             <Image
-              source={require('../../images/bgMagicCastle.png')}
+              source={require('../../assets/SetBackground/bgMagicCastle.png')}
               style={styles.image}
             />
           </TouchableOpacity>
@@ -45,14 +45,14 @@ const CircleBG = () => {
         <View style={styles.circleContainer2}>
           <TouchableOpacity>
             <Image
-              source={require('../../images/bgSkyIsland.png')}
+              source={require('../../assets/SetBackground/bgSkyIsland.png')}
               style={styles.image}
             />
           </TouchableOpacity>
         </View>
       </ScrollView>
       <Image
-        source={require('../../images/nextButton.png')}
+        source={require('../../assets/nextButton.png')}
         style={styles.button}
       />
     </View>

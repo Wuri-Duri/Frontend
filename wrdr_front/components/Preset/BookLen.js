@@ -15,25 +15,25 @@ const BookLen = () => {
       <View style={styles.bookContainer}>
         <View style={styles.book1}>
           <Image
-            source={require('../../images/len1.png')}
+            source={require('../../assets/SetLength/len1.png')}
             style={styles.image1}
           />
         </View>
         <View style={styles.book2}>
           <Image
-            source={require('../../images/len2.png')}
+            source={require('../../assets/SetLength/len2.png')}
             style={styles.image2}
           />
         </View>
         <View style={styles.book3}>
           <Image
-            source={require('../../images/len3.png')}
+            source={require('../../assets/SetLength/len3.png')}
             style={styles.image3}
           />
         </View>
       </View>
       <Image
-        source={require('../../images/checkButton.png')}
+        source={require('../../assets/checkButton.png')}
         style={styles.button}
       />
     </View>

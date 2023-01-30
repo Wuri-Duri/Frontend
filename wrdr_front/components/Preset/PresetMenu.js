@@ -12,7 +12,7 @@ const PresetMenu = () => {
       <View style={styles.buttonContainer1}>
         <TouchableOpacity>
           <Image
-            source={require('../../images/charMenu.png')}
+            source={require('../../assets/Navbar/charMenu.png')}
             style={styles.image}
           />
         </TouchableOpacity>
@@ -21,7 +21,7 @@ const PresetMenu = () => {
       <View style={styles.buttonContainer2}>
         <TouchableOpacity>
           <Image
-            source={require('../../images/bgMenu.png')}
+            source={require('../../assets/Navbar/bgMenu.png')}
             style={styles.image}
           />
         </TouchableOpacity>
@@ -30,7 +30,7 @@ const PresetMenu = () => {
       <View style={styles.buttonContainer2}>
         <TouchableOpacity>
           <Image
-            source={require('../../images/lenMenu.png')}
+            source={require('../../assets/Navbar/lenMenu.png')}
             style={styles.image}
           />
         </TouchableOpacity>

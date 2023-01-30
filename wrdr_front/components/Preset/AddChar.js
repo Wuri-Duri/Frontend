@@ -12,7 +12,7 @@ const AddChar = () => {
         </View>
       </View>
       <Image
-        source={require('../../images/nextButton.png')}
+        source={require('../../assets/nextButton.png')}
         style={styles.button}
       />
     </View>
