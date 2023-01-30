@@ -13,16 +13,8 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		4530B8E35A1999CCCA6D23BC /* libPods-wrdr_front-wrdr_frontTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E755FA4DEC37BE2DC7445A1A /* libPods-wrdr_front-wrdr_frontTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-<<<<<<< HEAD
 		86C74E68726A4477E567592C /* libPods-wrdr_front.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 196BA90AC20B2F060A59436E /* libPods-wrdr_front.a */; };
-		C72993342982AD48007EE00C /* Font in Resources */ = {isa = PBXBuildFile; fileRef = C72993332982AD48007EE00C /* Font */; };
-		C72993362982AE3E007EE00C /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = C72993352982AE3D007EE00C /* Fonts */; };
-=======
 		A48B8BE8742748E1984471EB /* Jalnan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF72DF1BC98748C8AF7625E1 /* Jalnan.ttf */; };
-		A7CF31D523884982474E9DF3 /* libPods-wrdr_front.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16E853F3DDABEE00505886D6 /* libPods-wrdr_front.a */; };
-		C194192C17AEE2960A2C542B /* libPods-wrdr_front-wrdr_frontTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A4C68FC4CD25AC0F36AA9BF /* libPods-wrdr_front-wrdr_frontTests.a */; };
-		C723D52E2975891D003516A6 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = C723D52A29758627003516A6 /* Fonts */; };
->>>>>>> 9db68d783d5b36bb38aaf97918ec313e45e32622
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -266,14 +258,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C72993362982AE3E007EE00C /* Fonts in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-<<<<<<< HEAD
-				C72993342982AD48007EE00C /* Font in Resources */,
-=======
 				A48B8BE8742748E1984471EB /* Jalnan.ttf in Resources */,
->>>>>>> 9db68d783d5b36bb38aaf97918ec313e45e32622
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -594,7 +581,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -628,6 +615,7 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -665,7 +653,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -691,6 +679,7 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
