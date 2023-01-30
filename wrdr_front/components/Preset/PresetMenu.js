@@ -1,13 +1,13 @@
 import React from 'react';
 import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
-Icon.loadFont().then();
+//import Icon from 'react-native-vector-icons/AntDesign';
+//Icon.loadFont().then();
 
 const PresetMenu = () => {
   return (
     <View horizontal={true} style={styles.container}>
       <View style={styles.backButton}>
-        <Icon name="left" size={50} color="#FFFFFF" />
+        {/* <Icon name="left" size={50} color="#FFFFFF" /> */}
       </View>
       <View style={styles.buttonContainer1}>
         <TouchableOpacity>

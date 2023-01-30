@@ -16,13 +16,9 @@
     "react-native-linear-gradient": "^2.6.2",
     "react-native-reanimated": "^2.14.2",
     "react-native-text-gradient": "^0.1.7",
-<<<<<<< HEAD
     "react-native-vector-icons": "^9.2.0",
-    "react-scrollbars-custom": "^4.1.1"
-=======
     "react-scrollbars-custom": "^4.1.1",
     "styled-components": "^5.3.6"
->>>>>>> 9db68d783d5b36bb38aaf97918ec313e45e32622
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
