@@ -7,6 +7,14 @@ import plus from '../../assets/BottomBar/BottomBar_button_plus.png';
 // 이 버튼을 눌러도 동화 추가 뷰로 넘어가야 되니까 여기도 TouchableOpacity로 하는 게 기능 상 맞긴 하고... 으음... 으음...
 // 아무튼 여기도 클릭 시 동화 추가 뷰로 넘어가게 하는 작업 추가 필요
 
+const HomeButtonContainer = styled.TouchableOpacity`
+  width: 95;
+  height: 95;
+  position: absolute;
+  align-self: center;
+  bottom: 25%;
+`;
+
 const ButtonContainer = styled.View`
   display: flex;
   width: 100%;
@@ -24,12 +32,14 @@ const Plus = styled.Image`
   height: 55%;
 `;
 
-const PlusButton = () => {
+const mainButton = () => {
   return (
-    <ButtonContainer>
-      <Plus source={plus} />
-    </ButtonContainer>
+    <HomeButtonContainer>
+      <ButtonContainer>
+        <Plus source={plus} />
+      </ButtonContainer>
+    </HomeButtonContainer>
   );
 };
 
-export default PlusButton;
+export default mainButton;

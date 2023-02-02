@@ -3,7 +3,7 @@ import { ImageBackground } from 'react-native';
 import styled from 'styled-components/native';
 import BackgroundImage from './assets/exampleBG.png';
 import MyLibraryPage from './pages/MyLibraryPage';
-import PresetMenu from './components/Preset/PresetMenu';
+import PresetPage from './pages/PresetPage';
 import BottomBar from './components/common/BottomBar';
 
 const MainContainer = styled.View`
@@ -20,9 +20,9 @@ const App = ({ props }) => {
   return (
     <MainContainer>
       <MainBackgroundImg source={BackgroundImage} resizeMode="cover">
-        <MyLibraryPage />
-        <BottomBar />
-        {/* <PresetMenu/> */}
+        {/* <MyLibraryPage /> */}
+        <PresetPage />
+        {/* <BottomBar /> */}
       </MainBackgroundImg>
     </MainContainer>
   );

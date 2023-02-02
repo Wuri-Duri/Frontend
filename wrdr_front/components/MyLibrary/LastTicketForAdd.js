@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View, Image, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import PlusButton from '../common/PlusButton';
+import PlusButton from '../common/mainButton';
 
 const LastTicketForAdd = () => {
   // TouchableOpacity 클릭 시 동화 추가 뷰로 넘어가게 하는 작업 추가 필요
