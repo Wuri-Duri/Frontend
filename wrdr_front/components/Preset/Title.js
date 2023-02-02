@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
-import PresetMenu from './NavBar';
-import CircleBG from '../../components/Preset/CircleBG';
 
 const TitleContianer = styled.View`
   width: 100%;
@@ -17,10 +15,10 @@ const TitleText = styled.Text`
   font-weight: bold;
 `;
 
-const Title = () => {
+const Title = ({ pageType }) => {
   return (
     <TitleContianer>
-      <TitleText>우리의 이야기는 어디서 시작하나요?</TitleText>
+      <TitleText>{pageType === 'character' ? '이야기에 등장할 인물을 골라볼까요?' : pageType === 'place' ? '우리의 이야기는 어디서 시작하나요?' : '이 이야기의 길이는?'}</TitleText>
     </TitleContianer>
   );
 };

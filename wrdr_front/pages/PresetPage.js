@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
-import PresetMenu from '../components/Preset/NavBar';
+import NavBar from '../components/Preset/NavBar';
 import Title from '../components/Preset/Title';
+import AddChar from '../components/Preset/AddChar';
+import SelectPlace from '../components/Preset/SelectPlace';
 import BookLen from '../components/Preset/BookLen';
 import NextButton from '../components/common/mainButton';
 
@@ -12,16 +14,17 @@ const Container = styled.View`
   bottom: 0;
 `;
 
-//NextButton props 값에 따라서 색상, opacity, 아이콘 이미지 바뀌도록 common의 homeButton.js 수정 필요
+//isActived도 컨트롤해야함
 
 const PresetPage = () => {
+  const [pageType, setPageType] = useState('character');
   return (
     <>
-      <PresetMenu />
-      <Title />
-      <BookLen />
+      <NavBar pageType={pageType} setPageType={setPageType} />
+      <Title pageType={pageType} />
+      {pageType === 'character' ? <AddChar /> : pageType === 'place' ? <SelectPlace /> : pageType === 'length' ? <BookLen /> : null}
       <Container>
-        <NextButton />
+        <NextButton isActived={false} pageType={pageType} />
       </Container>
     </>
   );

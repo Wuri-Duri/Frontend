@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 
 const Conatiner = styled.View`
   width: 100%;
-  height: 62%;
+  height: 65%;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: flex-end;
@@ -17,6 +17,7 @@ const SelectArea = styled.TouchableOpacity`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  opacity: 0.5;
 `;
 
 const IconText = styled.Text`
@@ -26,7 +27,6 @@ const IconText = styled.Text`
   margin-top: 30;
 `;
 
-//presetmenu에서 선택시 해당 아이콘 선명하게 바꾸기
 //배경 선택시 => 길이선택 버튼 투명도 바뀜, check button 이미지 변경
 const BookLen = () => {
   return (

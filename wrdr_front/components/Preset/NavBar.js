@@ -10,7 +10,6 @@ const NavbarContainer = styled.View`
   width: 100%;
   height: 20%;
   background-color: #000000;
-  opacity: 0.7;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -26,6 +25,7 @@ const IconContainer = styled.View`
 `;
 
 const SelectArea = styled.TouchableOpacity`
+  opacity: ${props => (props.pageType == true ? '1' : '0.6')};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -35,29 +35,35 @@ const IconText = styled.Text`
   color: #ffffff;
   font-size: 25;
   font-weight: bold;
-  margin-top: 10;
+  margin-top: 15;
 `;
 
-const NavBar = () => {
-  const [clikedInfo, setClickedInfo] = useState([
-    { id: 'character', isClicked: true },
-    { id: 'background', isClicked: false },
-    { id: 'length', isClicked: false },
-  ]);
+const NavBar = ({ pageType, setPageType }) => {
+  const onClickCharBtn = () => {
+    if (pageType !== 'character') setPageType('character');
+  };
+
+  const onClickPlaceBtn = () => {
+    if (pageType !== 'place') setPageType('place');
+  };
+
+  const onClickLenBtn = () => {
+    if (pageType !== 'length') setPageType('length');
+  };
 
   return (
     <NavbarContainer>
       <Icon name="left" size={50} color="#FFFFFF" />
       <IconContainer>
-        <SelectArea isClicked={true}>
+        <SelectArea pageType={pageType === 'character'} onPress={onClickCharBtn}>
           <Image source={require('../../assets/Preset/NavBar/charMenu.png')} />
           <IconText>인물</IconText>
         </SelectArea>
-        <SelectArea isClicked={false}>
+        <SelectArea pageType={pageType === 'place'} onPress={onClickPlaceBtn}>
           <Image source={require('../../assets/Preset/NavBar/bgMenu.png')} />
           <IconText>배경</IconText>
         </SelectArea>
-        <SelectArea isClicked={false}>
+        <SelectArea pageType={pageType === 'length'} onPress={onClickLenBtn}>
           <Image source={require('../../assets/Preset/NavBar/lenMenu.png')} />
           <IconText>길이</IconText>
         </SelectArea>
