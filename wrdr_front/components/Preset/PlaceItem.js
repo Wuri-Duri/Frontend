@@ -4,12 +4,14 @@ import { TouchableOpacity, View, Image, Text } from 'react-native';
 
 const Container = styled.View`
   width: 300;
-  height: 300;
+  height: 100%;
   border-radius: 300;
   justify-content: center;
   align-items: center;
   margin-left: 10;
   margin-right: 10;
+  padding-top: ${props => (parseInt(props.even) % 2 == 0 ? '70' : '0')};
+  padding-bottom: ${props => (parseInt(props.even) % 2 == 1 ? '70' : '0')};
 `;
 
 const SelectArea = styled.ImageBackground`
@@ -28,9 +30,9 @@ const InsideText = styled.Text`
   color: #ffffff;
 `;
 
-const PlaceItem = ({ key, imageUri, title }) => {
+const PlaceItem = ({ even, imageUri, title }) => {
   return (
-    <Container>
+    <Container even={even}>
       <TouchableOpacity>
         <SelectArea source={imageUri}>
           <InsideText>{title}</InsideText>

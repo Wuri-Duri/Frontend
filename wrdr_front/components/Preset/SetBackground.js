@@ -9,7 +9,7 @@ const Conatiner = styled.View`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: flex-end;
-  padding-bottom: 200;
+  padding-bottom: 170;
 `;
 
 const InsideContainer = styled.View`
@@ -21,11 +21,11 @@ const InsideContainer = styled.View`
 
 const SelectBackground = () => {
   const places = [
-    { id: 0, image: require('../../assets/Preset/SetBackground/bgCabin.png'), title: '산 속 오두막' },
-    { id: 1, image: require('../../assets/Preset/SetBackground/bgDeepSea.png'), title: '깊은 바닷속' },
-    { id: 2, image: require('../../assets/Preset/SetBackground/bgMagicCastle.png'), title: '마법의 성' },
-    { id: 3, image: require('../../assets/Preset/SetBackground/bgSkyIsland.png'), title: '하늘섬' },
-    { id: 4, image: require('../../assets/Preset/SetBackground/bgCabin.png'), title: '또 뭐가 있을까' },
+    { key: 0, image: require('../../assets/Preset/SetBackground/bgCabin.png'), title: '산 속 오두막' },
+    { key: 1, image: require('../../assets/Preset/SetBackground/bgDeepSea.png'), title: '깊은 바닷속' },
+    { key: 2, image: require('../../assets/Preset/SetBackground/bgMagicCastle.png'), title: '마법의 성' },
+    { key: 3, image: require('../../assets/Preset/SetBackground/bgSkyIsland.png'), title: '하늘섬' },
+    { key: 4, image: require('../../assets/Preset/SetBackground/bgCabin.png'), title: '또 뭐가 있을까' },
   ];
 
   return (
@@ -33,7 +33,7 @@ const SelectBackground = () => {
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <InsideContainer>
           {places.map(place => (
-            <PlaceItem key={place.id} imageUri={place.image} title={place.title} />
+            <PlaceItem key={place.key} even={place.key} imageUri={place.image} title={place.title} />
           ))}
         </InsideContainer>
       </ScrollView>

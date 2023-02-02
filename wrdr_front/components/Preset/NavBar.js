@@ -4,7 +4,6 @@ import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 Icon.loadFont().then();
 //아이콘이 안드로이드에서는 엑박으로 떠서 확인 필요
-//아이콘 클릭시에 따라 하단 컴포넌트 교체 및 네브바 아이콘 opacity 조절 - props 활용
 
 const NavbarContainer = styled.View`
   width: 100%;
