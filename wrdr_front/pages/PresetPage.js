@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import NavBar from '../components/Preset/NavBar';
 import Title from '../components/Preset/Title';
-import AddChar from '../components/Preset/AddChar';
-import SelectPlace from '../components/Preset/SelectPlace';
-import BookLen from '../components/Preset/BookLen';
-import NextButton from '../components/common/mainButton';
+import SetCharacter from '../components/Preset/SetCharacter';
+import SetBackground from '../components/Preset/SetBackground';
+import SetLength from '../components/Preset/SetLength';
+import MainButton from '../components/common/MainButton';
 
 const Container = styled.View`
   width: 100%;
@@ -22,9 +22,9 @@ const PresetPage = () => {
     <>
       <NavBar pageType={pageType} setPageType={setPageType} />
       <Title pageType={pageType} />
-      {pageType === 'character' ? <AddChar /> : pageType === 'place' ? <SelectPlace /> : pageType === 'length' ? <BookLen /> : null}
+      {pageType === 'character' ? <SetCharacter /> : pageType === 'place' ? <SetBackground /> : pageType === 'length' ? <SetLength /> : null}
       <Container>
-        <NextButton isActived={false} pageType={pageType} />
+        <MainButton isActived={false} pageType={pageType} />
       </Container>
     </>
   );

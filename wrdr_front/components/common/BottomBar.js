@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { View, TouchableOpacity } from 'react-native';
-import PlusButton from './mainButton';
+import MainButton from './MainButton';
 import BackgroundBar from './BackgroundBar';
 
 const Container = styled.View`
@@ -14,7 +14,7 @@ const Container = styled.View`
 const BottomBar = () => {
   return (
     <Container>
-      <PlusButton />
+      <MainButton />
       <BackgroundBar />
     </Container>
   );

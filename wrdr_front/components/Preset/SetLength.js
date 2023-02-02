@@ -27,8 +27,7 @@ const IconText = styled.Text`
   margin-top: 30;
 `;
 
-//배경 선택시 => 길이선택 버튼 투명도 바뀜, check button 이미지 변경
-const BookLen = () => {
+const SetLength = () => {
   return (
     <Conatiner>
       <SelectArea>
@@ -47,4 +46,4 @@ const BookLen = () => {
   );
 };
 
-export default BookLen;
+export default SetLength;

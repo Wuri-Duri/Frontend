@@ -28,7 +28,7 @@ const Icon = styled.Image`
   position: relative;
 `;
 
-const mainButton = ({ pageType, isActived }) => {
+const MainButton = ({ pageType, isActived }) => {
   //클릭시 다음 뷰로 넘어가게 하는 네비게이션(분기처리) 필요
 
   return (
@@ -40,4 +40,4 @@ const mainButton = ({ pageType, isActived }) => {
   );
 };
 
-export default mainButton;
+export default MainButton;
