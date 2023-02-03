@@ -4,6 +4,7 @@ import { View, Image } from 'react-native';
 import plus from '../../assets/BottomBar/BottomBar_button_plus.png';
 import next from '../../assets/BottomBar/BottomBar_button_next.png';
 import check from '../../assets/BottomBar/BottomBar_button_check.png';
+import home from '../../assets/BottomBar/BottomBar_button_home.png';
 
 const HomeButtonContainer = styled.TouchableOpacity`
   width: ${props => props.size || '95'};
@@ -31,8 +32,9 @@ const Icon = styled.Image`
   resize-mode: contain;
 `;
 
-const MainButton = ({ pageType, bookInfo, size }) => {
+const MainButton = ({ pageType, setPageType, bookInfo, size }) => {
   const onPressMainBtn = () => {
+    if (pageType == 'mylibrary') setPageType('character');
     //클릭시 다음 뷰로 넘어가게 하는 네비게이션(분기처리) 필요
     //isActive가 true이면 character -> place -> length 순으로 이동
     //length 페이지일 경우엔 완료 뷰로 넘어가도록
@@ -52,9 +54,13 @@ const MainButton = ({ pageType, bookInfo, size }) => {
         <ButtonContainer isActive={bookInfo.isActive.length} pageType={pageType}>
           <Icon source={check} />
         </ButtonContainer>
-      ) : (
+      ) : pageType === 'mylibrary' ? (
         <ButtonContainer isActive={true}>
           <Icon source={plus} />
+        </ButtonContainer>
+      ) : (
+        <ButtonContainer isActive={true}>
+          <Icon source={home} />
         </ButtonContainer>
       )}
     </HomeButtonContainer>

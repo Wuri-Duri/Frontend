@@ -19,12 +19,20 @@ const MainBackgroundImg = styled.ImageBackground`
 `;
 
 const App = ({ props }) => {
+  const [pageType, setPageType] = useState('mylibrary');
   return (
     <MainContainer>
       <MainBackgroundImg source={BackgroundImage} resizeMode="cover">
-        <PresetPage />
-        {/* <MyLibraryPage />
-        <BottomBar /> */}
+        {pageType === 'mylibrary' ? (
+          <>
+            <MyLibraryPage pageType={pageType} setPageType={setPageType} />
+            <BottomBar pageType={pageType} setPageType={setPageType} />
+          </>
+        ) : pageType === 'character' || pageType === 'place' || pageType === 'length' ? (
+          <PresetPage pageType={pageType} setPageType={setPageType} />
+        ) : (
+          ''
+        )}
       </MainBackgroundImg>
     </MainContainer>
   );

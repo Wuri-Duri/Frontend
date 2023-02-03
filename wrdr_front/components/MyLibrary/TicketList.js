@@ -22,7 +22,7 @@ const InsideContainer = styled.View`
   margin-right: 50;
 `;
 
-const TicketList = ({ tickets }) => {
+const TicketList = ({ tickets, pageType, setPageType }) => {
   return (
     <Container>
       <ScrollContainer horizontal={true} centerContent={true} showsHorizontalScrollIndicator={false}>
@@ -30,7 +30,7 @@ const TicketList = ({ tickets }) => {
           {tickets.map((ticket, index) => (
             <TicketItem key={ticket.id} number={index + 1} image={ticket.image} title={ticket.title} />
           ))}
-          <LastTicketForAdd />
+          <LastTicketForAdd pageType={pageType} setPageType={setPageType} />
         </InsideContainer>
       </ScrollContainer>
     </Container>

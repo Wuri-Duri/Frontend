@@ -11,10 +11,10 @@ const Container = styled.View`
   bottom: 0;
 `;
 
-const BottomBar = () => {
+const BottomBar = ({ pageType, setPageType }) => {
   return (
     <Container>
-      <MainButton />
+      <MainButton pageType={pageType} setPageType={setPageType} />
       <BackgroundBar />
     </Container>
   );

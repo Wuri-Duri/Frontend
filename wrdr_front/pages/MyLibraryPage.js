@@ -10,7 +10,7 @@ const TicketListContainer = styled.View`
   display: flex;
 `;
 
-const MyLibraryPage = () => {
+const MyLibraryPage = ({ pageType, setPageType }) => {
   //서버에서 받는 정보 형태랑 맞춰서 테스트 필요
   const [tickets, setTickets] = useState([
     { id: 1, image: require('../assets/MyLibrary/peterpan.jpg'), title: '예시로 만들어 봤어요' },
@@ -23,7 +23,7 @@ const MyLibraryPage = () => {
     <>
       <Title />
       <TicketListContainer>
-        <TicketList tickets={tickets} />
+        <TicketList tickets={tickets} pageType={pageType} setPageType={setPageType} />
       </TicketListContainer>
     </>
   );
