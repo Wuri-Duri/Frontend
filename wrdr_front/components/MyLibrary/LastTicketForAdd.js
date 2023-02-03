@@ -1,46 +1,49 @@
-import React, {useState} from 'react';
-import {StyleSheet, TouchableOpacity, View, Image, Text} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, TouchableOpacity, View, Image, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import PlusButton from '../common/PlusButton';
+import MainButton from '../common/MainButton';
 
-const LastTicketForAdd = () => {
-
-  // TouchableOpacity 클릭 시 동화 추가 뷰로 넘어가게 하는 작업 추가 필요
+const LastTicketForAdd = ({ pageType, setPageType }) => {
+  const onPressLastTicket = () => {
+    setPageType('character');
+  };
 
   return (
-    <TouchableOpacity>
-      <LinearGradient
-        colors={['#418DF1', '#418DF100']}
-        style={styles.linearGradient}>
+    <View style={styles.container}>
+      <TouchableOpacity onPress={onPressLastTicket}>
+        <LinearGradient colors={['#418DF1', '#418DF100']} style={styles.linearGradient}>
           <View style={styles.button}>
-            <PlusButton/>
+            <MainButton size={50} pageType={pageType} setPageType={setPageType} disabled={true} />
           </View>
-          <Text style={styles.text}>
-            새로운 이야기 행성으로 {'\n'} 떠나볼까요?
-          </Text>
-      </LinearGradient>
-    </TouchableOpacity>
+          <Text style={styles.text}>새로운 이야기 행성으로 {'\n'} 떠나볼까요?</Text>
+        </LinearGradient>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    width: 300,
+    height: '100%',
+    justifyContent: 'flex-end',
+    marginLeft: 25,
+  },
   linearGradient: {
-    width: 310,
+    width: '100%',
     height: '100%',
     alignItems: 'center',
-    alignContent: 'center',
     justifyContent: 'center',
     borderRadius: 20,
     paddingLeft: 28,
     paddingRight: 28,
   },
   button: {
-    width: 59,
-    height: 59,
-    marginBottom: 20
+    marginTop: 30,
+    marginBottom: 20,
   },
   text: {
-    fontSize: 25,
+    fontSize: 22,
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#ffffff',
