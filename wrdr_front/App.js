@@ -20,6 +20,7 @@ const MainBackgroundImg = styled.ImageBackground`
 
 const App = ({ props }) => {
   const [pageType, setPageType] = useState('mylibrary');
+
   return (
     <MainContainer>
       <MainBackgroundImg source={BackgroundImage} resizeMode="cover">

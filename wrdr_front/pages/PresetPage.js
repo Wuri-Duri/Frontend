@@ -38,7 +38,7 @@ const PresetPage = ({ pageType, setPageType }) => {
         <SetLength bookInfo={bookInfo} setBookInfo={setBookInfo} />
       ) : null}
       <Container>
-        <MainButton pageType={pageType} bookInfo={bookInfo} />
+        <MainButton pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} />
       </Container>
     </>
   );

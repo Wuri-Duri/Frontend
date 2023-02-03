@@ -13,7 +13,7 @@ const LastTicketForAdd = ({ pageType, setPageType }) => {
       <TouchableOpacity onPress={onPressLastTicket}>
         <LinearGradient colors={['#418DF1', '#418DF100']} style={styles.linearGradient}>
           <View style={styles.button}>
-            <MainButton size={50} pageType={pageType} setPageType={setPageType} />
+            <MainButton size={50} pageType={pageType} setPageType={setPageType} disabled={true} />
           </View>
           <Text style={styles.text}>새로운 이야기 행성으로 {'\n'} 떠나볼까요?</Text>
         </LinearGradient>

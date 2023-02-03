@@ -32,16 +32,22 @@ const Icon = styled.Image`
   resize-mode: contain;
 `;
 
-const MainButton = ({ pageType, setPageType, bookInfo, size }) => {
+const MainButton = ({ pageType, setPageType, bookInfo, size, disabled }) => {
   const onPressMainBtn = () => {
-    if (pageType == 'mylibrary') setPageType('character');
-    //클릭시 다음 뷰로 넘어가게 하는 네비게이션(분기처리) 필요
-    //isActive가 true이면 character -> place -> length 순으로 이동
-    //length 페이지일 경우엔 완료 뷰로 넘어가도록
+    if (pageType == 'mylibrary') {
+      setPageType('character');
+    } else if (bookInfo.isActive.character && pageType == 'character') {
+      setPageType('place');
+    } else if (bookInfo.isActive.place && pageType == 'place') {
+      setPageType('length');
+    } else if (bookInfo.isActive.length && pageType == 'length') {
+      //setPageType('');
+      //동화 제작 뷰로 넘어가기
+    }
   };
 
   return (
-    <HomeButtonContainer onPress={onPressMainBtn} size={size}>
+    <HomeButtonContainer onPress={onPressMainBtn} size={size} disabled={disabled}>
       {pageType === 'character' ? (
         <ButtonContainer isActive={bookInfo.isActive.character} pageType={pageType}>
           <Icon source={next} />
