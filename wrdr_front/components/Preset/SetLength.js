@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
+import LengthItem from './LengthItem';
 
 const Conatiner = styled.View`
   width: 100%;
@@ -13,35 +14,18 @@ const Conatiner = styled.View`
   padding-bottom: 180;
 `;
 
-const SelectArea = styled.TouchableOpacity`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  opacity: 0.5;
-`;
+const SetLength = ({ bookInfo, setBookInfo }) => {
+  const lengthList = [
+    { key: 0, image: require('../../assets/Preset/SetLength/len1.png'), title: '짧은 이야기' },
+    { key: 1, image: require('../../assets/Preset/SetLength/len2.png'), title: '중간 이야기' },
+    { key: 2, image: require('../../assets/Preset/SetLength/len3.png'), title: '긴 이야기' },
+  ];
 
-const IconText = styled.Text`
-  color: #ffffff;
-  font-size: 25;
-  font-weight: bold;
-  margin-top: 30;
-`;
-
-const SetLength = () => {
   return (
     <Conatiner>
-      <SelectArea>
-        <Image source={require('../../assets/Preset/SetLength/len1.png')} />
-        <IconText>짧은 이야기</IconText>
-      </SelectArea>
-      <SelectArea>
-        <Image source={require('../../assets/Preset/SetLength/len2.png')} />
-        <IconText>중간 이야기</IconText>
-      </SelectArea>
-      <SelectArea>
-        <Image source={require('../../assets/Preset/SetLength/len3.png')} />
-        <IconText>긴 이야기</IconText>
-      </SelectArea>
+      {lengthList.map(length => (
+        <LengthItem key={length.key} id={length.key} imageUri={length.image} title={length.title} bookInfo={bookInfo} setBookInfo={setBookInfo} />
+      ))}
     </Conatiner>
   );
 };

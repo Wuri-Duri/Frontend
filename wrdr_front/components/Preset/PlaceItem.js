@@ -10,8 +10,8 @@ const Container = styled.View`
   align-items: center;
   margin-left: 10;
   margin-right: 10;
-  padding-top: ${props => (parseInt(props.even) % 2 == 0 ? '70' : '0')};
-  padding-bottom: ${props => (parseInt(props.even) % 2 == 1 ? '70' : '0')};
+  padding-top: ${props => (props.even == 0 ? '70' : '0')};
+  padding-bottom: ${props => (props.even == 1 ? '70' : '0')};
 `;
 
 const SelectArea = styled.ImageBackground`
@@ -21,20 +21,27 @@ const SelectArea = styled.ImageBackground`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  opacity: 0.5;
+  opacity: ${props => (props.isActive == true ? '0.8' : '0.4')};
 `;
 
 const InsideText = styled.Text`
   font-weight: bold;
-  font-size: 26;
+  font-size: 30;
   color: #ffffff;
 `;
 
-const PlaceItem = ({ even, imageUri, title }) => {
+const PlaceItem = ({ id, imageUri, title, bookInfo, setBookInfo }) => {
+  const onPressPlaceBtn = () => {
+    setBookInfo(bookInfo => ({
+      ...bookInfo,
+      place: title,
+    }));
+  };
+
   return (
-    <Container even={even}>
-      <TouchableOpacity>
-        <SelectArea source={imageUri}>
+    <Container even={parseInt(id) % 2}>
+      <TouchableOpacity onPress={onPressPlaceBtn}>
+        <SelectArea source={imageUri} isActive={bookInfo.place == title}>
           <InsideText>{title}</InsideText>
         </SelectArea>
       </TouchableOpacity>

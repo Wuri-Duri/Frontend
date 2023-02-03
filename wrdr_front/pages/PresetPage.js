@@ -18,13 +18,27 @@ const Container = styled.View`
 
 const PresetPage = () => {
   const [pageType, setPageType] = useState('character');
+  const [bookInfo, setBookInfo] = useState({
+    characters: [''],
+    place: null,
+    length: null,
+  });
+
+  console.log(bookInfo);
+
   return (
     <>
       <NavBar pageType={pageType} setPageType={setPageType} />
       <Title pageType={pageType} />
-      {pageType === 'character' ? <SetCharacter /> : pageType === 'place' ? <SetBackground /> : pageType === 'length' ? <SetLength /> : null}
+      {pageType === 'character' ? (
+        <SetCharacter bookInfo={bookInfo} setBookInfo={setBookInfo} />
+      ) : pageType === 'place' ? (
+        <SetBackground bookInfo={bookInfo} setBookInfo={setBookInfo} />
+      ) : pageType === 'length' ? (
+        <SetLength bookInfo={bookInfo} setBookInfo={setBookInfo} />
+      ) : null}
       <Container>
-        <MainButton isActived={false} pageType={pageType} />
+        <MainButton bookInfo={bookInfo} pageType={pageType} />
       </Container>
     </>
   );

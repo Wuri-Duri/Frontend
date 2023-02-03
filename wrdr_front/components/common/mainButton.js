@@ -28,12 +28,13 @@ const Icon = styled.Image`
   position: relative;
 `;
 
-const MainButton = ({ pageType, isActived }) => {
+const MainButton = ({ pageType, bookInfo }) => {
   //클릭시 다음 뷰로 넘어가게 하는 네비게이션(분기처리) 필요
+  //pageType 확인하고 해당하는 bookInfo 있는지 확인해서 isActived 변화시키기
 
   return (
     <HomeButtonContainer>
-      <ButtonContainer isActived={isActived} pageType={pageType}>
+      <ButtonContainer isActived={true} pageType={pageType}>
         {pageType === 'character' || pageType === 'place' ? <Icon source={next} /> : pageType === 'length' ? <Icon source={check} /> : <Icon source={plus} />}
       </ButtonContainer>
     </HomeButtonContainer>
