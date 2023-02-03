@@ -7,22 +7,31 @@ import LastTicketForAdd from './LastTicketForAdd';
 const Container = styled.View`
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 75%;
 `;
 
 const ScrollContainer = styled.ScrollView`
-  width: 88%;
+  width: 100%;
   margin: 0 auto;
+`;
+
+const InsideContainer = styled.View`
+  width: 100%;
+  flex-direction: row;
+  margin-left: 25;
+  margin-right: 50;
 `;
 
 const TicketList = ({ tickets }) => {
   return (
     <Container>
       <ScrollContainer horizontal={true} centerContent={true} showsHorizontalScrollIndicator={false}>
-        {tickets.map((ticket, index) => (
-          <TicketItem key={ticket.id} number={index + 1} image={ticket.image} title={ticket.title} />
-        ))}
-        <LastTicketForAdd />
+        <InsideContainer>
+          {tickets.map((ticket, index) => (
+            <TicketItem key={ticket.id} number={index + 1} image={ticket.image} title={ticket.title} />
+          ))}
+          <LastTicketForAdd />
+        </InsideContainer>
       </ScrollContainer>
     </Container>
   );

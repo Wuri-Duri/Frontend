@@ -5,13 +5,13 @@ import { TouchableOpacity, View, Image, Text } from 'react-native';
 const Container = styled.View`
   width: 300;
   height: 100%;
-  margin-right: 25;
+  margin-left: 25;
   justify-content: flex-end;
 `;
 
 const TicketContainer = styled.TouchableOpacity`
   width: 100%;
-  height: 90%;
+  height: 100%;
   align-items: center;
 `;
 
@@ -60,7 +60,7 @@ const TicketItem = ({ key, number, title, image }) => {
     <Container>
       <TicketContainer>
         <ImageContainer>
-          <TicketImage source={require('../../assets/MyLibrary/peterpan.jpg')} />
+          <TicketImage source={image} />
         </ImageContainer>
         <BottomContainer>
           <OrderText>{number}번째 이야기</OrderText>

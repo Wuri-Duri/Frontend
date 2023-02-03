@@ -35,6 +35,10 @@ const PlaceItem = ({ id, imageUri, title, bookInfo, setBookInfo }) => {
     setBookInfo(bookInfo => ({
       ...bookInfo,
       place: title,
+      isActive: {
+        ...bookInfo.isActive,
+        place: true,
+      },
     }));
   };
 

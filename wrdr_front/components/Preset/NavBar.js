@@ -24,7 +24,7 @@ const IconContainer = styled.View`
 `;
 
 const SelectArea = styled.TouchableOpacity`
-  opacity: ${props => (props.pageType == true ? '1' : '0.6')};
+  opacity: ${props => (props.isActive == true ? '1' : '0.6')};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -54,15 +54,15 @@ const NavBar = ({ pageType, setPageType }) => {
     <NavbarContainer>
       <Icon name="left" size={50} color="#FFFFFF" />
       <IconContainer>
-        <SelectArea pageType={pageType === 'character'} onPress={onClickCharBtn}>
+        <SelectArea isActive={pageType === 'character'} onPress={onClickCharBtn}>
           <Image source={require('../../assets/Preset/NavBar/charMenu.png')} />
           <IconText>인물</IconText>
         </SelectArea>
-        <SelectArea pageType={pageType === 'place'} onPress={onClickPlaceBtn}>
+        <SelectArea isActive={pageType === 'place'} onPress={onClickPlaceBtn}>
           <Image source={require('../../assets/Preset/NavBar/bgMenu.png')} />
           <IconText>배경</IconText>
         </SelectArea>
-        <SelectArea pageType={pageType === 'length'} onPress={onClickLenBtn}>
+        <SelectArea isActive={pageType === 'length'} onPress={onClickLenBtn}>
           <Image source={require('../../assets/Preset/NavBar/lenMenu.png')} />
           <IconText>길이</IconText>
         </SelectArea>

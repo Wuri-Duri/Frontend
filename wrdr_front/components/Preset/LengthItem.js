@@ -21,6 +21,10 @@ const LengthItem = ({ id, imageUri, title, bookInfo, setBookInfo }) => {
     setBookInfo(bookInfo => ({
       ...bookInfo,
       length: id,
+      isActive: {
+        ...bookInfo.isActive,
+        length: true,
+      },
     }));
   };
 
