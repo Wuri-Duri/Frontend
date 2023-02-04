@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Image, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
-import AddCharModalCard from './AddCharModalCard';
+import AddCharMiniCard from './AddCharMiniCard';
 
 const ModalBackground = styled.View`
   width: 90%;
@@ -44,7 +44,7 @@ const AddCharModal = ({ isModalAcitve, setIsModalActive, bookInfo, setBookInfo }
   function repeeatMiniCard() {
     let array = [];
     for (let i = 0; i < 10; i++) {
-      array.push(<AddCharModalCard isSelected={isSelected} setIsSelected={setIsSelected} bookInfo={bookInfo} setBookInfo={setBookInfo} />);
+      array.push(<AddCharMiniCard isSelected={isSelected} setIsSelected={setIsSelected} bookInfo={bookInfo} setBookInfo={setBookInfo} />);
     }
     return array;
   }

@@ -13,13 +13,14 @@ const Conatiner = styled.TouchableOpacity`
 `;
 //타로카드 뒷면 이미지로 추후 변경
 
-const AddCharModalCard = ({ isSelected, setIsSelected, bookInfo, setBookInfo }) => {
+const AddCharMiniCard = ({ isSelected, setIsSelected, bookInfo, setBookInfo }) => {
   const selectCard = () => {
     //얘 눌렀을 때 서버에 랜덤한 캐릭터 정보 요청해야
+    //지금은 서버 연결 안 했으니까 수동으로 바꿔볼게요
 
     const newItem = {
-      bookTitle: '책 제목이에요',
-      name: '주인공 이름',
+      bookTitle: '겨울왕국',
+      name: '안나',
       image: require('../../assets/Preset/SetCharacter/anna.png'),
     };
 
@@ -39,4 +40,4 @@ const AddCharModalCard = ({ isSelected, setIsSelected, bookInfo, setBookInfo }) 
   return <Conatiner onPress={selectCard}></Conatiner>;
 };
 
-export default AddCharModalCard;
+export default AddCharMiniCard;
