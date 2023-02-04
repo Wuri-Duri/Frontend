@@ -16,7 +16,7 @@ const Container = styled.View`
 
 const PresetPage = ({ pageType, setPageType }) => {
   const [bookInfo, setBookInfo] = useState({
-    characters: [''],
+    characters: [],
     place: null,
     length: null,
     isActive: {
