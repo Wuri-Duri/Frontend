@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { View, Image, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import AddCharModalCard from './AddCharModalCard';
-import exampleImageUri from '../../assets/Preset/SetCharacter/anna.png';
 
 const ModalBackground = styled.View`
   width: 90%;
   height: 68%;
   background-color: #000000;
-  opacity: 0.9;
+  opacity: 1;
   border-radius: 10;
   position: absolute;
   display: ${props => (props.isActive === true ? 'flex' : 'none')};
@@ -20,13 +19,12 @@ const ModalScrollContainer = styled.ScrollView`
   flex-direction: row;
 `;
 
-const SelectedCard = styled.View`
+const SelectedCard = styled.TouchableOpacity`
   display: ${props => (props.isActive === true ? 'flex' : 'none')};
   width: 23%;
   height: 90%;
   border-radius: 10;
   position: absolute;
-  opacity: 1;
 `;
 
 const CharImage = styled.Image`
@@ -35,29 +33,30 @@ const CharImage = styled.Image`
   border-radius: 10;
 `;
 
-const AddCharModal = ({ isModalAcitve }) => {
-  const hiddenCharList = [
-    { bookTitle: '', name: '', image: '' },
-    { bookTitle: '', name: '', image: '' },
-    { bookTitle: '', name: '', image: '' },
-    { bookTitle: '', name: '', image: '' },
-    { bookTitle: '', name: '', image: '' },
-    { bookTitle: '', name: '', image: '' },
-    { bookTitle: '', name: '', image: '' },
-    { bookTitle: '', name: '', image: '' },
-    { bookTitle: '', name: '', image: '' },
-    { bookTitle: '', name: '', image: '' },
-  ];
+const AddCharModal = ({ isModalAcitve, setIsModalActive, bookInfo, setBookInfo }) => {
+  const [isSelected, setIsSelected] = useState(false);
+  const onPressSelectedCard = () => {
+    //선택된 카드를 클릭할 경우 선택된 카드 & 전체 모달창을 안 보이게
+    setIsModalActive(false);
+    setIsSelected(false);
+  };
+
+  function repeeatMiniCard() {
+    let array = [];
+    for (let i = 0; i < 10; i++) {
+      array.push(<AddCharModalCard isSelected={isSelected} setIsSelected={setIsSelected} bookInfo={bookInfo} setBookInfo={setBookInfo} />);
+    }
+    return array;
+  }
 
   return (
     <ModalBackground isActive={isModalAcitve}>
-      <ModalScrollContainer horizontal={true} showsHorizontalScrollIndicator={false} contentContainerStyle={{ justifyContent: 'center', alignItems: 'center' }}>
-        {hiddenCharList.map(card => (
-          <AddCharModalCard key={card.name} imageUri={card.image} bookTitle={card.bookTitle} />
-        ))}
+      <ModalScrollContainer horizontal={true} scrollEnabled={!isSelected} showsHorizontalScrollIndicator={false} contentContainerStyle={{ justifyContent: 'center', alignItems: 'center' }}>
+        {repeeatMiniCard()}
       </ModalScrollContainer>
-      <SelectedCard isActive={false}>
-        <CharImage source={exampleImageUri} />
+
+      <SelectedCard isActive={isSelected} onPress={onPressSelectedCard}>
+        <CharImage source={bookInfo.characters.length > 0 ? bookInfo.characters[bookInfo.characters.length - 1].image : ''} />
       </SelectedCard>
     </ModalBackground>
   );
