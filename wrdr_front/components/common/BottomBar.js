@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { View, TouchableOpacity } from 'react-native';
-import MainButton from './MainButton';
+import CircleButton from './CircleButton';
 import BackgroundBar from './BackgroundBar';
 
 const Container = styled.View`
@@ -14,7 +14,7 @@ const Container = styled.View`
 const BottomBar = ({ pageType, setPageType }) => {
   return (
     <Container>
-      <MainButton pageType={pageType} setPageType={setPageType} />
+      <CircleButton pageType={pageType} setPageType={setPageType} />
       <BackgroundBar />
     </Container>
   );
