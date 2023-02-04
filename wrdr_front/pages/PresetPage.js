@@ -16,7 +16,18 @@ const Container = styled.View`
 
 const PresetPage = ({ pageType, setPageType }) => {
   const [bookInfo, setBookInfo] = useState({
-    characters: [''],
+    characters: [
+      {
+        bookTitle: '곰 세 마리',
+        name: '골디락스',
+        image: require('../assets/Preset/SetCharacter/anna.png'),
+      },
+      {
+        bookTitle: '겨울왕국',
+        name: '안나',
+        image: require('../assets/Preset/SetCharacter/anna.png'),
+      },
+    ],
     place: null,
     length: null,
     isActive: {
