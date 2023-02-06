@@ -39,7 +39,6 @@
 	<string/>
 	<key>UIAppFonts</key>
 	<array>
-<<<<<<< HEAD
 		<string>AntDesign.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
@@ -55,9 +54,6 @@
 		<string>SimpleLineIcons.ttf</string>
 		<string>Octicons.ttf</string>
 		<string>Zocial.ttf</string>
-=======
-		<string>Fonts/Jalnan.ttf</string>
->>>>>>> 9db68d783d5b36bb38aaf97918ec313e45e32622
 		<string>Jalnan.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
