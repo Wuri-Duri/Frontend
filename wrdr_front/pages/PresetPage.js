@@ -5,7 +5,7 @@ import Title from '../components/Preset/Title';
 import SetCharacter from '../components/Preset/SetCharacter';
 import SetBackground from '../components/Preset/SetBackground';
 import SetLength from '../components/Preset/SetLength';
-import CircleButton from '../components/common/CircleButton';
+import MainButton from '../components/common/MainButton';
 
 const Container = styled.View`
   width: 100%;
@@ -16,7 +16,7 @@ const Container = styled.View`
 
 const PresetPage = ({ pageType, setPageType }) => {
   const [bookInfo, setBookInfo] = useState({
-    characters: [],
+    characters: [''],
     place: null,
     length: null,
     isActive: {
@@ -38,7 +38,7 @@ const PresetPage = ({ pageType, setPageType }) => {
         <SetLength bookInfo={bookInfo} setBookInfo={setBookInfo} />
       ) : null}
       <Container>
-        <CircleButton pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} />
+        <MainButton pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} />
       </Container>
     </>
   );
