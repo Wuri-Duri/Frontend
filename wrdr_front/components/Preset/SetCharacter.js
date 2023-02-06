@@ -3,7 +3,7 @@ import { View, Image } from 'react-native';
 import styled from 'styled-components/native';
 import AddCharCard from './AddCharCard';
 import NewCharCard from './NewCharCard';
-import ModalBackground from './AddCharModal';
+import AddCharModal from './AddCharModal';
 import Icon from 'react-native-vector-icons/AntDesign';
 Icon.loadFont().then();
 
@@ -24,7 +24,7 @@ const SetCharacter = ({ bookInfo, setBookInfo }) => {
         <NewCharCard key={character.name} bookTitle={character.bookTitle} name={character.name} image={character.image} />
       ))}
       {bookInfo.characters.length < 3 ? <AddCharCard charLength={bookInfo.characters.length} setIsModalActive={setIsModalActive} /> : ''}
-      <ModalBackground isModalAcitve={isModalAcitve} />
+      <AddCharModal isModalAcitve={isModalAcitve} setIsModalActive={setIsModalActive} bookInfo={bookInfo} setBookInfo={setBookInfo} />
     </Conatiner>
   );
 };

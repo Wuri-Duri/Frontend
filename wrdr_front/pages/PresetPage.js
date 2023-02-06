@@ -16,8 +16,7 @@ const Container = styled.View`
 
 const PresetPage = ({ pageType, setPageType }) => {
   const [bookInfo, setBookInfo] = useState({
-    characters: [],
-    
+    characters: [''],
     place: null,
     length: null,
     isActive: {
@@ -26,6 +25,8 @@ const PresetPage = ({ pageType, setPageType }) => {
       length: false, //나중에는 length만이 아니라 나머지 요소들이 모두 true일 때 true가 되도록 변경해야 함. 우선 length만 해둠.
     },
   });
+
+  console.log(bookInfo);
 
   return (
     <>
