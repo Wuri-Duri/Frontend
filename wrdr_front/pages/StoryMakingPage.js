@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Styled from 'styled-components/native';
 import AIStory from '../components/StoryMaking/AIStory';
-import Voice from 'react-native-voice';
+import Voice from '@react-native-voice/voice';
 //import UserTurn from '../components/StoryMaking/UserTurn';
 import CircleButton from '../components/common/CircleButton';
 

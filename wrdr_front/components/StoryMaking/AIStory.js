@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Styled from 'styled-components/native';
 //import RecordVoice from './RecordVoice';
-import Voice from 'react-native-voice';
+import Voice from '@react-native-voice/voice';
 
 //import CircleButton from '../common/CircleButton';
 //import record from '../../assets/BottomBar/BottomBar_button_record.png';
