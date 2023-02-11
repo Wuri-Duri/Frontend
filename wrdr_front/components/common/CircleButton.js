@@ -5,6 +5,7 @@ import plus from '../../assets/BottomBar/BottomBar_button_plus.png';
 import next from '../../assets/BottomBar/BottomBar_button_next.png';
 import check from '../../assets/BottomBar/BottomBar_button_check.png';
 import home from '../../assets/BottomBar/BottomBar_button_home.png';
+import record from '../../assets/BottomBar/BottomBar_button_record.png';
 
 const HomeButtonContainer = styled.TouchableOpacity`
   width: ${props => props.size || '95'};
@@ -22,6 +23,24 @@ const ButtonContainer = styled.View`
   border-radius: 100;
   align-items: center;
   justify-content: center;
+`;
+
+const RecordButtonContainer = styled.View`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: ${props => (props.isActive == false ? '#C1C1C1' : '#FF4D50')};
+  border-radius: 100;
+  align-items: center;
+  justify-content: center;
+`;
+
+const RecordIcon = styled.Image`
+  display: flex;
+  position: relative;
+  width: 70%;
+  height: 70%;
+  resize-mode: contain;
 `;
 
 const Icon = styled.Image`
@@ -43,6 +62,8 @@ const MainButton = ({ pageType, setPageType, bookInfo, size, disabled }) => {
     } else if (bookInfo.isActive.length && pageType == 'length') {
       //setPageType('');
       //동화 제작 뷰로 넘어가기
+      setPageType('makestory');
+    } else if (pageType == 'makestory') {
     }
   };
 
@@ -64,6 +85,10 @@ const MainButton = ({ pageType, setPageType, bookInfo, size, disabled }) => {
         <ButtonContainer isActive={true}>
           <Icon source={plus} />
         </ButtonContainer>
+      ) : pageType === 'makestory' ? (
+        <RecordButtonContainer isActive={true}>
+          <RecordIcon source={record} />
+        </RecordButtonContainer>
       ) : (
         <ButtonContainer isActive={true}>
           <Icon source={home} />
