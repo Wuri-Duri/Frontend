@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { Image, TouchableOpacity } from 'react-native';
 import Styled from 'styled-components/native';
 import AIStory from '../components/StoryMaking/AIStory';
 import Voice from '@react-native-voice/voice';
 //import UserTurn from '../components/StoryMaking/UserTurn';
-import CircleButton from '../components/common/CircleButton';
+//import recordInactive from '../assets/BottomBar/BottomBar_button_record_inactive.png';
+import recordActive from '../assets/BottomBar/BottomBar_button_record_active.png';
+//import CircleButton from '../components/common/CircleButton';
 
 const MainContainer = Styled.View`
   width: 100%;
@@ -13,16 +16,19 @@ const MainContainer = Styled.View`
   align-items: center;
 `;
 
-const ButtonContainer = Styled.View`
+const ButtonContainer = Styled.TouchableOpacity`
   position: absolute;
   padding-top: 650;
+ 
 `;
-const ButtonRecord = Styled.Button`
+const ButtonRecord = Styled.Image`
+  width: 90;
+  height: 90;
 `;
 
 const StoryMakingPage = ({ pageType, setPageType }) => {
   const [isRecord, setIsRecord] = useState(false);
-  const buttonLabel = isRecord ? 'Stop' : 'Start';
+  //const buttonlabel = isRecord ? source{record} : source{active};
   const _onRecordVoice = () => {
     if (isRecord) {
       Voice.stop();
@@ -35,8 +41,8 @@ const StoryMakingPage = ({ pageType, setPageType }) => {
   return (
     <MainContainer>
       <AIStory />
-      <ButtonContainer>
-        <ButtonRecord onPress={_onRecordVoice} title={buttonLabel} />
+      <ButtonContainer onPress={_onRecordVoice}>
+        <ButtonRecord source={recordActive}  />
       </ButtonContainer>
     </MainContainer>
   );

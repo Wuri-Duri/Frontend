@@ -5,7 +5,7 @@ import plus from '../../assets/BottomBar/BottomBar_button_plus.png';
 import next from '../../assets/BottomBar/BottomBar_button_next.png';
 import check from '../../assets/BottomBar/BottomBar_button_check.png';
 import home from '../../assets/BottomBar/BottomBar_button_home.png';
-import record from '../../assets/BottomBar/BottomBar_button_record.png';
+import record from '../../assets/BottomBar/BottomBar_button_record_active.png';
 
 const HomeButtonContainer = styled.TouchableOpacity`
   width: ${props => props.size || '95'};
