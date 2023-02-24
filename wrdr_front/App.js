@@ -7,6 +7,8 @@ import MyLibraryPage from './pages/MyLibraryPage';
 import BottomBar from './components/common/BottomBar';
 import AIStory from './components/StoryMaking/AIStory';
 import StoryMakingPage from './pages/StoryMakingPage';
+import { useSelector, useDispatch } from 'react-redux'; //데이터 설정, 액션 발생
+import store from './redux/store';
 
 const MainContainer = styled.View`
   position: relative;

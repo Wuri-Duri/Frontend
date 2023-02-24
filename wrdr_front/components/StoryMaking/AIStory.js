@@ -3,6 +3,9 @@ import Styled from 'styled-components/native';
 //import RecordVoice from './RecordVoice';
 import Voice from '@react-native-voice/voice';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { getAIText, getUserText } from '../../redux/modules/makestory';
+
 //import CircleButton from '../common/CircleButton';
 //import record from '../../assets/BottomBar/BottomBar_button_record.png';
 
@@ -71,6 +74,11 @@ const ImageView = Styled.View`
 `;
 
 const AIStory = ({ pageType, setPageType }) => {
+  const states = useSelector(state => state.makestory); //useSelector로 states 설정
+  console.log(states.values);
+  const dispatch = useDispatch(); //dispatch 설정
+  dispatch(getUserText(states));
+
   const [isRecord, setIsRecord] = useState(false);
   const [text, setText] = useState('');
   //const buttonLabel = isRecord ? 'Stop' : 'Start';

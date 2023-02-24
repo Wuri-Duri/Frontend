@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import Title from '../components/MyLibrary/Title';
 import TicketList from '../components/MyLibrary/TicketList';
+import { useSelector, useDispatch } from 'react-redux';
 
 const TicketListContainer = styled.View`
   width: 100%;

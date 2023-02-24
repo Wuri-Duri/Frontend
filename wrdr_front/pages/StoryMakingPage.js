@@ -7,6 +7,8 @@ import Voice from '@react-native-voice/voice';
 //import recordInactive from '../assets/BottomBar/BottomBar_button_record_inactive.png';
 import recordActive from '../assets/BottomBar/BottomBar_button_record_active.png';
 //import CircleButton from '../components/common/CircleButton';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAIText, getUserText } from '../redux/modules/makestory';
 
 const MainContainer = Styled.View`
   width: 100%;
@@ -28,6 +30,7 @@ const ButtonRecord = Styled.Image`
 
 const StoryMakingPage = ({ pageType, setPageType }) => {
   const [isRecord, setIsRecord] = useState(false);
+
   //const buttonlabel = isRecord ? source{record} : source{active};
   const _onRecordVoice = () => {
     if (isRecord) {
@@ -42,7 +45,7 @@ const StoryMakingPage = ({ pageType, setPageType }) => {
     <MainContainer>
       <AIStory />
       <ButtonContainer onPress={_onRecordVoice}>
-        <ButtonRecord source={recordActive}  />
+        <ButtonRecord source={recordActive} />
       </ButtonContainer>
     </MainContainer>
   );
