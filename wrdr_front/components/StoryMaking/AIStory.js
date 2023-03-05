@@ -75,7 +75,7 @@ const ImageView = Styled.View`
 
 const AIStory = ({ pageType, setPageType }) => {
   const states = useSelector(state => state.makestory); //useSelector로 states 설정
-  console.log(states.values);
+  console.log(states);
   const dispatch = useDispatch(); //dispatch 설정
   dispatch(getUserText(states));
 

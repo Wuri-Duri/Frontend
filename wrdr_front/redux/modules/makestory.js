@@ -19,17 +19,19 @@ export const getUserText = values => {
 };
 
 //initialize
-const initialUserText = {};
+const initialUserText = {
+  voiceLabel: ['녹음 버튼을 눌러주세요!'],
+};
 
 //Reducer
-export default function reducer(state = initialUserText, action = {}) {
+export default function makestoryReducer(state = initialUserText, action = {}) {
   switch (action.type) {
     case 'makestory/GET_AI_TEXT': //정의한 액션 부르면
       console.log(state.values);
-      return { ...state, values: action.values }; //이렇게 해라
+      return { ...state, values: state.values }; //이렇게 해라
     case 'makestory/GET_USER_TEXT':
       console.log(state.values);
-      return { ...state, values: action.balues };
+      return { ...state, values: state.values };
     default:
       return state;
   }

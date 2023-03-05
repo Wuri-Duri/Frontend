@@ -18,9 +18,8 @@ const Container = styled.View`
 
 const PresetPage = ({ pageType, setPageType }) => {
   const states = useSelector(state => state.preset); //useSelector로 states 설정
-  console.log(states.values);
+  console.log(states);
   const dispatch = useDispatch(); //dispatch 설정
-  dispatch(getPresetBookInfo(states));
 
   const [bookInfo, setBookInfo] = useState({
     characters: [''],
@@ -33,7 +32,7 @@ const PresetPage = ({ pageType, setPageType }) => {
     },
   });
 
-  console.log(bookInfo);
+  //console.log(bookInfo);
 
   return (
     <>
@@ -49,7 +48,8 @@ const PresetPage = ({ pageType, setPageType }) => {
       <Container>
         <CircleButton
           onClick={() => {
-            dispatch();
+            dispatch(getPresetBookInfo(states));
+            console.log(states);
           }}
           pageType={pageType}
           setPageType={setPageType}
