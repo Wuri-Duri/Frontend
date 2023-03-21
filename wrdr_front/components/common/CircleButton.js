@@ -25,24 +25,6 @@ const ButtonContainer = styled.View`
   justify-content: center;
 `;
 
-const RecordButtonContainer = styled.View`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  background-color: ${props => (props.isActive == false ? '#C1C1C1' : '#FF4D50')};
-  border-radius: 100;
-  align-items: center;
-  justify-content: center;
-`;
-
-const RecordIcon = styled.Image`
-  display: flex;
-  position: relative;
-  width: 70%;
-  height: 70%;
-  resize-mode: contain;
-`;
-
 const Icon = styled.Image`
   display: flex;
   position: relative;
@@ -51,7 +33,7 @@ const Icon = styled.Image`
   resize-mode: contain;
 `;
 
-const MainButton = ({ pageType, setPageType, bookInfo, size, disabled }) => {
+const MainButton = ({ pageType, setPageType, bookInfo, ticketInfo, size, disabled }) => {
   const onPressMainBtn = () => {
     if (pageType == 'mylibrary') {
       setPageType('character');
@@ -64,6 +46,10 @@ const MainButton = ({ pageType, setPageType, bookInfo, size, disabled }) => {
       //동화 제작 뷰로 넘어가기
       setPageType('makestory');
     } else if (pageType == 'makestory') {
+      setPageType('ticketImage');
+    } else if (ticketInfo.isActive.ticketImage && pageType == 'ticketImage') {
+      setPageType('storyTitle');
+    } else if (ticketInfo.isActive.storyTitle && pageType == 'storyTitle') {
     }
   };
 
@@ -85,10 +71,14 @@ const MainButton = ({ pageType, setPageType, bookInfo, size, disabled }) => {
         <ButtonContainer isActive={true}>
           <Icon source={plus} />
         </ButtonContainer>
-      ) : pageType === 'makestory' ? (
-        <RecordButtonContainer isActive={true}>
-          <RecordIcon source={record} />
-        </RecordButtonContainer>
+      ) : pageType === 'ticketImage' ? (
+        <ButtonContainer isActive={ticketInfo.isActive.ticketImage} pageType={pageType}>
+          <Icon source={next} />
+        </ButtonContainer>
+      ) : pageType === 'storyTitle' ? (
+        <ButtonContainer isActive={ticketInfo.isActive.storyTitle} pageType={pageType}>
+          <Icon source={check} />
+        </ButtonContainer>
       ) : (
         <ButtonContainer isActive={true}>
           <Icon source={home} />
