@@ -45,7 +45,7 @@ const PlaceItem = ({ id, imageUri, title, bookInfo, setBookInfo }) => {
   return (
     <Container even={parseInt(id) % 2}>
       <TouchableOpacity onPress={onPressPlaceBtn}>
-        <SelectArea source={imageUri} isActive={bookInfo.place == title}>
+        <SelectArea source={imageUri} isActive={bookInfo.place === title}>
           <InsideText>{title}</InsideText>
         </SelectArea>
       </TouchableOpacity>

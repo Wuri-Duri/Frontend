@@ -37,6 +37,8 @@ const IconText = styled.Text`
   margin-top: 15;
 `;
 
+const BtnContainer = styled.TouchableOpacity``;
+
 const NavBar = ({ pageType, setPageType }) => {
   const onClickCharBtn = () => {
     if (pageType !== 'character') setPageType('character');
@@ -50,9 +52,15 @@ const NavBar = ({ pageType, setPageType }) => {
     if (pageType !== 'length') setPageType('length');
   };
 
+  const onClickBackBtn = () => {
+    setPageType('mylibrary');
+  };
+
   return (
     <NavbarContainer>
-      <Icon name="left" size={50} color="#FFFFFF" />
+      <BtnContainer onPress={onClickBackBtn}>
+        <Icon name="left" size={50} color="#FFFFFF" />
+      </BtnContainer>
       <IconContainer>
         <SelectArea isActive={pageType === 'character'} onPress={onClickCharBtn}>
           <Image source={require('../../assets/Preset/NavBar/charMenu.png')} />
@@ -67,7 +75,9 @@ const NavBar = ({ pageType, setPageType }) => {
           <IconText>길이</IconText>
         </SelectArea>
       </IconContainer>
-      <Icon name="right" size={50} color="#FFFFFF" />
+      <BtnContainer style={{ opacity: 0 }} disabled>
+        <Icon name="right" size={50} color="#FFFFFF" />
+      </BtnContainer>
     </NavbarContainer>
   );
 };

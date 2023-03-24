@@ -45,17 +45,19 @@ const BottomText = styled.Text`
 
 const NewCharCard = ({ bookTitle, name, image }) => {
   return (
-    <Conatiner>
-      <CharImage source={image} />
-      <TextBox>
-        <TopText>
-          {'<'}
-          {bookTitle}
-          {'>'}의
-        </TopText>
-        <BottomText>{name}</BottomText>
-      </TextBox>
-    </Conatiner>
+    bookTitle && (
+      <Conatiner>
+        <CharImage source={image} />
+        <TextBox>
+          <TopText>
+            {'<'}
+            {bookTitle}
+            {'>'}의
+          </TopText>
+          <BottomText>{name}</BottomText>
+        </TextBox>
+      </Conatiner>
+    )
   );
 };
 

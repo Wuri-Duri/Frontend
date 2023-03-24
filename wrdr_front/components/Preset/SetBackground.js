@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import { ScrollView, View, Image, TouchableOpacity } from 'react-native';
 import PlaceItem from './PlaceItem';
 
-const Conatiner = styled.View`
+const Container = styled.View`
   width: 100%;
   height: 65%;
   flex-direction: row;
@@ -29,7 +29,7 @@ const SelectBackground = ({ bookInfo, setBookInfo }) => {
   ];
 
   return (
-    <Conatiner>
+    <Container>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <InsideContainer>
           {places.map(place => (
@@ -37,7 +37,7 @@ const SelectBackground = ({ bookInfo, setBookInfo }) => {
           ))}
         </InsideContainer>
       </ScrollView>
-    </Conatiner>
+    </Container>
   );
 };
 
