@@ -28,9 +28,9 @@ const AfterStoryPage = ({ pageType, setPageType }) => {
     <>
       <AfterStoryTitle pageType={pageType} setPageType={setPageType} />
       {pageType === 'ticketImage' ? (
-        <ChooseTicketImage ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} />
+        <ChooseTicketImage pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} />
       ) : pageType === 'storyTitle' ? (
-        <ChooseStoryTitle ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} />
+        <ChooseStoryTitle pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} />
       ) : null}
       <Container>
         <CircleButton pageType={pageType} setPageType={setPageType} ticketInfo={ticketInfo} />

@@ -5,7 +5,6 @@ import plus from '../../assets/BottomBar/BottomBar_button_plus.png';
 import next from '../../assets/BottomBar/BottomBar_button_next.png';
 import check from '../../assets/BottomBar/BottomBar_button_check.png';
 import home from '../../assets/BottomBar/BottomBar_button_home.png';
-import record from '../../assets/BottomBar/BottomBar_button_record_active.png';
 
 const HomeButtonContainer = styled.TouchableOpacity`
   width: ${props => props.size || '95'};
@@ -35,21 +34,22 @@ const Icon = styled.Image`
 
 const MainButton = ({ pageType, setPageType, bookInfo, ticketInfo, size, disabled }) => {
   const onPressMainBtn = () => {
-    if (pageType == 'mylibrary') {
+    if (pageType === 'mylibrary') {
       setPageType('character');
-    } else if (bookInfo.isActive.character && pageType == 'character') {
+    } else if (bookInfo && bookInfo.isActive.character && pageType === 'character') {
       setPageType('place');
-    } else if (bookInfo.isActive.place && pageType == 'place') {
+    } else if (bookInfo && bookInfo.isActive.place && pageType === 'place') {
       setPageType('length');
-    } else if (bookInfo.isActive.length && pageType == 'length') {
+    } else if (bookInfo && bookInfo.isActive.length && pageType === 'length') {
       //setPageType('');
       //동화 제작 뷰로 넘어가기
       setPageType('makestory');
-    } else if (pageType == 'makestory') {
+    } else if (pageType === 'makestory') {
       setPageType('ticketImage');
-    } else if (ticketInfo.isActive.ticketImage && pageType == 'ticketImage') {
+    } else if (ticketInfo.isActive.ticketImage && pageType === 'ticketImage') {
+      console.log(pageType);
       setPageType('storyTitle');
-    } else if (ticketInfo.isActive.storyTitle && pageType == 'storyTitle') {
+    } else if (ticketInfo.isActive.storyTitle && pageType === 'storyTitle') {
     }
   };
 

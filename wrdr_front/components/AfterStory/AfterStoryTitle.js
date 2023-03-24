@@ -1,14 +1,14 @@
 import React from 'react';
-import styled from 'styled-components/native';
+import Styled from 'styled-components/native';
 
-const TitleContianer = styled.View`
+const TitleContianer = Styled.View`
   width: 100%;
-  height: 15%;
+  height: 12%;
   justify-content: center;
   align-items: center;
 `;
 
-const TitleText = styled.Text`
+const TitleText = Styled.Text`
   color: #ffffff;
   font-size: 47;
   font-weight: bold;

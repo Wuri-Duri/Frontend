@@ -12,7 +12,7 @@ const Container = styled.View`
   height: 20%;
   position: absolute;
   bottom: 0;
-`; 
+`;
 
 const PresetPage = ({ pageType, setPageType }) => {
   const [bookInfo, setBookInfo] = useState({

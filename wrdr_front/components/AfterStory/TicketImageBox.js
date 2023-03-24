@@ -8,6 +8,7 @@ const Container = Styled.View`
   height: 78%;
   align-items: center;
   flex-direction: column;
+  position: relative;
 `;
 
 const TicketView = Styled.View`
@@ -38,14 +39,19 @@ const TicketTitleView = Styled.View`
     
 `;
 
-const TitleText = Styled.Text`
+const TitleInput = Styled.TextInput`
   color: #000000;
   font-size: 30;
   font-weight: bold;
+  margin-top: 8%;
+  margin-left: 2%;
+  margin-right: 2%;
   text-align: center;
+  font-family:'Jalnan';
 `;
 
 const TicketImageBox = ({ pageType, setPageType }) => {
+  console.log(pageType);
   return (
     <>
       <Container>
@@ -56,7 +62,7 @@ const TicketImageBox = ({ pageType, setPageType }) => {
             {'\n'}선택해주세요!
           </Text>
         </TicketView>
-        <TicketTitleView />
+        <TicketTitleView>{pageType === 'storyTitle' ? <TitleInput multiline placeholder="이곳을 클릭해 제목을 입력해주세요!" maxLength={20} /> : <TitleInput editable={false} />}</TicketTitleView>
       </Container>
     </>
   );
