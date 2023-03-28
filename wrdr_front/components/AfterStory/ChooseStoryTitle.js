@@ -9,7 +9,7 @@ const Container = Styled.View`
   justify-content: center;
 `;
 
-const ChooseStoryTitle = ({ pageType, setPageType }) => {
+const ChooseStoryTitle = ({ pageType }) => {
   return (
     <>
       <Container>

@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
-import { View, Image } from 'react-native';
 import plus from '../../assets/BottomBar/BottomBar_button_plus.png';
 import next from '../../assets/BottomBar/BottomBar_button_next.png';
 import check from '../../assets/BottomBar/BottomBar_button_check.png';

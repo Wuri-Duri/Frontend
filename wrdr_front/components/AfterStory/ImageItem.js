@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { TouchableOpacity, View, StyleSheet, FlatList } from 'react-native';
-import { FlatGrid } from 'react-native-super-grid';
-import images from './ChooseTicketImage';
+import { TouchableOpacity } from 'react-native';
 
 const Container = styled.View`
   border-radius: 20;
@@ -19,7 +17,7 @@ const SelectArea = styled.ImageBackground`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  opacity: ${props => (props.isActive == true ? '0.8' : '0.4')};
+  opacity: ${props => (props.isActive === true ? '0.8' : '0.4')};
 `;
 
 const ImageItem = ({ id, imageUri, ticketInfo, setTicketInfo }) => {
@@ -37,7 +35,7 @@ const ImageItem = ({ id, imageUri, ticketInfo, setTicketInfo }) => {
   return (
     <Container>
       <TouchableOpacity onPress={onPressPlaceBtn}>
-        <SelectArea source={imageUri} isActive={ticketInfo.ticketImage == id} />
+        <SelectArea source={imageUri} isActive={ticketInfo.ticketImage === id} />
       </TouchableOpacity>
     </Container>
   );
