@@ -36,7 +36,7 @@ const ChooseTicketImage = ({ id, ticketInfo, setTicketInfo, setPageType }) => {
 
   return (
     <Container>
-      <TicketImageBox />
+      <TicketImageBox ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} />
       <ScrollContainer>
         <FlatList
           data={images}
