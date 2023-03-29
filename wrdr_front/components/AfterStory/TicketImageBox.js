@@ -1,6 +1,5 @@
 import React from 'react';
 import Styled from 'styled-components/native';
-import ImageItem from './ImageItem';
 
 const Container = Styled.View`
   width: 50%;
@@ -15,6 +14,7 @@ const TicketViewText = Styled.Text`
   height: 75%;
   justify-content: center;
   align-items: center;
+  text-align: center;
   background-color: #000000;
   border-radius: 20;
   opacity: 0.6;
@@ -37,7 +37,7 @@ const TicketViewImage = Styled.ImageBackground`
   opacity: 0.6;
   margin-left: 10;
   margin-right: 10;
-  paddingbottom: 0;
+  paddingbottom: 0;›
 `;
 
 const Text = Styled.Text`
@@ -66,20 +66,23 @@ const TitleInput = Styled.TextInput`
   font-family:'Jalnan';
 `;
 
-const TicketImageBox = ({ id, imageUrl, ticketInfo, setTicketInfo, pageType, setPageType }) => {
-  console.log(pageType);
+const TicketImageBox = ({ id, imageUri, ticketInfo, pageType }) => {
 
   return (
     <>
-      <Container ticketInfo={ticketInfo} setTicketInfo={setTicketInfo}>
-        {pageType === 'ticketImage' && ticketInfo.ticketImage === '' ? (
+      <Container>
+        {!ticketInfo.isActive.ticketImage ? (
           <TicketViewText>
+            {'\n'}
+            {'\n'}
+            {'\n'}
+            {'\n'}
             오른쪽에서{'\n'}
             {'\n'}그림을{'\n'}
             {'\n'}선택해주세요!
           </TicketViewText>
         ) : (
-          <TicketViewImage>source = {ticketInfo.ticketImage}</TicketViewImage>
+          <TicketViewImage source={imageUri} />
         )}
         <TicketTitleView>{pageType === 'storyTitle' ? <TitleInput multiline placeholder="이곳을 클릭해 제목을 입력해주세요!" maxLength={20} /> : <TitleInput editable={false} />}</TicketTitleView>
       </Container>
