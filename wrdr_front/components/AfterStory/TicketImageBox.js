@@ -65,7 +65,7 @@ const TitleInput = Styled.TextInput`
 `;
 
 const TicketImageBox = ({ ticketInfo, pageType, imageInfo }) => {
-  // console.log(ticketInfo.isActive.ticketImage);
+  //console.log(imageInfo.imageSrc);
   return (
     <>
       <Container>

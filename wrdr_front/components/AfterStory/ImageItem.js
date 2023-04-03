@@ -33,17 +33,13 @@ const ImageItem = ({ id, imageUri, ticketInfo, setTicketInfo, imageInfo, setImag
       setImageInfo(imageInfo => ({
         ...imageInfo,
         imageSrc: imageUri,
-        isActive: {
-          ...imageInfo.isActive,
-          imageSrc: true,
-        },
       }));
   };
 
   return (
     <Container>
       <TouchableOpacity onPress={onPressPlaceBtn}>
-        <SelectArea source={imageUri} isActive={ticketInfo.ticketImage === id} />
+        <SelectArea source={imageUri} isActive={ticketInfo.ticketImage === id} imageInfo={imageInfo} setImageInfo={setImageInfo} />
       </TouchableOpacity>
     </Container>
   );

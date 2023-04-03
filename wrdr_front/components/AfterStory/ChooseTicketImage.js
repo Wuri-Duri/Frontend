@@ -17,14 +17,7 @@ const ScrollContainer = Styled.ScrollView`
   margin-right: 9%;
 `;
 
-const ChooseTicketImage = ({ id, ticketInfo, setTicketInfo, setPageType }) => {
-  const [imageInfo, setImageInfo] = useState({
-    imageSrc: null,
-    isActive: {
-      imageSrc: false,
-    },
-  });
-
+const ChooseTicketImage = ({ id, ticketInfo, setTicketInfo, imageInfo, setImageInfo }) => {
   const images = [
     { id: 0, image: require('../../assets/AfterStory/TicketImage/ticketImage1.png') },
     { id: 1, image: require('../../assets/AfterStory/TicketImage/ticketImage2.png') },

@@ -10,11 +10,11 @@ const Container = Styled.View`
   justify-content: center;
 `;
 
-const ChooseStoryTitle = ({ pageType, ticketInfo, setTicketInfo }) => {
+const ChooseStoryTitle = ({ pageType, ticketInfo, setTicketInfo, imageInfo, setImageInfo }) => {
   return (
     <>
       <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <TicketImageBox pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} />
+        <TicketImageBox pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
       </KeyboardAvoidingView>
     </>
   );
