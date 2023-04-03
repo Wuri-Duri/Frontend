@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import Styled from 'styled-components/native';
-import { ScrollView, FlatList, View, TouchableOpacity } from 'react-native';
+import { FlatList, View } from 'react-native';
 import ImageItem from './ImageItem';
 import TicketImageBox from './TicketImageBox';
-import next from '../../assets//BottomBar/BottomBar_button_next.png';
 
 const Container = Styled.View`
   width: 100%;
@@ -19,6 +18,13 @@ const ScrollContainer = Styled.ScrollView`
 `;
 
 const ChooseTicketImage = ({ id, ticketInfo, setTicketInfo, setPageType }) => {
+  const [imageInfo, setImageInfo] = useState({
+    imageSrc: null,
+    isActive: {
+      imageSrc: false,
+    },
+  });
+
   const images = [
     { id: 0, image: require('../../assets/AfterStory/TicketImage/ticketImage1.png') },
     { id: 1, image: require('../../assets/AfterStory/TicketImage/ticketImage2.png') },
@@ -36,13 +42,13 @@ const ChooseTicketImage = ({ id, ticketInfo, setTicketInfo, setPageType }) => {
 
   return (
     <Container>
-      <TicketImageBox ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} />
+      <TicketImageBox ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
       <ScrollContainer>
         <FlatList
           data={images}
           renderItem={({ item }) => (
             <View style={{ flex: 1, flexDirection: 'column', margin: 1 }}>
-              <ImageItem id={item.id} imageUri={item.image} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} />
+              <ImageItem id={item.id} imageUri={item.image} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
             </View>
           )}
           numColumns={3}

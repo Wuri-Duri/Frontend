@@ -1,5 +1,6 @@
 import React from 'react';
 import Styled from 'styled-components/native';
+import { Keyboard } from 'react-native';
 
 const Container = Styled.View`
   width: 50%;
@@ -12,8 +13,6 @@ const Container = Styled.View`
 const TicketViewText = Styled.Text`
   width: 57%;
   height: 75%;
-  justify-content: center;
-  align-items: center;
   text-align: center;
   background-color: #000000;
   border-radius: 20;
@@ -52,7 +51,6 @@ const TicketTitleView = Styled.View`
     height: 25%;
     background-color: #ffffff;
     border-radius: 20;
-    
 `;
 
 const TitleInput = Styled.TextInput`
@@ -66,12 +64,12 @@ const TitleInput = Styled.TextInput`
   font-family:'Jalnan';
 `;
 
-const TicketImageBox = ({ id, imageUri, ticketInfo, pageType }) => {
-
+const TicketImageBox = ({ ticketInfo, pageType, imageInfo }) => {
+  // console.log(ticketInfo.isActive.ticketImage);
   return (
     <>
       <Container>
-        {!ticketInfo.isActive.ticketImage ? (
+        {!Keyboard.isVisible() && !ticketInfo.isActive.ticketImage ? (
           <TicketViewText>
             {'\n'}
             {'\n'}
@@ -81,8 +79,12 @@ const TicketImageBox = ({ id, imageUri, ticketInfo, pageType }) => {
             {'\n'}그림을{'\n'}
             {'\n'}선택해주세요!
           </TicketViewText>
+        ) : !Keyboard.isVisible() && ticketInfo.isActive.ticketImage ? (
+          <TicketViewImage source={imageInfo.imageSrc} />
+        ) : Keyboard.isVisible() ? (
+          <TicketViewImage style={{ display: 'none' }} />
         ) : (
-          <TicketViewImage source={imageUri} />
+          ''
         )}
         <TicketTitleView>{pageType === 'storyTitle' ? <TitleInput multiline placeholder="이곳을 클릭해 제목을 입력해주세요!" maxLength={20} /> : <TitleInput editable={false} />}</TicketTitleView>
       </Container>

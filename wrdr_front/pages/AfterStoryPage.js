@@ -14,10 +14,7 @@ const Container = Styled.View`
 
 const AfterStoryPage = ({ pageType, setPageType }) => {
   const [ticketInfo, setTicketInfo] = useState({
-    ticketImage: {
-      id: null,
-      image: null,
-    },
+    ticketImage: [''],
     storyTitle: null,
     isActive: {
       ticketImage: false,

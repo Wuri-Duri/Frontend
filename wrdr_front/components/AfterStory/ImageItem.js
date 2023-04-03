@@ -20,25 +20,30 @@ const SelectArea = styled.ImageBackground`
   opacity: ${props => (props.isActive === true ? '0.8' : '0.4')};
 `;
 
-const ImageItem = ({ id, imageUri, ticketInfo, setTicketInfo }) => {
+const ImageItem = ({ id, imageUri, ticketInfo, setTicketInfo, imageInfo, setImageInfo }) => {
   const onPressPlaceBtn = () => {
     setTicketInfo(ticketInfo => ({
       ...ticketInfo,
-      ticketImage: {
-        id: id,
-        image: imageUri,
-      },
+      ticketImage: id,
       isActive: {
         ...ticketInfo.isActive,
         ticketImage: true,
       },
-    }));
+    })),
+      setImageInfo(imageInfo => ({
+        ...imageInfo,
+        imageSrc: imageUri,
+        isActive: {
+          ...imageInfo.isActive,
+          imageSrc: true,
+        },
+      }));
   };
 
   return (
     <Container>
       <TouchableOpacity onPress={onPressPlaceBtn}>
-        <SelectArea source={imageUri} isActive={ticketInfo.ticketImage.id === id} />
+        <SelectArea source={imageUri} isActive={ticketInfo.ticketImage === id} />
       </TouchableOpacity>
     </Container>
   );
