@@ -1,7 +1,7 @@
 import React from 'react';
 import Styled from 'styled-components';
 import TicketImageBox from './TicketImageBox';
-import { KeyboardAvoidingView, StyleSheet, Platform } from 'react-native';
+import { KeyboardAvoidingView, Keyboard, StyleSheet, Platform } from 'react-native';
 
 const Container = Styled.View`
   width: 100%;
@@ -13,7 +13,7 @@ const Container = Styled.View`
 const ChooseStoryTitle = ({ pageType, ticketInfo, setTicketInfo, imageInfo, setImageInfo }) => {
   return (
     <>
-      <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <KeyboardAvoidingView style={styles.rootContainer} keyboardVerticalOffset={-60} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <TicketImageBox pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
       </KeyboardAvoidingView>
     </>

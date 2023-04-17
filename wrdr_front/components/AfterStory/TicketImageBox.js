@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Styled from 'styled-components/native';
-import { Keyboard, StyleSheet, Image } from 'react-native';
-import ImageResizeMode from 'react-native/Libraries/Image/ImageResizeMode';
+import { KeyboardAvoidingView, Keyboard, StyleSheet, Image, Platform } from 'react-native';
 
 const Container = Styled.View`
   width: 50%;
@@ -92,14 +91,15 @@ const TicketImageBox = ({ ticketInfo, pageType, imageInfo }) => {
             {'\n'}선택해주세요!
           </TicketViewText>
         ) : ticketInfo.isActive.ticketImage ? (
-          <Image style={styles.TicketViewImage} source={imageInfo.imageSrc} isVisible={hasKeyboard} />
+          <Image style={styles.TicketViewImage} source={imageInfo.imageSrc} />
         ) : (
           ''
         )}
+
         <TicketTitleView>
           {pageType === 'storyTitle' ? (
             <TitleInput
-              onClick={shownKeyboard}
+              // onPress={shownKeyboard}
               onChange={event => {
                 ticketInfo.storyTitle = event.nativeEvent.text; //setticketinfo
               }}
@@ -124,12 +124,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#000000',
     borderRadius: 20,
-    opacity: 0.6,
     marginLeft: 10,
     marginRight: 10,
     paddingBottom: 0,
     resizeMode: 'cover',
-    // display: ${props => (props.isVisible ? 'none' : 'flex')},
+    // display:
+  },
+  container: {
+    flex: 1,
   },
 });
 
