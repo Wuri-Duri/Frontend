@@ -65,7 +65,7 @@ const TitleInput = Styled.TextInput`
   font-family:'Jalnan';
 `;
 
-const TicketImageBox = ({ ticketInfo, pageType, imageInfo }) => {
+const TicketImageBox = ({ ticketInfo, pageType, imageInfo, setTicketInfo }) => {
   console.log(ticketInfo.storyTitle);
   const [hasKeyboard, setHasKeyboard] = useState(false);
   const shownKeyboard = () => {
@@ -77,6 +77,17 @@ const TicketImageBox = ({ ticketInfo, pageType, imageInfo }) => {
     }
   };
 
+  // const event = () => {
+  //   setTicketInfo(ticketInfo => ({
+  //     ...ticketInfo,
+  //     storyTitle: null,
+  //     isActive: {
+  //       ...ticketInfo.isActive,
+  //       storyTitle: null,
+  //     },
+  //   }));
+  // };
+  console.log(ticketInfo.storyTitle);
   return (
     <>
       <Container>
@@ -101,7 +112,15 @@ const TicketImageBox = ({ ticketInfo, pageType, imageInfo }) => {
             <TitleInput
               // onPress={shownKeyboard}
               onChange={event => {
-                ticketInfo.storyTitle = event.nativeEvent.text; //setticketinfo
+                //setticketinfo
+                setTicketInfo(ticketInfo => ({
+                  ...ticketInfo,
+                  storyTitle: event.nativeEvent.text,
+                  isActive: {
+                    ...ticketInfo.isActive,
+                    storyTitle: true,
+                  },
+                }));
               }}
               multiline
               placeholder="이곳을 클릭해 제목을 입력해주세요!"

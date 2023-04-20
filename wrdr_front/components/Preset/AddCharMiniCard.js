@@ -2,14 +2,13 @@ import React from 'react';
 import { TouchableOpacity, View, Image } from 'react-native';
 import styled from 'styled-components/native';
 
-const Conatiner = styled.TouchableOpacity`
+const Conatiner = styled.ImageBackground`
   width: 180;
-  height: 65%;
+  height: 90%;
   border-radius: 10;
+  margin-top: 40;
   margin-left: 10;
   margin-right: 10;
-
-  background-color: #151b3b;
 `;
 //타로카드 뒷면 이미지로 추후 변경
 
@@ -37,7 +36,11 @@ const AddCharMiniCard = ({ isSelected, setIsSelected, bookInfo, setBookInfo }) =
     setIsSelected(true);
   };
 
-  return <Conatiner onPress={selectCard}></Conatiner>;
+  return (
+    <TouchableOpacity onPress={selectCard}>
+      <Conatiner source={require('../../assets/Preset/tarotRocket.png')} />
+    </TouchableOpacity>
+  );
 };
 
 export default AddCharMiniCard;

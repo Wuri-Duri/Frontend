@@ -5,9 +5,10 @@ import BackgroundImage from './assets/background.gif';
 import PresetPage from './pages/PresetPage';
 import MyLibraryPage from './pages/MyLibraryPage';
 import BottomBar from './components/common/BottomBar';
-import AIStory from './components/StoryMaking/AIStory';
 import StoryMakingPage from './pages/StoryMakingPage';
 import AfterStoryPage from './pages/AfterStoryPage';
+import AfterPreRocket from './pages/AfterPreRocket';
+import AfterFinRocket from './pages/AfterFinRocket';
 
 const MainContainer = styled.View`
   position: relative;
@@ -34,10 +35,14 @@ const App = ({ props }) => {
           </>
         ) : pageType === 'character' || pageType === 'place' || pageType === 'length' ? (
           <PresetPage pageType={pageType} setPageType={setPageType} />
+        ) : pageType === 'preRocket' ? (
+          <AfterPreRocket />
         ) : pageType === 'makestory' ? (
           <StoryMakingPage pageType={pageType} setPageType={setPageType} />
         ) : pageType === 'ticketImage' || pageType === 'storyTitle' ? (
           <AfterStoryPage pageType={pageType} setPageType={setPageType} />
+        ) : pageType === 'finRocket' ? (
+          <AfterFinRocket />
         ) : (
           ''
         )}

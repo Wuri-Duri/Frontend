@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
-import { Image, TouchableOpacity } from 'react-native';
 import Styled from 'styled-components/native';
 import AIStory from '../components/StoryMaking/AIStory';
 import Voice from '@react-native-voice/voice';
-//import UserTurn from '../components/StoryMaking/UserTurn';
-//import recordInactive from '../assets/BottomBar/BottomBar_button_record_inactive.png';
 import recordActive from '../assets/BottomBar/BottomBar_button_record_active.png';
-//import CircleButton from '../components/common/CircleButton';
 import next from '../assets/BottomBar/BottomBar_button_next.png';
-import AfterStoryPage from './AfterStoryPage';
 
 const MainContainer = Styled.View`
   width: 100%;
@@ -16,6 +11,7 @@ const MainContainer = Styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
+  position: absolute;
 `;
 
 const ButtonContainer = Styled.TouchableOpacity`
@@ -52,9 +48,8 @@ const HomeButtonContainer = Styled.TouchableOpacity`
   align-self: flex-start;
 `;
 
-const StoryMakingPage = ({ pageType, setPageType }) => {
+const StoryMakingPage = ({ setPageType }) => {
   const [isRecord, setIsRecord] = useState(false);
-  //const buttonlabel = isRecord ? source{record} : source{active};
   const _onRecordVoice = () => {
     if (isRecord) {
       Voice.stop();

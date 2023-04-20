@@ -12,7 +12,7 @@ const Container = Styled.View`
   bottom: 0;
 `;
 
-const AfterStoryPage = ({ pageType, setPageType }) => {
+const AfterStoryPage = ({ pageType, setPageType, visible }) => {
   const [ticketInfo, setTicketInfo] = useState({
     ticketImage: [''],
     storyTitle: null,
@@ -25,13 +25,13 @@ const AfterStoryPage = ({ pageType, setPageType }) => {
     imageSrc: null,
   });
 
-  console.log(ticketInfo);
+  console.log(visible);
 
   return (
     <>
       <AfterStoryTitle pageType={pageType} setPageType={setPageType} />
       {pageType === 'ticketImage' ? (
-        <ChooseTicketImage pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo}/>
+        <ChooseTicketImage pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
       ) : pageType === 'storyTitle' ? (
         <ChooseStoryTitle pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
       ) : null}
