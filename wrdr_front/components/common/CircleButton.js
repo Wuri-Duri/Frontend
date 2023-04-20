@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import plus from '../../assets/BottomBar/BottomBar_button_plus.png';
 import next from '../../assets/BottomBar/BottomBar_button_next.png';
@@ -32,6 +32,7 @@ const Icon = styled.Image`
 `;
 
 const MainButton = ({ pageType, setPageType, bookInfo, ticketInfo, size, disabled }) => {
+  const [visible, setVisible] = useState(true);
   const onPressMainBtn = () => {
     if (pageType === 'mylibrary') {
       setPageType('character');
@@ -40,8 +41,10 @@ const MainButton = ({ pageType, setPageType, bookInfo, ticketInfo, size, disable
     } else if (bookInfo && bookInfo.isActive.place && pageType === 'place') {
       setPageType('length');
     } else if (bookInfo && bookInfo.isActive.length && pageType === 'length') {
-      //setPageType('');
-      //동화 제작 뷰로 넘어가기
+      //   setPageType('preRocket');
+      // } else if (pageType === 'preRocket') {
+      //   //setPageType('');
+      //   //동화 제작 뷰로 넘어가기
       setPageType('makestory');
     } else if (pageType === 'makestory') {
       setPageType('ticketImage');
@@ -50,8 +53,9 @@ const MainButton = ({ pageType, setPageType, bookInfo, ticketInfo, size, disable
       setPageType('storyTitle');
     } else if (ticketInfo.isActive.storyTitle && pageType === 'storyTitle') {
     }
+    setVisible(!visible);
   };
-
+  console.log(visible);
   return (
     <HomeButtonContainer onPress={onPressMainBtn} size={size} disabled={disabled}>
       {pageType === 'character' ? (
@@ -66,6 +70,8 @@ const MainButton = ({ pageType, setPageType, bookInfo, ticketInfo, size, disable
         <ButtonContainer isActive={bookInfo.isActive.length} pageType={pageType}>
           <Icon source={check} />
         </ButtonContainer>
+      ) : pageType === 'preRocket' ? (
+        ''
       ) : pageType === 'mylibrary' ? (
         <ButtonContainer isActive={true}>
           <Icon source={plus} />
@@ -78,6 +84,8 @@ const MainButton = ({ pageType, setPageType, bookInfo, ticketInfo, size, disable
         <ButtonContainer isActive={ticketInfo.isActive.storyTitle} pageType={pageType}>
           <Icon source={check} />
         </ButtonContainer>
+      ) : pageType === 'finRocket' ? (
+        ''
       ) : (
         <ButtonContainer isActive={true}>
           <Icon source={home} />
