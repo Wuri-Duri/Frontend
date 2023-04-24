@@ -5,6 +5,10 @@ import Voice from '@react-native-voice/voice';
 import recordActive from '../assets/BottomBar/BottomBar_button_record_active.png';
 import next from '../assets/BottomBar/BottomBar_button_next.png';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { getUserText } from '../redux/modules/makeStory';
+import { _selectBtn } from '../components/StoryMaking/AIStory';
+
 const MainContainer = Styled.View`
   width: 100%;
   height: 100%;
@@ -49,7 +53,17 @@ const HomeButtonContainer = Styled.TouchableOpacity`
 `;
 
 const StoryMakingPage = ({ setPageType }) => {
+  const [storyText, setStoryText] = useState({
+    aiText: '',
+    userText: '',
+    isActive: {
+      aiText: false,
+      userText: false,
+    },
+  });
+
   const [isRecord, setIsRecord] = useState(false);
+
   const _onRecordVoice = () => {
     if (isRecord) {
       Voice.stop();
@@ -57,12 +71,23 @@ const StoryMakingPage = ({ setPageType }) => {
       Voice.start('ko-KR');
     }
     setIsRecord(!isRecord);
+    // setStoryText(storyText => ({
+    //   ...storyText,
+    //   userText: storyText.voiceLabel,
+    //   isActive: {
+    //     ...storyText.isActive,
+    //     userText: true,
+    //   },
+    // })),
+    //   dispatch(getUserText(storyText.voiceLabel));
   };
 
   const onPressMainBtn = () => {
     setPageType('ticketImage');
   };
 
+  const dispatch = useDispatch();
+  console.log(storyText.userText);
   return (
     <MainContainer>
       <HomeButtonContainer onPress={onPressMainBtn}>
@@ -70,7 +95,7 @@ const StoryMakingPage = ({ setPageType }) => {
           <Icon source={next} />
         </NextButtonContainer>
       </HomeButtonContainer>
-      <AIStory />
+      <AIStory storyText={storyText} setStoryText={setStoryText} />
       <ButtonContainer onPress={_onRecordVoice}>
         <ButtonRecord source={recordActive} />
       </ButtonContainer>

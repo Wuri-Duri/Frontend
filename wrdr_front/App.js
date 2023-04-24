@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { ImageBackground } from 'react-native';
 import styled from 'styled-components/native';
 import BackgroundImage from './assets/background.gif';
 import PresetPage from './pages/PresetPage';
