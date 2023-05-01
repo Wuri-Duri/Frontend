@@ -42,11 +42,11 @@ const initState = {
 export default function makestoryReducer(state = initState, action) {
   switch (action.type) {
     case 'makestory/GET_AI_TEXT': //정의한 액션 부르면
-      console.log(state.value);
-      return { ...state, value: state.value }; //이렇게 해라
+      // console.log(state.value);
+      return { ...state, value: action.value }; //이렇게 해라
     case 'makestory/GET_USER_TEXT':
-      console.log(state.value);
-      return { ...state, value: action.value };
+      console.log(state.userText);
+      return { ...state, userText: action.value };
     default:
       return state;
   }

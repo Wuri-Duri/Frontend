@@ -68,9 +68,16 @@ const ImageView = Styled.View`
   background-color: #1d1d1d;
 `;
 
-const AIStory = ({ storyText, setStoryText }) => {
-  const userText = useSelector(state => state.value);
+const AIStory = ({ storyText, setStoryText, colorEx, setColorEx }) => {
+  const userText = useSelector(state => state.makeStory.userText);
   const dispatch = useDispatch();
+  const src = require('../../assets/forestBg.png');
+  //이미지로부터 색상 추출
+  const color = ImageColors.getColors(src, {
+    fallback: '#000000',
+    cache: true,
+    key: 'unique_key',
+  });
 
   const [isRecord, setIsRecord] = useState(false);
   const [text, setText] = useState('');
@@ -91,9 +98,18 @@ const AIStory = ({ storyText, setStoryText }) => {
         ...storyText.isActive,
         userText: true,
       },
-    })),
-      dispatch(getUserText(userText));
+    }));
+    setColorEx(colorEx => ({
+      ...colorEx,
+      background: color._j.background,
+      primary: color._j.primary,
+      secondary: color._j.secondary,
+      detail: color._j.detail,
+    }));
+    console.log(colorEx);
+    dispatch(getUserText(userText));
   };
+
   const _onSpeechResults = event => {
     console.log('onSpeechResults');
     setText(event.value[0]);
@@ -127,19 +143,16 @@ const AIStory = ({ storyText, setStoryText }) => {
   //     dispatch(getUserText(userText));
   // };
 
-  //이미지로부터 색상 추출
-  const color = ImageColors.getColors(require('../../assets/seaBg.png'), {
-    fallback: '#000000',
-    cache: true,
-    key: 'unique_key',
-  });
-  console.log(color);
-
-  console.log(storyText.userText);
-
+  // //이미지로부터 색상 추출
+  // const color = ImageColors.getColors(require('../../assets/seaBg.png'), {
+  //   fallback: '#000000',
+  //   cache: true,
+  //   key: 'unique_key',
+  // });
+  // console.log(colorEx);
   return (
     <Container>
-      <TextView1 source={require('../../assets/seaBg.png')} opacity={0.6}>
+      <TextView1 source={require('../../assets/forestBg.png')} opacity={0.6}>
         <TextContainer1>
           <AIText>
             AI가 만든 텍스트가 이 영역에 나타납니다. 가로 길이 최대 제한을 둬서 흰 박스의 가로 세로 마진을 맞춰주세요. 흰 박스의 가로 길이는 고정, 세로 길이는 내용 길이에 따라 늘어날 수 있으며, 왼쪽
@@ -148,8 +161,8 @@ const AIStory = ({ storyText, setStoryText }) => {
         </TextContainer1>
       </TextView1>
 
-      <TextView2 backgroundColor={color._j.detail}>
-        <TextContainer2 backgroundColor={color._j.primary}>
+      <TextView2 backgroundColor={colorEx.detail}>
+        <TextContainer2 backgroundColor={colorEx.primary}>
           <VoiceText>{voiceLabel}</VoiceText>
         </TextContainer2>
       </TextView2>
