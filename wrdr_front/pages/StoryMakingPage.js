@@ -5,10 +5,6 @@ import Voice from '@react-native-voice/voice';
 import recordActive from '../assets/BottomBar/BottomBar_button_record_active.png';
 import next from '../assets/BottomBar/BottomBar_button_next.png';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { getUserText } from '../redux/modules/makeStory';
-import { _selectBtn } from '../components/StoryMaking/AIStory';
-
 const MainContainer = Styled.View`
   width: 100%;
   height: 100%;
@@ -78,23 +74,12 @@ const StoryMakingPage = ({ setPageType }) => {
       Voice.start('ko-KR');
     }
     setIsRecord(!isRecord);
-    // setStoryText(storyText => ({
-    //   ...storyText,
-    //   userText: storyText.voiceLabel,
-    //   isActive: {
-    //     ...storyText.isActive,
-    //     userText: true,
-    //   },
-    // })),
-    //   dispatch(getUserText(storyText.voiceLabel));
   };
 
   const onPressMainBtn = () => {
     setPageType('ticketImage');
   };
 
-  const dispatch = useDispatch();
-  console.log(storyText.userText);
   return (
     <MainContainer>
       <HomeButtonContainer onPress={onPressMainBtn}>

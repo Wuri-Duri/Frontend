@@ -18,7 +18,7 @@ const SelectArea = styled.ImageBackground`
   width: 280;
   height: 280;
   border-radius: 280;
-  justify-content: center;
+  justify-content: center
   align-items: center;
   overflow: hidden;
   opacity: ${props => (props.isActive == true ? '0.8' : '0.4')};

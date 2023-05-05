@@ -32,6 +32,8 @@ const AddCharMiniCard = ({ isSelected, setIsSelected, bookInfo, setBookInfo }) =
       },
     }));
 
+    console.log(bookInfo);
+
     //카드를 선택할 경우 선택된 카드가 가운데 뜨게
     setIsSelected(true);
   };

@@ -70,7 +70,9 @@ const ImageView = Styled.View`
 
 const AIStory = ({ storyText, setStoryText, colorEx, setColorEx }) => {
   const userText = useSelector(state => state.makeStory.userText);
+  console.log('redux state : ', userText);
   const dispatch = useDispatch();
+
   const src = require('../../assets/forestBg.png');
   //이미지로부터 색상 추출
   const color = ImageColors.getColors(src, {
@@ -80,17 +82,25 @@ const AIStory = ({ storyText, setStoryText, colorEx, setColorEx }) => {
   });
 
   const [isRecord, setIsRecord] = useState(false);
-  const [text, setText] = useState('');
+  const [speakingText, setSpeakingText] = useState('');
   //const buttonLabel = isRecord ? 'Stop' : 'Start';
 
-  const voiceLabel = text ? text : isRecord ? '다음 문장을 말해주세요!' : '녹음 버튼을 눌러주세요!';
+  // const voiceLabel = text ? text : isRecord ? '다음 문장을 말해주세요!' : '녹음 버튼을 눌러주세요!';
+  const voiceLabel = speakingText ? speakingText : '녹음 버튼을 눌러주세요!';
 
   const _onSpeechStart = () => {
     console.log('onSpeechStart');
-    setText('');
+    // setSpeakingText('');
   };
+
+  const _onSpeechResults = event => {
+    console.log('onSpeechResults');
+    setSpeakingText(event.value[0]);
+  };
+
   const _onSpeechEnd = () => {
     console.log('onSpeechEnd');
+
     setStoryText(storyText => ({
       ...storyText,
       userText: voiceLabel,
@@ -106,14 +116,8 @@ const AIStory = ({ storyText, setStoryText, colorEx, setColorEx }) => {
       secondary: color._j.secondary,
       detail: color._j.detail,
     }));
-    console.log(colorEx);
-    dispatch(getUserText(userText));
   };
 
-  const _onSpeechResults = event => {
-    console.log('onSpeechResults');
-    setText(event.value[0]);
-  };
   const _onSpeechError = event => {
     console.log('_onSpeechError');
     console.log(event.error);
@@ -130,8 +134,8 @@ const AIStory = ({ storyText, setStoryText, colorEx, setColorEx }) => {
     };
   }, []);
 
-  //dispatch
-  // const _selectBtn = () => {
+  // useEffect(() => {
+  //   // console.log('바뀌고 있지롱 헤헤' + speakingText);
   //   setStoryText(storyText => ({
   //     ...storyText,
   //     userText: voiceLabel,
@@ -139,17 +143,14 @@ const AIStory = ({ storyText, setStoryText, colorEx, setColorEx }) => {
   //       ...storyText.isActive,
   //       userText: true,
   //     },
-  //   })),
-  //     dispatch(getUserText(userText));
-  // };
+  //   }));
 
-  // //이미지로부터 색상 추출
-  // const color = ImageColors.getColors(require('../../assets/seaBg.png'), {
-  //   fallback: '#000000',
-  //   cache: true,
-  //   key: 'unique_key',
-  // });
-  // console.log(colorEx);
+  //   dispatch(getUserText(voiceLabel));
+  // }, [speakingText]);
+
+  // console.log('dslk '+ voiceLabel);
+  dispatch(getUserText(voiceLabel));
+
   return (
     <Container>
       <TextView1 source={require('../../assets/forestBg.png')} opacity={0.6}>

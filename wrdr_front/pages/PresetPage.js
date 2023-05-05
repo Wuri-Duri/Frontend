@@ -7,6 +7,12 @@ import SetBackground from '../components/Preset/SetBackground';
 import SetLength from '../components/Preset/SetLength';
 import CircleButton from '../components/common/CircleButton';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { getPreCharInfo, getPreBgInfo, getPreLenInfo } from '../redux/modules/presetStory';
+
+// import { useSelector, useDispatch } from 'react-redux';
+// import { getPreInfo } from '../redux/modules/presetStory';
+
 const Container = styled.View`
   width: 100%;
   height: 20%;
@@ -15,6 +21,14 @@ const Container = styled.View`
 `;
 
 const PresetPage = ({ pageType, setPageType }) => {
+  const character = useSelector(state => state.presetStory.character);
+  const place = useSelector(state => state.presetStory.place);
+  const length = useSelector(state => state.presetStory.length);
+  // console.log('char: ', character);
+  // console.log('bg: ', place);
+  console.log('len: ', length);
+  const dispatch = useDispatch();
+
   const [bookInfo, setBookInfo] = useState({
     characters: [''],
     place: null,
@@ -25,7 +39,9 @@ const PresetPage = ({ pageType, setPageType }) => {
       length: false, //나중에는 length만이 아니라 나머지 요소들이 모두 true일 때 true가 되도록 변경해야 함. 우선 length만 해둠.
     },
   });
-
+  dispatch(getPreCharInfo(bookInfo.characters));
+  dispatch(getPreBgInfo(bookInfo.place));
+  dispatch(getPreLenInfo(bookInfo.length));
   console.log(bookInfo);
 
   return (

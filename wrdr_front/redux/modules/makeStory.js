@@ -1,9 +1,9 @@
 //Action
 const GET_AI_TEXT = 'makeStory/GET_AI_TEXT';
 const GET_USER_TEXT = 'makeStory/GET_USER_TEXT';
+// const GET_STORY_TEXT = 'makeStory/GET_STORY_TEXT';
 
 //Action Creators
-
 export const getAIText = aiText => {
   return {
     type: GET_AI_TEXT,
@@ -14,9 +14,16 @@ export const getAIText = aiText => {
 export const getUserText = userText => {
   return {
     type: GET_USER_TEXT,
-    value: userText,
+    userText,
   };
 };
+
+// export const getStoryText = storyText => {
+//   return {
+//     type: GET_STORY_TEXT,
+//     storyText,
+//   };
+// };
 
 //initialize
 const initState = {
@@ -25,28 +32,16 @@ const initState = {
 };
 
 //Reducer
-// const makeStory = handleActions(
-//   {
-//     [GET_AI_TEXT]: (state, { payload: aiText }) => ({
-//       ...state,
-//       aiText,
-//     }),
-//     [GET_USER_TEXT]: (state, { payload: userText }) => ({
-//       ...state,
-//       userText,
-//     }),
-//   },
-//   initState,
-// );
-
 export default function makestoryReducer(state = initState, action) {
   switch (action.type) {
-    case 'makestory/GET_AI_TEXT': //정의한 액션 부르면
-      // console.log(state.value);
-      return { ...state, value: action.value }; //이렇게 해라
-    case 'makestory/GET_USER_TEXT':
+    case 'makeStory/GET_AI_TEXT': //정의한 액션 부르면
+      // console.log(state.aiText);
+      return { ...state, aiText: action.aiText }; //이렇게 해라
+    case 'makeStory/GET_USER_TEXT':
       console.log(state.userText);
-      return { ...state, userText: action.value };
+      return { ...state, userText: action.userText };
+    // case 'makeStory/GET_STORY_TEXT':
+    //   return { ...state, userText: action.storyText, aiText: action.storyText };
     default:
       return state;
   }
