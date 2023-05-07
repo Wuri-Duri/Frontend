@@ -66,16 +66,16 @@ const TitleInput = Styled.TextInput`
 `;
 
 const TicketImageBox = ({ ticketInfo, pageType, imageInfo, setTicketInfo }) => {
-  console.log(ticketInfo.storyTitle);
-  const [hasKeyboard, setHasKeyboard] = useState(false);
-  const shownKeyboard = () => {
-    //키보드가 보이면 ticketviewimage가 안보이게(사라지게) 키보드 사라지면 다시 보이게
-    if (Keyboard.isVisible) {
-      setHasKeyboard(true);
-    } else {
-      setHasKeyboard(false);
-    }
-  };
+  const [title, setTitle] = useState('');
+  // const [hasKeyboard, setHasKeyboard] = useState(false);
+  // const shownKeyboard = () => {
+  //   //키보드가 보이면 ticketviewimage가 안보이게(사라지게) 키보드 사라지면 다시 보이게
+  //   if (Keyboard.isVisible) {
+  //     setHasKeyboard(true);
+  //   } else {
+  //     setHasKeyboard(false);
+  //   }
+  // };
 
   // const event = () => {
   //   setTicketInfo(ticketInfo => ({
@@ -87,7 +87,9 @@ const TicketImageBox = ({ ticketInfo, pageType, imageInfo, setTicketInfo }) => {
   //     },
   //   }));
   // };
-  console.log(ticketInfo.storyTitle);
+
+  
+  console.log('ticketinfo ', ticketInfo.storyTitle);
   return (
     <>
       <Container>
@@ -112,10 +114,11 @@ const TicketImageBox = ({ ticketInfo, pageType, imageInfo, setTicketInfo }) => {
             <TitleInput
               // onPress={shownKeyboard}
               onChange={event => {
+                setTitle(event.nativeEvent.text);
                 //setticketinfo
                 setTicketInfo(ticketInfo => ({
                   ...ticketInfo,
-                  storyTitle: event.nativeEvent.text,
+                  storyTitle: title,
                   isActive: {
                     ...ticketInfo.isActive,
                     storyTitle: true,

@@ -87,6 +87,7 @@ const StoryMakingPage = ({ setPageType }) => {
           <Icon source={next} />
         </NextButtonContainer>
       </HomeButtonContainer>
+
       <AIStory storyText={storyText} setStoryText={setStoryText} colorEx={colorEx} setColorEx={setColorEx} />
       <ButtonContainer onPress={_onRecordVoice}>
         <ButtonRecord source={recordActive} />

@@ -12,7 +12,7 @@ const Container = Styled.View`
   bottom: 0;
 `;
 
-const AfterStoryPage = ({ pageType, setPageType, visible }) => {
+const AfterStoryPage = ({ pageType, setPageType }) => {
   const [ticketInfo, setTicketInfo] = useState({
     ticketImage: [''],
     storyTitle: null,
@@ -25,7 +25,7 @@ const AfterStoryPage = ({ pageType, setPageType, visible }) => {
     imageSrc: null,
   });
 
-  console.log(visible);
+  const [finish, setFinish] = useState(false);
 
   return (
     <>
@@ -33,10 +33,10 @@ const AfterStoryPage = ({ pageType, setPageType, visible }) => {
       {pageType === 'ticketImage' ? (
         <ChooseTicketImage pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
       ) : pageType === 'storyTitle' ? (
-        <ChooseStoryTitle pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
+        <ChooseStoryTitle pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} finish={finish} setFinish={setFinish} />
       ) : null}
       <Container>
-        <CircleButton pageType={pageType} setPageType={setPageType} ticketInfo={ticketInfo} />
+        <CircleButton pageType={pageType} setPageType={setPageType} ticketInfo={ticketInfo} finish={finish} setFinish={setFinish} />
       </Container>
     </>
   );

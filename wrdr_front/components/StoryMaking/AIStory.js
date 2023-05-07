@@ -11,7 +11,7 @@ const ButtonRecord = Styled.Button`
 position: relative;
 `;
 
-const VoiceText = Styled.Text`
+const VoiceText = Styled.TextInput`
   margin: 32px;
   color: #ffffff;
   font-size: 35;
@@ -90,7 +90,7 @@ const AIStory = ({ storyText, setStoryText, colorEx, setColorEx }) => {
 
   const _onSpeechStart = () => {
     console.log('onSpeechStart');
-    // setSpeakingText('');
+    setSpeakingText('');
   };
 
   const _onSpeechResults = event => {

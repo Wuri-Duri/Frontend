@@ -10,12 +10,20 @@ const Container = Styled.View`
   justify-content: center;
 `;
 
-const ChooseStoryTitle = ({ pageType, ticketInfo, setTicketInfo, imageInfo, setImageInfo }) => {
+const FinSplash = Styled.ImageBackground`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+`;
+
+const ChooseStoryTitle = ({ pageType, setPageType, ticketInfo, setTicketInfo, imageInfo, setImageInfo, finish, setFinish }) => {
   return (
     <>
       <KeyboardAvoidingView style={styles.rootContainer} keyboardVerticalOffset={-60} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <TicketImageBox pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
       </KeyboardAvoidingView>
+      {finish ? <FinSplash source={require('../../assets/finishStory.gif')} /> : ''}
     </>
   );
 };

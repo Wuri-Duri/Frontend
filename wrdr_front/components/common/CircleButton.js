@@ -31,8 +31,7 @@ const Icon = styled.Image`
   resize-mode: contain;
 `;
 
-const MainButton = ({ pageType, setPageType, bookInfo, ticketInfo, size, disabled }) => {
-  const [visible, setVisible] = useState(true);
+const MainButton = ({ pageType, setPageType, bookInfo, ticketInfo, size, disabled, finish, setFinish }) => {
   const onPressMainBtn = () => {
     if (pageType === 'mylibrary') {
       setPageType('character');
@@ -52,10 +51,15 @@ const MainButton = ({ pageType, setPageType, bookInfo, ticketInfo, size, disable
       console.log(pageType);
       setPageType('storyTitle');
     } else if (ticketInfo.isActive.storyTitle && pageType === 'storyTitle') {
+      console.log(finish);
+      // setFinish(!finish);
+      setFinish((finish: boolean) => !finish);
+      setTimeout(() => {
+        setPageType('mylibrary');
+      }, 1500);
     }
-    setVisible(!visible);
   };
-  console.log(visible);
+
   return (
     <HomeButtonContainer onPress={onPressMainBtn} size={size} disabled={disabled}>
       {pageType === 'character' ? (
@@ -80,10 +84,12 @@ const MainButton = ({ pageType, setPageType, bookInfo, ticketInfo, size, disable
         <ButtonContainer isActive={ticketInfo.isActive.ticketImage} pageType={pageType}>
           <Icon source={next} />
         </ButtonContainer>
-      ) : pageType === 'storyTitle' ? (
-        <ButtonContainer isActive={ticketInfo.isActive.storyTitle} pageType={pageType}>
+      ) : pageType === 'storyTitle' && !finish ? (
+        <ButtonContainer isActive={ticketInfo.isActive.storyTitle} pageType={pageType} finish={finish} setFinish={setFinish}>
           <Icon source={check} />
         </ButtonContainer>
+      ) : pageType === 'storyTitle' && finish ? (
+        ''
       ) : pageType === 'finRocket' ? (
         ''
       ) : (
