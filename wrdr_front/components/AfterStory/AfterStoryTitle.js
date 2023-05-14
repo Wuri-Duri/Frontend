@@ -14,11 +14,21 @@ const TitleText = Styled.Text`
   font-weight: bold;
 `;
 
-const AfterStoryTitle = ({ pageType }) => {
+const AfterStoryTitle = ({ pageType, show }) => {
   return (
-    <TitleContianer>
-      <TitleText>{pageType === 'ticketImage' ? '이야기 티켓의 그림을 골라볼까요?' : pageType === 'storyTitle' ? '이야기의 제목을 정해볼까요?' : ''}</TitleText>
-    </TitleContianer>
+    <>
+      <TitleContianer>
+        <TitleText>
+          {pageType === 'ticketImage' && !show
+            ? '우리가 만든 이야기가 완성됐어요!'
+            : pageType === 'ticketImage'
+            ? '이야기 티켓의 그림을 골라볼까요?'
+            : pageType === 'storyTitle'
+            ? '이야기의 제목을 정해볼까요?'
+            : ''}
+        </TitleText>
+      </TitleContianer>
+    </>
   );
 };
 

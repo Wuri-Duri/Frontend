@@ -31,7 +31,7 @@ const Icon = styled.Image`
   resize-mode: contain;
 `;
 
-const MainButton = ({ pageType, setPageType, bookInfo, ticketInfo, size, disabled, finish, setFinish }) => {
+const MainButton = ({ pageType, setPageType, bookInfo, ticketInfo, size, disabled, finish, setFinish, show }) => {
   const onPressMainBtn = () => {
     if (pageType === 'mylibrary') {
       setPageType('character');
@@ -80,17 +80,17 @@ const MainButton = ({ pageType, setPageType, bookInfo, ticketInfo, size, disable
         <ButtonContainer isActive={true}>
           <Icon source={plus} />
         </ButtonContainer>
-      ) : pageType === 'ticketImage' ? (
+      ) : pageType === 'ticketImage' && show ? (
         <ButtonContainer isActive={ticketInfo.isActive.ticketImage} pageType={pageType}>
           <Icon source={next} />
         </ButtonContainer>
+      ) : pageType === 'ticketImage' && !show ? (
+        ''
       ) : pageType === 'storyTitle' && !finish ? (
         <ButtonContainer isActive={ticketInfo.isActive.storyTitle} pageType={pageType} finish={finish} setFinish={setFinish}>
           <Icon source={check} />
         </ButtonContainer>
       ) : pageType === 'storyTitle' && finish ? (
-        ''
-      ) : pageType === 'finRocket' ? (
         ''
       ) : (
         <ButtonContainer isActive={true}>

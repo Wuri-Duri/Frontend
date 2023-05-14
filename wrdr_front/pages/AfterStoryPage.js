@@ -26,17 +26,18 @@ const AfterStoryPage = ({ pageType, setPageType }) => {
   });
 
   const [finish, setFinish] = useState(false);
+  const [show, setShow] = useState(false);
 
   return (
     <>
-      <AfterStoryTitle pageType={pageType} setPageType={setPageType} />
+      <AfterStoryTitle pageType={pageType} setPageType={setPageType} show={show} setShow={setShow} />
       {pageType === 'ticketImage' ? (
-        <ChooseTicketImage pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
+        <ChooseTicketImage pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} show={show} setShow={setShow} />
       ) : pageType === 'storyTitle' ? (
         <ChooseStoryTitle pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} finish={finish} setFinish={setFinish} />
       ) : null}
       <Container>
-        <CircleButton pageType={pageType} setPageType={setPageType} ticketInfo={ticketInfo} finish={finish} setFinish={setFinish} />
+        <CircleButton pageType={pageType} setPageType={setPageType} ticketInfo={ticketInfo} finish={finish} setFinish={setFinish} show={show} setShow={setShow} />
       </Container>
     </>
   );

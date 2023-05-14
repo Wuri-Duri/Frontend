@@ -5,7 +5,7 @@ import Voice from '@react-native-voice/voice';
 import ImageColors from 'react-native-image-colors';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserText } from '../../redux/modules/makeStory';
+import { getPageNum, getUserText } from '../../redux/modules/makeStory';
 
 const ButtonRecord = Styled.Button`
 position: relative;
@@ -70,7 +70,6 @@ const ImageView = Styled.View`
 
 const AIStory = ({ storyText, setStoryText, colorEx, setColorEx }) => {
   const userText = useSelector(state => state.makeStory.userText);
-  console.log('redux state : ', userText);
   const dispatch = useDispatch();
 
   const src = require('../../assets/forestBg.png');
@@ -134,21 +133,6 @@ const AIStory = ({ storyText, setStoryText, colorEx, setColorEx }) => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   // console.log('바뀌고 있지롱 헤헤' + speakingText);
-  //   setStoryText(storyText => ({
-  //     ...storyText,
-  //     userText: voiceLabel,
-  //     isActive: {
-  //       ...storyText.isActive,
-  //       userText: true,
-  //     },
-  //   }));
-
-  //   dispatch(getUserText(voiceLabel));
-  // }, [speakingText]);
-
-  // console.log('dslk '+ voiceLabel);
   dispatch(getUserText(voiceLabel));
 
   return (

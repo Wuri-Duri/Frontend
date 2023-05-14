@@ -6,8 +6,8 @@ import MyLibraryPage from './pages/MyLibraryPage';
 import BottomBar from './components/common/BottomBar';
 import StoryMakingPage from './pages/StoryMakingPage';
 import AfterStoryPage from './pages/AfterStoryPage';
-import AfterPreRocket from './pages/AfterPreRocket';
-import AfterFinRocket from './pages/AfterFinRocket';
+
+import { useSelector, useDispatch } from 'react-redux';
 
 const MainContainer = styled.View`
   position: relative;
@@ -24,6 +24,19 @@ const MainBackgroundImg = styled.ImageBackground`
 const App = ({ props }) => {
   const [pageType, setPageType] = useState('mylibrary');
 
+  const [bookInfo, setBookInfo] = useState({
+    characters: [''],
+    place: null,
+    length: null,
+    isActive: {
+      character: false,
+      place: false,
+      length: false, //나중에는 length만이 아니라 나머지 요소들이 모두 true일 때 true가 되도록 변경해야 함. 우선 length만 해둠.
+    },
+  });
+
+  const num = useSelector(state => state.makeStory.num);
+
   return (
     <MainContainer>
       <MainBackgroundImg source={BackgroundImage} resizeMode="cover">
@@ -33,15 +46,13 @@ const App = ({ props }) => {
             <BottomBar pageType={pageType} setPageType={setPageType} />
           </>
         ) : pageType === 'character' || pageType === 'place' || pageType === 'length' ? (
-          <PresetPage pageType={pageType} setPageType={setPageType} />
-        ) : pageType === 'preRocket' ? (
-          <AfterPreRocket />
-        ) : pageType === 'makestory' ? (
-          <StoryMakingPage pageType={pageType} setPageType={setPageType} />
+          <PresetPage pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} setBookInfo={setBookInfo} />
+        ) : pageType === 'makestory' && bookInfo.length !== num ? (
+          <StoryMakingPage pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} setBookInfo={setBookInfo} />
+        ) : pageType === 'makestory' && bookInfo.length === num ? (
+          setPageType('ticketImage')
         ) : pageType === 'ticketImage' || pageType === 'storyTitle' ? (
-          <AfterStoryPage pageType={pageType} setPageType={setPageType} />
-        ) : pageType === 'finRocket' ? (
-          <AfterFinRocket />
+          <AfterStoryPage pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} setBookInfo={setBookInfo} />
         ) : (
           ''
         )}

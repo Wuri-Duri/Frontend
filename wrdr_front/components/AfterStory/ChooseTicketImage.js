@@ -17,7 +17,11 @@ const ScrollContainer = Styled.ScrollView`
   margin-right: 9%;
 `;
 
-const ChooseTicketImage = ({ id, ticketInfo, setTicketInfo, imageInfo, setImageInfo }) => {
+const StoryFin = Styled.Text`
+font-size: 28;
+`;
+
+const ChooseTicketImage = ({ id, ticketInfo, setTicketInfo, imageInfo, setImageInfo, show, setShow }) => {
   const images = [
     { id: 0, image: require('../../assets/AfterStory/TicketImage/ticketImage1.png') },
     { id: 1, image: require('../../assets/AfterStory/TicketImage/ticketImage2.png') },
@@ -33,22 +37,36 @@ const ChooseTicketImage = ({ id, ticketInfo, setTicketInfo, imageInfo, setImageI
     { id: 11, image: require('../../assets/AfterStory/TicketImage/ticketImage2.png') },
   ];
 
+  (function () {
+    if (!show) {
+      setTimeout(() => {
+        setShow(!show);
+      }, 3000);
+    }
+  })();
+
   return (
-    <Container>
-      <TicketImageBox ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
-      <ScrollContainer>
-        <FlatList
-          data={images}
-          renderItem={({ item }) => (
-            <View style={{ flex: 1, flexDirection: 'column', margin: 1 }}>
-              <ImageItem id={item.id} imageUri={item.image} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
-            </View>
-          )}
-          numColumns={3}
-          keyExtractor={(item, index) => index}
-        />
-      </ScrollContainer>
-    </Container>
+    <>
+      {!show ? (
+        <StoryFin>'우리가 만든 이야기가 완성됐어요!'</StoryFin>
+      ) : (
+        <Container>
+          <TicketImageBox ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
+          <ScrollContainer>
+            <FlatList
+              data={images}
+              renderItem={({ item }) => (
+                <View style={{ flex: 1, flexDirection: 'column', margin: 1 }}>
+                  <ImageItem id={item.id} imageUri={item.image} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
+                </View>
+              )}
+              numColumns={3}
+              keyExtractor={(item, index) => index}
+            />
+          </ScrollContainer>
+        </Container>
+      )}
+    </>
   );
 };
 

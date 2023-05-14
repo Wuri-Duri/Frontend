@@ -5,6 +5,9 @@ import Voice from '@react-native-voice/voice';
 import recordActive from '../assets/BottomBar/BottomBar_button_record_active.png';
 import next from '../assets/BottomBar/BottomBar_button_next.png';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { getPageNum } from '../redux/modules/makeStory';
+
 const MainContainer = Styled.View`
   width: 100%;
   height: 100%;
@@ -67,27 +70,21 @@ const StoryMakingPage = ({ setPageType }) => {
 
   const [isRecord, setIsRecord] = useState(false);
 
+  const num = useSelector(state => state.makeStory.num);
+  const dispatch = useDispatch();
+
   const _onRecordVoice = () => {
     if (isRecord) {
       Voice.stop();
+      dispatch(getPageNum(num));
     } else {
       Voice.start('ko-KR');
     }
     setIsRecord(!isRecord);
   };
 
-  const onPressMainBtn = () => {
-    setPageType('ticketImage');
-  };
-
   return (
     <MainContainer>
-      <HomeButtonContainer onPress={onPressMainBtn}>
-        <NextButtonContainer>
-          <Icon source={next} />
-        </NextButtonContainer>
-      </HomeButtonContainer>
-
       <AIStory storyText={storyText} setStoryText={setStoryText} colorEx={colorEx} setColorEx={setColorEx} />
       <ButtonContainer onPress={_onRecordVoice}>
         <ButtonRecord source={recordActive} />
