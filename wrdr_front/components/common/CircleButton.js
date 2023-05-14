@@ -9,6 +9,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { initText } from '../../redux/modules/makeStory';
 import { initPreset } from '../../redux/modules/presetStory';
 
+import axios from 'axios';
+
 const HomeButtonContainer = styled.TouchableOpacity`
   width: ${props => props.size || '95'};
   height: ${props => props.size || '95'};
@@ -35,7 +37,7 @@ const Icon = styled.Image`
   resize-mode: contain;
 `;
 
-const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, ticketInfo, size, disabled, finish, setFinish, show }) => {
+const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, ticketInfo, setTicketInfo, size, disabled, finish, setFinish, show, title, setTitle, isTitle, setIsTitle }) => {
   const num = useSelector(state => state.makeStory.num);
   const userText = useSelector(state => state.makeStory.userText);
   const aiText = useSelector(state => state.makeStory.aiText);
@@ -54,10 +56,17 @@ const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, ticketInfo, 
     } else if (bookInfo && bookInfo.isActive.place && pageType === 'place') {
       setPageType('length');
     } else if (bookInfo && bookInfo.isActive.length && pageType === 'length') {
-      //   setPageType('preRocket');
-      // } else if (pageType === 'preRocket') {
-      //   //setPageType('');
-      //   //동화 제작 뷰로 넘어가기
+      axios
+        .post('http://52.79.115.87:3000/fairytale/preset', {
+          characters: [bookInfo.characters],
+          bgPlace: bookInfo.place,
+          length: bookInfo.length,
+        })
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => console.log(error));
+
       setPageType('makestory');
     } else if (pageType === 'makestory') {
       setPageType('ticketImage');
@@ -65,14 +74,22 @@ const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, ticketInfo, 
       console.log(pageType);
       setPageType('storyTitle');
     } else if (ticketInfo.isActive.storyTitle && pageType === 'storyTitle') {
-      console.log(finish);
-      // setFinish(!finish);
+      axios
+        .post('http://52.79.115.87:3000/fairytale/createcover', {
+          ticketIdx: 1,
+          title: ticketInfo.storyTitle,
+          coverImage: ticketInfo.ticketImage,
+        })
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => console.log(error));
+
       setFinish((finish: boolean) => !finish);
       setTimeout(() => {
         setPageType('mylibrary');
       }, 1500);
       console.log('destroyed');
-      console.log('없어져라: ', userText);
       dispatch(initText());
       dispatch(initPreset());
       setBookInfo(bookInfo => ({
