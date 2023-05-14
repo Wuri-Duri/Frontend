@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { TouchableOpacity } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { getTicketImage } from '../..//redux/modules/ticket';
 
 const Container = styled.View`
   border-radius: 20;
@@ -21,10 +23,13 @@ const SelectArea = styled.ImageBackground`
 `;
 
 const ImageItem = ({ id, imageUri, ticketInfo, setTicketInfo, imageInfo, setImageInfo }) => {
+  const ticketImage = useSelector(state => state.ticket.ticketImage);
+  const dispatch = useDispatch();
+
   const onPressPlaceBtn = () => {
     setTicketInfo(ticketInfo => ({
       ...ticketInfo,
-      ticketImage: id,
+      ticketImage: imageInfo,
       isActive: {
         ...ticketInfo.isActive,
         ticketImage: true,
@@ -34,6 +39,7 @@ const ImageItem = ({ id, imageUri, ticketInfo, setTicketInfo, imageInfo, setImag
         ...imageInfo,
         imageSrc: imageUri,
       }));
+    dispatch(getTicketImage(imageInfo));
   };
 
   return (

@@ -27,9 +27,7 @@ const TicketList = ({ tickets, pageType, setPageType }) => {
     <Container>
       <ScrollContainer horizontal={true} centerContent={true} showsHorizontalScrollIndicator={false}>
         <InsideContainer>
-          {tickets.map((ticket, index) => (
-            <TicketItem key={ticket.id} number={index + 1} image={ticket.image} title={ticket.title} />
-          ))}
+          {tickets && tickets.map((ticket, index) => <TicketItem key={ticket.id} number={index + 1} image={ticket.coverImage} title={ticket.title} />)}
           <LastTicketForAdd pageType={pageType} setPageType={setPageType} />
         </InsideContainer>
       </ScrollContainer>

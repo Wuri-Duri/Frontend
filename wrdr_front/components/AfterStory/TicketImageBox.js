@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import Styled from 'styled-components/native';
 import { KeyboardAvoidingView, Keyboard, StyleSheet, Image, Platform } from 'react-native';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { getTicketTitle } from '../../redux/modules/ticket';
+
 const Container = Styled.View`
   width: 50%;
   height: 78%;
@@ -65,8 +68,8 @@ const TitleInput = Styled.TextInput`
   font-family:'Jalnan';
 `;
 
-const TicketImageBox = ({ ticketInfo, pageType, imageInfo, setTicketInfo }) => {
-  const [title, setTitle] = useState('');
+const TicketImageBox = ({ ticketInfo, pageType, imageInfo, setTicketInfo, title, setTitle }) => {
+  // const [title, setTitle] = useState('');
   // const [hasKeyboard, setHasKeyboard] = useState(false);
   // const shownKeyboard = () => {
   //   //키보드가 보이면 ticketviewimage가 안보이게(사라지게) 키보드 사라지면 다시 보이게
@@ -88,8 +91,10 @@ const TicketImageBox = ({ ticketInfo, pageType, imageInfo, setTicketInfo }) => {
   //   }));
   // };
 
-  
-  console.log('ticketinfo ', ticketInfo.storyTitle);
+  // console.log('ticketinfo ', ticketInfo.storyTitle);
+
+  const dispatch = useDispatch();
+  const storyTitle = useSelector(state => state.ticket.ticketImage);
   return (
     <>
       <Container>
@@ -124,6 +129,7 @@ const TicketImageBox = ({ ticketInfo, pageType, imageInfo, setTicketInfo }) => {
                     storyTitle: true,
                   },
                 }));
+                dispatch(getTicketTitle(title));
               }}
               multiline
               placeholder="이곳을 클릭해 제목을 입력해주세요!"

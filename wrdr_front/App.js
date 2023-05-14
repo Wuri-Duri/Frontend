@@ -32,7 +32,7 @@ const App = ({ props }) => {
     isActive: {
       character: false,
       place: false,
-      length: false, //나중에는 length만이 아니라 나머지 요소들이 모두 true일 때 true가 되도록 변경해야 함. 우선 length만 해둠.
+      length: false,
     },
   });
 

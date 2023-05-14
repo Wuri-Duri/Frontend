@@ -41,7 +41,7 @@ const ChooseTicketImage = ({ id, ticketInfo, setTicketInfo, imageInfo, setImageI
     if (!show) {
       setTimeout(() => {
         setShow(!show);
-      }, 3000);
+      }, 2000);
     }
   })();
 

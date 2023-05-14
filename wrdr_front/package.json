@@ -13,6 +13,7 @@
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-voice/voice": "^3.2.4",
     "@reduxjs/toolkit": "^1.9.5",
+    "axios": "^1.4.0",
     "react": "18.2.0",
     "react-native": "0.71.1",
     "react-native-gesture-handler": "^2.9.0",
@@ -25,6 +26,7 @@
     "react-native-vector-icons": "^9.2.0",
     "react-redux": "^8.0.5",
     "redux": "^4.2.1",
+    "redux-saga": "^1.2.3",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {

@@ -60,7 +60,7 @@ const TicketItem = ({ key, number, title, image }) => {
     <Container>
       <TicketContainer>
         <ImageContainer>
-          <TicketImage source={image} />
+          <TicketImage src={image} />
         </ImageContainer>
         <BottomContainer>
           <OrderText>{number}번째 이야기</OrderText>

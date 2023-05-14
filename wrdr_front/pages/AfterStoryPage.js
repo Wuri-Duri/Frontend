@@ -5,6 +5,9 @@ import ChooseStoryTitle from '../components/AfterStory/ChooseStoryTitle';
 import ChooseTicketImage from '../components/AfterStory/ChooseTicketImage';
 import CircleButton from '../components/common/CircleButton';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { getTicketImage, getTicketTitle } from '../redux/modules/ticket';
+
 const Container = Styled.View`
   width: 100%;
   height: 20%;
@@ -25,8 +28,14 @@ const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
     imageSrc: null,
   });
 
+  const [title, setTitle] = useState(''); 
+
   const [finish, setFinish] = useState(false);
   const [show, setShow] = useState(false);
+
+  // const ticketImage = useSelector(state => state.ticket.ticketImage);
+  // const storyTitle = useSelector(state => state.ticket.ticketImage);
+  // const dispatch = useDispatch();
 
   return (
     <>
@@ -34,7 +43,17 @@ const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
       {pageType === 'ticketImage' ? (
         <ChooseTicketImage pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} show={show} setShow={setShow} />
       ) : pageType === 'storyTitle' ? (
-        <ChooseStoryTitle pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} finish={finish} setFinish={setFinish} />
+        <ChooseStoryTitle
+          pageType={pageType}
+          ticketInfo={ticketInfo}
+          setTicketInfo={setTicketInfo}
+          imageInfo={imageInfo}
+          setImageInfo={setImageInfo}
+          finish={finish}
+          setFinish={setFinish}
+          title={title}
+          setTitle={setTitle}
+        />
       ) : null}
       <Container>
         <CircleButton
@@ -47,6 +66,8 @@ const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
           setFinish={setFinish}
           show={show}
           setShow={setShow}
+          title={title}
+          setTitle={setTitle}
         />
       </Container>
     </>
