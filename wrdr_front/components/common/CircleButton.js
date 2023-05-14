@@ -8,6 +8,7 @@ import home from '../../assets/BottomBar/BottomBar_button_home.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { initText } from '../../redux/modules/makeStory';
 import { initPreset } from '../../redux/modules/presetStory';
+import { getTicketIdx } from '../../redux/modules/ticket';
 
 import axios from 'axios';
 
@@ -46,6 +47,8 @@ const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, ticketInfo, 
   const place = useSelector(state => state.presetStory.place);
   const length = useSelector(state => state.presetStory.length);
 
+  const ticketIdx = useSelector(state => state.ticket.ticketIdx);
+
   const dispatch = useDispatch();
 
   const onPressMainBtn = () => {
@@ -58,12 +61,14 @@ const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, ticketInfo, 
     } else if (bookInfo && bookInfo.isActive.length && pageType === 'length') {
       axios
         .post('http://52.79.115.87:3000/fairytale/preset', {
-          characters: [bookInfo.characters],
+          userIdx: 1,
+          characters: bookInfo.characters.map(character => character.name),
           bgPlace: bookInfo.place,
           length: bookInfo.length,
         })
         .then(response => {
-          console.log(response.data);
+          console.log(response.data.data);
+          dispatch(getTicketIdx(response.data.data));
         })
         .catch(error => console.log(error));
 

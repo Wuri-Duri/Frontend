@@ -1,11 +1,12 @@
-import createRequestSaga from '../../api/createRequestSaga';
-import { createRequestActionTypes } from '../../api/createRequestSaga';
-import { createAction, handleActions } from 'redux-actions';
-import * as makeStoryAPI from '../../api/fairytale';
-import { takeLatest } from 'redux-saga/effects';
+// import createRequestSaga from '../../api/createRequestSaga';
+// import { createRequestActionTypes } from '../../api/createRequestSaga';
+// import { createAction, handleActions } from 'redux-actions';
+// import * as makeStoryAPI from '../../api/fairytale';
+// import { takeLatest } from 'redux-saga/effects';
 
-//Action
-const [GET_AI_TEXT, GET_AI_TEXT_SUCCESS, GET_AI_TEXT_FAILURE] = createRequestActionTypes('makeStory/GET_AI_TEXT');
+// //Action
+// const [GET_AI_TEXT, GET_AI_TEXT_SUCCESS, GET_AI_TEXT_FAILURE] = createRequestActionTypes('makeStory/GET_AI_TEXT');
+const GET_AI_TEXT = 'makeStory/GET_AI_TEXT';
 const GET_USER_TEXT = 'makeStory/GET_USER_TEXT';
 const GET_PAGE_NUM = 'makeStory/GET_PAGE_NUM';
 const INIT_TEXT = 'makeStory/INIT_TEXT';

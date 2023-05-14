@@ -26,7 +26,7 @@ const App = ({ props }) => {
   const num = useSelector(state => state.makeStory.num);
 
   const [bookInfo, setBookInfo] = useState({
-    characters: [''],
+    characters: [],
     place: null,
     length: null,
     isActive: {
