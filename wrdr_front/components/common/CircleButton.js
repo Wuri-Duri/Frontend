@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import plus from '../../assets/BottomBar/BottomBar_button_plus.png';
 import next from '../../assets/BottomBar/BottomBar_button_next.png';
 import check from '../../assets/BottomBar/BottomBar_button_check.png';
 import home from '../../assets/BottomBar/BottomBar_button_home.png';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { initText } from '../../redux/modules/makeStory';
+import { initPreset } from '../../redux/modules/presetStory';
 
 const HomeButtonContainer = styled.TouchableOpacity`
   width: ${props => props.size || '95'};
@@ -31,7 +35,17 @@ const Icon = styled.Image`
   resize-mode: contain;
 `;
 
-const MainButton = ({ pageType, setPageType, bookInfo, ticketInfo, size, disabled, finish, setFinish, show }) => {
+const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, ticketInfo, size, disabled, finish, setFinish, show }) => {
+  const num = useSelector(state => state.makeStory.num);
+  const userText = useSelector(state => state.makeStory.userText);
+  const aiText = useSelector(state => state.makeStory.aiText);
+
+  const character = useSelector(state => state.presetStory.character);
+  const place = useSelector(state => state.presetStory.place);
+  const length = useSelector(state => state.presetStory.length);
+
+  const dispatch = useDispatch();
+
   const onPressMainBtn = () => {
     if (pageType === 'mylibrary') {
       setPageType('character');
@@ -57,6 +71,20 @@ const MainButton = ({ pageType, setPageType, bookInfo, ticketInfo, size, disable
       setTimeout(() => {
         setPageType('mylibrary');
       }, 1500);
+      console.log('destroyed');
+      console.log('없어져라: ', userText);
+      dispatch(initText());
+      dispatch(initPreset());
+      setBookInfo(bookInfo => ({
+        characters: [''],
+        place: null,
+        length: null,
+        isActive: {
+          character: false,
+          place: false,
+          length: false,
+        },
+      }));
     }
   };
 

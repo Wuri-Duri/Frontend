@@ -2,6 +2,7 @@
 const GET_AI_TEXT = 'makeStory/GET_AI_TEXT';
 const GET_USER_TEXT = 'makeStory/GET_USER_TEXT';
 const GET_PAGE_NUM = 'makeStory/GET_PAGE_NUM';
+const INIT_TEXT = 'makeStory/INIT_TEXT';
 
 //Action Creators
 export const getAIText = aiText => {
@@ -25,6 +26,12 @@ export const getPageNum = num => {
   };
 };
 
+export function initText() {
+  return {
+    type: INIT_TEXT,
+  };
+}
+
 //initialize
 const initState = {
   aiText: '',
@@ -44,6 +51,8 @@ export default function makestoryReducer(state = initState, action) {
     case 'makeStory/GET_PAGE_NUM':
       console.log('reducer: ', state.num);
       return { ...state, num: state.num + 1 };
+    case 'makeStory/INIT_TEXT':
+      return { aiText: initState.aiText, userText: initState.userText, num: initState.num };
     default:
       return state;
   }

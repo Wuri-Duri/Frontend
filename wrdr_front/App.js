@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import BackgroundImage from './assets/background.gif';
 import PresetPage from './pages/PresetPage';
@@ -7,7 +7,7 @@ import BottomBar from './components/common/BottomBar';
 import StoryMakingPage from './pages/StoryMakingPage';
 import AfterStoryPage from './pages/AfterStoryPage';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const MainContainer = styled.View`
   position: relative;
@@ -23,6 +23,7 @@ const MainBackgroundImg = styled.ImageBackground`
 
 const App = ({ props }) => {
   const [pageType, setPageType] = useState('mylibrary');
+  const num = useSelector(state => state.makeStory.num);
 
   const [bookInfo, setBookInfo] = useState({
     characters: [''],
@@ -34,8 +35,6 @@ const App = ({ props }) => {
       length: false, //나중에는 length만이 아니라 나머지 요소들이 모두 true일 때 true가 되도록 변경해야 함. 우선 length만 해둠.
     },
   });
-
-  const num = useSelector(state => state.makeStory.num);
 
   return (
     <MainContainer>
