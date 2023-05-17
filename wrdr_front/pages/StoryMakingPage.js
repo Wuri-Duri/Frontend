@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Styled from 'styled-components/native';
 import AIStory from '../components/StoryMaking/AIStory';
 import Voice from '@react-native-voice/voice';
@@ -6,7 +6,7 @@ import recordActive from '../assets/BottomBar/BottomBar_button_record_active.png
 import next from '../assets/BottomBar/BottomBar_button_next.png';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getPageNum } from '../redux/modules/makeStory';
+import { getPageNum, getUserText } from '../modules/makeStory';
 
 const MainContainer = Styled.View`
   width: 100%;
@@ -51,15 +51,8 @@ const HomeButtonContainer = Styled.TouchableOpacity`
   align-self: flex-start;
 `;
 
-const StoryMakingPage = ({ setPageType }) => {
-  const [storyText, setStoryText] = useState({
-    aiText: '',
-    userText: '',
-    isActive: {
-      aiText: false,
-      userText: false,
-    },
-  });
+const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setImages }) => {
+  const [storyText, setStoryText] = useState();
 
   const [colorEx, setColorEx] = useState({
     background: '',
@@ -70,22 +63,45 @@ const StoryMakingPage = ({ setPageType }) => {
 
   const [isRecord, setIsRecord] = useState(false);
 
+  const [isText, setIsText] = useState(false);
+
   const num = useSelector(state => state.makeStory.num);
+
+  // const userText = useSelector(state => state.makeStory.userText);
+
   const dispatch = useDispatch();
 
   const _onRecordVoice = () => {
     if (isRecord) {
       Voice.stop();
       dispatch(getPageNum(num));
+      // dispatch(getUserText(storyText.userText));
     } else {
       Voice.start('ko-KR');
     }
     setIsRecord(!isRecord);
   };
 
+  // useEffect(() => {
+  //   if (userText) {
+  //     dispatch(getUserText(userText));
+  //   }
+  // }, [userText]);
+
   return (
     <MainContainer>
-      <AIStory storyText={storyText} setStoryText={setStoryText} colorEx={colorEx} setColorEx={setColorEx} />
+      <AIStory
+        storyText={storyText}
+        setStoryText={setStoryText}
+        colorEx={colorEx}
+        setColorEx={setColorEx}
+        imageDalle={imageDalle}
+        setImageDalle={setImageDalle}
+        images={images}
+        setImages={setImages}
+        isText={isText}
+        setIsText={setIsText}
+      />
       <ButtonContainer onPress={_onRecordVoice}>
         <ButtonRecord source={recordActive} />
       </ButtonContainer>

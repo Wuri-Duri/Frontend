@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTicketImage } from '../..//redux/modules/ticket';
+import { getTicketImage } from '../../modules/ticket';
 
 const Container = styled.View`
   border-radius: 20;
@@ -22,7 +22,7 @@ const SelectArea = styled.ImageBackground`
   opacity: ${props => (props.isActive === true ? '0.8' : '0.4')};
 `;
 
-const ImageItem = ({ id, imageUri, ticketInfo, setTicketInfo, imageInfo, setImageInfo }) => {
+const ImageItem = ({ id, imageUrl, ticketInfo, setTicketInfo, imageInfo, setImageInfo }) => {
   const ticketImage = useSelector(state => state.ticket.ticketImage);
   const dispatch = useDispatch();
 
@@ -37,7 +37,7 @@ const ImageItem = ({ id, imageUri, ticketInfo, setTicketInfo, imageInfo, setImag
     })),
       setImageInfo(imageInfo => ({
         ...imageInfo,
-        imageSrc: imageUri,
+        imageSrc: imageUrl,
       }));
     dispatch(getTicketImage(imageInfo));
   };
@@ -45,7 +45,7 @@ const ImageItem = ({ id, imageUri, ticketInfo, setTicketInfo, imageInfo, setImag
   return (
     <Container>
       <TouchableOpacity onPress={onPressPlaceBtn}>
-        <SelectArea source={imageUri} isActive={ticketInfo.ticketImage === id} imageInfo={imageInfo} setImageInfo={setImageInfo} />
+        <SelectArea source={imageUrl} isActive={ticketInfo.ticketImage === id} imageInfo={imageInfo} setImageInfo={setImageInfo} />
       </TouchableOpacity>
     </Container>
   );

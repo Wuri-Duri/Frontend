@@ -30,7 +30,7 @@ const InsideText = styled.Text`
   color: #ffffff;
 `;
 
-const PlaceItem = ({ id, imageUri, title, bookInfo, setBookInfo }) => {
+const PlaceItem = ({ id, imageUrl, title, bookInfo, setBookInfo }) => {
   const onPressPlaceBtn = () => {
     setBookInfo(bookInfo => ({
       ...bookInfo,
@@ -45,7 +45,7 @@ const PlaceItem = ({ id, imageUri, title, bookInfo, setBookInfo }) => {
   return (
     <Container even={parseInt(id) % 2}>
       <TouchableOpacity onPress={onPressPlaceBtn}>
-        <SelectArea source={imageUri} isActive={bookInfo.place === title}>
+        <SelectArea source={imageUrl} isActive={bookInfo.place === title}>
           <InsideText>{title}</InsideText>
         </SelectArea>
       </TouchableOpacity>

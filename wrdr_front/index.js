@@ -4,9 +4,9 @@
 import { AppRegistry } from 'react-native';
 import App from './App';
 import { name as appName } from './app.json';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
-import store from './redux/store.js';
+import store from './modules/store';
 
 const Root = () => (
   <Provider store={store}>

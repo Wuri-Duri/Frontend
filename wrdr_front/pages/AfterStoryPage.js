@@ -6,7 +6,7 @@ import ChooseTicketImage from '../components/AfterStory/ChooseTicketImage';
 import CircleButton from '../components/common/CircleButton';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getTicketImage, getTicketTitle } from '../redux/modules/ticket';
+import { getTicketImage, getTicketTitle } from '../modules/ticket';
 
 const Container = Styled.View`
   width: 100%;
@@ -15,7 +15,7 @@ const Container = Styled.View`
   bottom: 0;
 `;
 
-const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
+const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo, imageDalle, setImageDalle, images, setImages }) => {
   const [ticketInfo, setTicketInfo] = useState({
     ticketImage: [''],
     storyTitle: null,
@@ -28,7 +28,7 @@ const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
     imageSrc: null,
   });
 
-  const [title, setTitle] = useState(''); 
+  const [title, setTitle] = useState('');
 
   const [finish, setFinish] = useState(false);
   const [show, setShow] = useState(false);
@@ -41,7 +41,19 @@ const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
     <>
       <AfterStoryTitle pageType={pageType} setPageType={setPageType} show={show} setShow={setShow} />
       {pageType === 'ticketImage' ? (
-        <ChooseTicketImage pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} show={show} setShow={setShow} />
+        <ChooseTicketImage
+          pageType={pageType}
+          ticketInfo={ticketInfo}
+          setTicketInfo={setTicketInfo}
+          imageInfo={imageInfo}
+          setImageInfo={setImageInfo}
+          show={show}
+          setShow={setShow}
+          imageDalle={imageDalle}
+          setImageDalle={setImageDalle}
+          images={images}
+          setImages={setImages}
+        />
       ) : pageType === 'storyTitle' ? (
         <ChooseStoryTitle
           pageType={pageType}
@@ -53,6 +65,10 @@ const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
           setFinish={setFinish}
           title={title}
           setTitle={setTitle}
+          imageDalle={imageDalle}
+          setImageDalle={setImageDalle}
+          images={images}
+          setImages={setImages}
         />
       ) : null}
       <Container>

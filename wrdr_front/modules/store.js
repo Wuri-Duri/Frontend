@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import makeStory, { makeStorySaga } from './modules/makeStory';
-import presetStory, { presetStorySaga } from './modules/presetStory';
-import ticket, { ticketSaga } from './modules/ticket';
+import makeStory, { makeStorySaga } from './makeStory';
+import presetStory, { presetStorySaga } from './presetStory';
+import ticket, { ticketSaga } from './ticket';
 import { configureStore } from '@reduxjs/toolkit';
 import { all } from 'redux-saga/effects';
 

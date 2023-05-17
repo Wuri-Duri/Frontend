@@ -6,6 +6,7 @@ import MyLibraryPage from './pages/MyLibraryPage';
 import BottomBar from './components/common/BottomBar';
 import StoryMakingPage from './pages/StoryMakingPage';
 import AfterStoryPage from './pages/AfterStoryPage';
+import SplashScreen from 'react-native-splash-screen';
 
 import { useSelector } from 'react-redux';
 
@@ -22,8 +23,20 @@ const MainBackgroundImg = styled.ImageBackground`
 `;
 
 const App = ({ props }) => {
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 3000);
+  }, []);
+
   const [pageType, setPageType] = useState('mylibrary');
   const num = useSelector(state => state.makeStory.num);
+  const [images, setImages] = useState({
+    id: [],
+    images: [],
+  });
+
+  const [imageDalle, setImageDalle] = useState({});
 
   const [bookInfo, setBookInfo] = useState({
     characters: [],
@@ -45,13 +58,31 @@ const App = ({ props }) => {
             <BottomBar pageType={pageType} setPageType={setPageType} />
           </>
         ) : pageType === 'character' || pageType === 'place' || pageType === 'length' ? (
-          <PresetPage pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} setBookInfo={setBookInfo} />
+          <PresetPage pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} setBookInfo={setBookInfo} images={images} setImages={setImages} />
         ) : pageType === 'makestory' && bookInfo.length !== num ? (
-          <StoryMakingPage pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} setBookInfo={setBookInfo} />
+          <StoryMakingPage
+            pageType={pageType}
+            setPageType={setPageType}
+            bookInfo={bookInfo}
+            setBookInfo={setBookInfo}
+            imageDalle={imageDalle}
+            setImageDalle={setImageDalle}
+            images={images}
+            setImages={setImages}
+          />
         ) : pageType === 'makestory' && bookInfo.length === num ? (
           setPageType('ticketImage')
         ) : pageType === 'ticketImage' || pageType === 'storyTitle' ? (
-          <AfterStoryPage pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} setBookInfo={setBookInfo} />
+          <AfterStoryPage
+            pageType={pageType}
+            setPageType={setPageType}
+            bookInfo={bookInfo}
+            setBookInfo={setBookInfo}
+            imageDalle={imageDalle}
+            setImageDalle={setImageDalle}
+            images={images}
+            setImages={setImages}
+          />
         ) : (
           ''
         )}

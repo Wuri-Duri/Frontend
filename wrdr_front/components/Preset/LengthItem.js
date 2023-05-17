@@ -16,7 +16,7 @@ const IconText = styled.Text`
   margin-top: 30;
 `;
 
-const LengthItem = ({ id, imageUri, title, bookInfo, setBookInfo }) => {
+const LengthItem = ({ id, imageUrl, title, bookInfo, setBookInfo }) => {
   const onPressLenBtn = () => {
     setBookInfo(bookInfo => ({
       ...bookInfo,
@@ -30,7 +30,7 @@ const LengthItem = ({ id, imageUri, title, bookInfo, setBookInfo }) => {
 
   return (
     <SelectArea isActive={bookInfo.length == id} onPress={onPressLenBtn}>
-      <Image source={imageUri} />
+      <Image source={imageUrl} />
       <IconText>{title}</IconText>
     </SelectArea>
   );

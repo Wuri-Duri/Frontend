@@ -3,7 +3,7 @@ import { ScrollView, View, Image, StyleSheet, TouchableOpacity } from 'react-nat
 import styled from 'styled-components/native';
 import LengthItem from './LengthItem';
 
-const Conatiner = styled.View`
+const Container = styled.View`
   width: 100%;
   height: 65%;
   flex-direction: row;
@@ -14,19 +14,19 @@ const Conatiner = styled.View`
   padding-bottom: 180;
 `;
 
-const SetLength = ({ bookInfo, setBookInfo }) => {
+const SetLength = ({ bookInfo, setBookInfo, presetFinish }) => {
   const lengthList = [
-    { key: 2, image: require('../../assets/Preset/SetLength/len1.png'), title: '짧은 이야기' },
+    { key: 3, image: require('../../assets/Preset/SetLength/len1.png'), title: '짧은 이야기' },
     { key: 14, image: require('../../assets/Preset/SetLength/len2.png'), title: '중간 이야기' },
     { key: 18, image: require('../../assets/Preset/SetLength/len3.png'), title: '긴 이야기' },
   ];
 
   return (
-    <Conatiner>
+    <Container>
       {lengthList.map(length => (
-        <LengthItem key={length.key} id={length.key} imageUri={length.image} title={length.title} bookInfo={bookInfo} setBookInfo={setBookInfo} />
+        <LengthItem key={length.key} id={length.key} imageUrl={length.image} title={length.title} bookInfo={bookInfo} setBookInfo={setBookInfo} />
       ))}
-    </Conatiner>
+    </Container>
   );
 };
 

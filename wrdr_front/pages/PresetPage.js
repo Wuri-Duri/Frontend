@@ -8,7 +8,7 @@ import SetLength from '../components/Preset/SetLength';
 import CircleButton from '../components/common/CircleButton';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getPreCharInfo, getPreBgInfo, getPreLenInfo } from '../redux/modules/presetStory';
+import { getPreCharInfo, getPreBgInfo, getPreLenInfo } from '../modules/presetStory';
 
 // import { useSelector, useDispatch } from 'react-redux';
 // import { getPreInfo } from '../redux/modules/presetStory';
@@ -20,13 +20,22 @@ const Container = styled.View`
   bottom: 0;
 `;
 
+const FinSplash = styled.ImageBackground`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+`;
+
 const PresetPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
   const character = useSelector(state => state.presetStory.character);
   const place = useSelector(state => state.presetStory.place);
   const length = useSelector(state => state.presetStory.length);
+
+  const [presetFinish, setPresetFinish] = useState(false);
+
   // console.log('char: ', character);
   // console.log('bg: ', place);
-  console.log('len: ', length);
+  // console.log('len: ', length);
   const dispatch = useDispatch();
 
   // const [bookInfo, setBookInfo] = useState({
@@ -42,9 +51,8 @@ const PresetPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
   dispatch(getPreCharInfo(bookInfo.characters));
   dispatch(getPreBgInfo(bookInfo.place));
   dispatch(getPreLenInfo(bookInfo.length));
-  console.log(bookInfo);
 
-  return (
+  return !presetFinish ? (
     <>
       <NavBar pageType={pageType} setPageType={setPageType} />
       <Title pageType={pageType} />
@@ -53,12 +61,14 @@ const PresetPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
       ) : pageType === 'place' ? (
         <SetBackground bookInfo={bookInfo} setBookInfo={setBookInfo} />
       ) : pageType === 'length' ? (
-        <SetLength bookInfo={bookInfo} setBookInfo={setBookInfo} />
+        <SetLength bookInfo={bookInfo} setBookInfo={setBookInfo} presetFinish={presetFinish} setPresetFinish={setPresetFinish} />
       ) : null}
       <Container>
-        <CircleButton pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} />
+        <CircleButton pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} presetFinish={presetFinish} setPresetFinish={setPresetFinish} />
       </Container>
     </>
+  ) : (
+    <FinSplash source={require('../assets/flyRocket.gif')} />
   );
 };
 

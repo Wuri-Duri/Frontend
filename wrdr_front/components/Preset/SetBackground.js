@@ -33,7 +33,7 @@ const SelectBackground = ({ bookInfo, setBookInfo }) => {
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <InsideContainer>
           {places.map(place => (
-            <PlaceItem key={place.key} id={place.key} imageUri={place.image} title={place.title} bookInfo={bookInfo} setBookInfo={setBookInfo} />
+            <PlaceItem key={place.key} id={place.key} imageUrl={place.image} title={place.title} bookInfo={bookInfo} setBookInfo={setBookInfo} />
           ))}
         </InsideContainer>
       </ScrollView>

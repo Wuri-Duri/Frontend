@@ -6,9 +6,10 @@ import check from '../../assets/BottomBar/BottomBar_button_check.png';
 import home from '../../assets/BottomBar/BottomBar_button_home.png';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { initText } from '../../redux/modules/makeStory';
-import { initPreset } from '../../redux/modules/presetStory';
-import { getTicketIdx } from '../../redux/modules/ticket';
+import { initText, getAIText, getStoryImage } from '../../modules/makeStory';
+import { initPreset } from '../../modules/presetStory';
+import { getTicketIdx } from '../../modules/ticket';
+import { requestPAPAGOAPI, requestDALLEAPI } from '../../lib/api/fairytale';
 
 import axios from 'axios';
 
@@ -38,16 +39,28 @@ const Icon = styled.Image`
   resize-mode: contain;
 `;
 
-const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, ticketInfo, setTicketInfo, size, disabled, finish, setFinish, show, title, setTitle, isTitle, setIsTitle }) => {
-  const num = useSelector(state => state.makeStory.num);
-  const userText = useSelector(state => state.makeStory.userText);
-  const aiText = useSelector(state => state.makeStory.aiText);
-
-  const character = useSelector(state => state.presetStory.character);
-  const place = useSelector(state => state.presetStory.place);
-  const length = useSelector(state => state.presetStory.length);
-
-  const ticketIdx = useSelector(state => state.ticket.ticketIdx);
+const MainButton = ({
+  pageType,
+  setPageType,
+  bookInfo,
+  setBookInfo,
+  ticketInfo,
+  setTicketInfo,
+  size,
+  disabled,
+  finish,
+  setFinish,
+  show,
+  title,
+  setTitle,
+  isTitle,
+  setIsTitle,
+  presetFinish,
+  setPresetFinish,
+}) => {
+  const aiMadeText = useSelector(state => state.makeStory.aiText);
+  const charName = useSelector(state => state.presetStory.character);
+  const bg = useSelector(state => state.presetStory.place);
 
   const dispatch = useDispatch();
 
@@ -72,7 +85,45 @@ const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, ticketInfo, 
         })
         .catch(error => console.log(error));
 
-      setPageType('makestory');
+      axios
+        .post(
+          'https://clovastudio.apigw.ntruss.com/testapp/v1/tasks/5s80qqmj/completions/LK-D',
+          {
+            topK: 4,
+            includeProbs: false,
+            includeTokens: false,
+            restart: '',
+            includeAiFilters: true,
+            maxTokens: 300,
+            temperature: 0.85,
+            start: '',
+            stopBefore: ['<|endoftext|>'],
+            text: '인물:' + charName.map(character => character.name) + '배경:' + bg,
+            repeatPenalty: 5.0,
+            topP: 0.8,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'X-NCP-CLOVASTUDIO-API-KEY': `NTA0MjU2MWZlZTcxNDJiYzd8M2hRTH/NiK082823And3UOASW+DXQBDDOp+RjuZ6NRTFb7rENlqe8NRNt1N/3/5LE3j+hU42w7PldHnbAr5SZBhNJVQek38HrnjDxrdPUEc7iJQ7KrEp8SggQJVqc0l+hUKywMcZ8GrCWhNyh8thvGf2LXAIcLdv2NNgDwMmQvhsuOFARSVfkaxuc0LRjA==`,
+              'X-NCP-APIGW-API-KEY': `bCvrbyYyvdUkLpiY9kpnSzrTNIZdEBQ1GQ4le0MC`,
+              'X-NCP-CLOVASTUDIO-REQUEST-ID': `e51fb316a1574a598e1a577bb0f91e0b`,
+            },
+          },
+        )
+        .then(async response => {
+          dispatch(getAIText(response.data.result.text));
+          // requestDALLEAPI(requestPAPAGOAPI(response.data.result.text));
+          // const translatedText = await requestPAPAGOAPI(response.data.result.text);
+          // console.log(translatedText);
+          // const madeImage = await requestDALLEAPI(await requestPAPAGOAPI(response.data.result.text));
+          // console.log(madeImage);
+        })
+        .catch(error => console.log('[FAIL] makeFirstSentence ', error));
+      setPresetFinish((presetFinish: boolean) => !presetFinish);
+      setTimeout(() => {
+        setPageType('makestory');
+      }, 3000);
     } else if (pageType === 'makestory') {
       setPageType('ticketImage');
     } else if (ticketInfo.isActive.ticketImage && pageType === 'ticketImage') {

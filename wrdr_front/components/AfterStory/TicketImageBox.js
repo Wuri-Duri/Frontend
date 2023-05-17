@@ -3,7 +3,7 @@ import Styled from 'styled-components/native';
 import { KeyboardAvoidingView, Keyboard, StyleSheet, Image, Platform } from 'react-native';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getTicketTitle } from '../../redux/modules/ticket';
+import { getTicketTitle } from '../../modules/ticket';
 
 const Container = Styled.View`
   width: 50%;
