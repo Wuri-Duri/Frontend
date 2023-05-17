@@ -11,6 +11,8 @@ import { initPreset } from '../../modules/presetStory';
 import { getTicketIdx } from '../../modules/ticket';
 import { requestPAPAGOAPI, requestDALLEAPI } from '../../lib/api/fairytale';
 
+import config from '../../config';
+
 import axios from 'axios';
 
 const HomeButtonContainer = styled.TouchableOpacity`
@@ -73,7 +75,7 @@ const MainButton = ({
       setPageType('length');
     } else if (bookInfo && bookInfo.isActive.length && pageType === 'length') {
       axios
-        .post("config", {
+        .post(config.BASE_URL + '/fairytale/preset', {
           userIdx: 1,
           characters: bookInfo.characters.map(character => character.name),
           bgPlace: bookInfo.place,
@@ -87,7 +89,7 @@ const MainButton = ({
 
       axios
         .post(
-          "config",
+          config.CLOVASTUDIO_URL,
           {
             topK: 4,
             includeProbs: false,
@@ -104,7 +106,10 @@ const MainButton = ({
           },
           {
             headers: {
-              "config"
+              'Content-Type': 'application/json',
+              'X-NCP-CLOVASTUDIO-API-KEY': config.CLOVASTUDIO_API_KEY,
+              'X-NCP-APIGW-API-KEY': config.APIGW_API_KEY,
+              'X-NCP-CLOVASTUDIO-REQUEST-ID': config.CLOVASTUDIO_REQUEST_ID,
             },
           },
         )
@@ -120,7 +125,7 @@ const MainButton = ({
       setPresetFinish((presetFinish: boolean) => !presetFinish);
       setTimeout(() => {
         setPageType('makestory');
-      }, 3000);
+      }, 4000);
     } else if (pageType === 'makestory') {
       setPageType('ticketImage');
     } else if (ticketInfo.isActive.ticketImage && pageType === 'ticketImage') {
@@ -128,7 +133,7 @@ const MainButton = ({
       setPageType('storyTitle');
     } else if (ticketInfo.isActive.storyTitle && pageType === 'storyTitle') {
       axios
-        .post("config", {
+        .post(config.BASE_URL + '/fairytale/createcover', {
           ticketIdx: 1,
           title: ticketInfo.storyTitle,
           coverImage: ticketInfo.ticketImage,
