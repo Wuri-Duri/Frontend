@@ -1,5 +1,6 @@
 // import API from './api';
 import axios from 'axios';
+import config from '../../config';
 
 // const getMyTickets = async () => {
 //   try {
@@ -51,7 +52,7 @@ import axios from 'axios';
 export const requestPAPAGOAPI = async madeText => {
   try {
     const response = await axios.post(
-      '"config"',
+      config.PAPAGO_URL,
       {
         source: 'ko',
         target: 'en',
@@ -59,7 +60,9 @@ export const requestPAPAGOAPI = async madeText => {
       },
       {
         headers: {
-          "config"
+          'Content-Type': `application/x-www-form-urlencoded; charset=UTF-8`,
+          'X-Naver-Client-Id': config.PAPAGO_ID,
+          'X-Naver-Client-Secret': config.PAPAGO_SECRET,
         },
       },
     );
@@ -71,7 +74,7 @@ export const requestPAPAGOAPI = async madeText => {
 export const requestDALLEAPI = async engText => {
   try {
     const response = await axios.post(
-      "config",
+      config.DALLE_URL,
       {
         prompt: engText + 'in oil painting, without any character',
         n: 1,
@@ -79,7 +82,8 @@ export const requestDALLEAPI = async engText => {
       },
       {
         headers: {
-         "config",
+          'Content-Type': 'application/json',
+          Authorization: config.DALLE_AUTHORIZATION,
         },
       },
     );
@@ -88,35 +92,3 @@ export const requestDALLEAPI = async engText => {
     console.error('Dalle API request fail: ', e);
   }
 };
-
-// export const makeFirstSentence = async () => {
-//   try {
-//     const response = await axios.post(
-//       'https://clovastudio.apigw.ntruss.com/testapp/v1/tasks/5s80qqmj/completions/LK-D',
-//       {
-//         topK: 4,
-//         includeProbs: false,
-//         includeTokens: false,
-//         restart: '',
-//         includeAiFilters: true,
-//         maxTokens: 300,
-//         temperature: 0.85,
-//         start: '',
-//         stopBefore: ['<|endoftext|>'],
-//         text: '인물:' + bookInfo.characters.map(character => character.name) + '배경:' + bookInfo.place,
-//         repeatPenalty: 5.0,
-//         topP: 0.8,
-//       },
-//       {
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'X-NCP-CLOVASTUDIO-API-KEY': `NTA0MjU2MWZlZTcxNDJiYzd8M2hRTH/NiK082823And3UOASW+DXQBDDOp+RjuZ6NRTFb7rENlqe8NRNt1N/3/5LE3j+hU42w7PldHnbAr5SZBhNJVQek38HrnjDxrdPUEc7iJQ7KrEp8SggQJVqc0l+hUKywMcZ8GrCWhNyh8thvGf2LXAIcLdv2NNgDwMmQvhsuOFARSVfkaxuc0LRjA==`,
-//           'X-NCP-APIGW-API-KEY': `bCvrbyYyvdUkLpiY9kpnSzrTNIZdEBQ1GQ4le0MC`,
-//           'X-NCP-CLOVASTUDIO-REQUEST-ID': `e51fb316a1574a598e1a577bb0f91e0b`,
-//         },
-//       },
-//     );
-//   } catch (e) {
-//     console.log('[FAIL] makeFirstSentence: ', e);
-//   }
-// };
