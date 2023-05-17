@@ -18,7 +18,7 @@ const MyLibraryPage = ({ pageType, setPageType }) => {
 
   const getMyTickets = async () => {
     try {
-      const { data } = await axios.get('http://52.79.115.87:3000/fairytale/main/1');
+      const { data } = await axios.get("config");
       console.log('[success] getMyTickets ', data.data);
       setTickets(data.data);
     } catch (error) {

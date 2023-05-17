@@ -51,7 +51,7 @@ import axios from 'axios';
 export const requestPAPAGOAPI = async madeText => {
   try {
     const response = await axios.post(
-      'https://openapi.naver.com/v1/papago/n2mt',
+      '"config"',
       {
         source: 'ko',
         target: 'en',
@@ -59,9 +59,7 @@ export const requestPAPAGOAPI = async madeText => {
       },
       {
         headers: {
-          'Content-Type': `application/x-www-form-urlencoded; charset=UTF-8`,
-          'X-Naver-Client-Id': `cilZfUeALghqIn3MKQEF`,
-          'X-Naver-Client-Secret': `l70w3RgbKM`,
+          "config"
         },
       },
     );
@@ -73,7 +71,7 @@ export const requestPAPAGOAPI = async madeText => {
 export const requestDALLEAPI = async engText => {
   try {
     const response = await axios.post(
-      'https://api.openai.com/v1/images/generations',
+      "config",
       {
         prompt: engText + 'in oil painting, without any character',
         n: 1,
@@ -81,8 +79,7 @@ export const requestDALLEAPI = async engText => {
       },
       {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer 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`,
+         "config",
         },
       },
     );

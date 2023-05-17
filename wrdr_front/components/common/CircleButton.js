@@ -73,7 +73,7 @@ const MainButton = ({
       setPageType('length');
     } else if (bookInfo && bookInfo.isActive.length && pageType === 'length') {
       axios
-        .post('http://52.79.115.87:3000/fairytale/preset', {
+        .post("config", {
           userIdx: 1,
           characters: bookInfo.characters.map(character => character.name),
           bgPlace: bookInfo.place,
@@ -87,7 +87,7 @@ const MainButton = ({
 
       axios
         .post(
-          'https://clovastudio.apigw.ntruss.com/testapp/v1/tasks/5s80qqmj/completions/LK-D',
+          "config",
           {
             topK: 4,
             includeProbs: false,
@@ -104,10 +104,7 @@ const MainButton = ({
           },
           {
             headers: {
-              'Content-Type': 'application/json',
-              'X-NCP-CLOVASTUDIO-API-KEY': `NTA0MjU2MWZlZTcxNDJiYzd8M2hRTH/NiK082823And3UOASW+DXQBDDOp+RjuZ6NRTFb7rENlqe8NRNt1N/3/5LE3j+hU42w7PldHnbAr5SZBhNJVQek38HrnjDxrdPUEc7iJQ7KrEp8SggQJVqc0l+hUKywMcZ8GrCWhNyh8thvGf2LXAIcLdv2NNgDwMmQvhsuOFARSVfkaxuc0LRjA==`,
-              'X-NCP-APIGW-API-KEY': `bCvrbyYyvdUkLpiY9kpnSzrTNIZdEBQ1GQ4le0MC`,
-              'X-NCP-CLOVASTUDIO-REQUEST-ID': `e51fb316a1574a598e1a577bb0f91e0b`,
+              "config"
             },
           },
         )
@@ -131,7 +128,7 @@ const MainButton = ({
       setPageType('storyTitle');
     } else if (ticketInfo.isActive.storyTitle && pageType === 'storyTitle') {
       axios
-        .post('http://52.79.115.87:3000/fairytale/createcover', {
+        .post("config", {
           ticketIdx: 1,
           title: ticketInfo.storyTitle,
           coverImage: ticketInfo.ticketImage,
