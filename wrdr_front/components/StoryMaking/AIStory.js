@@ -5,8 +5,10 @@ import Voice from '@react-native-voice/voice';
 import ImageColors from 'react-native-image-colors';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getAIText, getPageNum, getStoryImage, getUserText } from '../../modules/makeStory';
-import { requestPAPAGOAPI, requestDALLEAPI } from '../../lib/api/fairytale';
+import { getAIText, getAllText, getPageNum, getStoryImage, getUserText, minusPageNum } from '../../modules/makeStory';
+import { requestPAPAGOAPI, requestDALLEAPI, grammarCorrect } from '../../lib/api/fairytale';
+
+import rerecord from '../../assets/ReRecordButton.png';
 
 import axios from 'axios';
 
@@ -58,16 +60,18 @@ const TextContainer2 = Styled.View`
   padding-right: 50;
   padding-bottom: 50;
   padding-top: 50;
+  margin-left: 50;
+  margin-right: 50;
   border-radius: 10;
   background-color: #ffffff;
   opacity: 0.6;
-  position: relative;
+  position: absolute;
 `;
 
 const AIText = Styled.Text`
   position: relative;
   color: #ffffff;
-  font-align: center;
+  text-align: center;
   font-size: 35;
   font-weight: bold;
   margin-left: 40;
@@ -81,17 +85,58 @@ const ImageView = Styled.View`
   background-color: #1d1d1d;
 `;
 
-const AIStory = ({ storyText, setStoryText, colorEx, setColorEx, imageDalle, setImageDalle, images, setImages, isText, setIsText }) => {
-  const finUserText = useSelector(state => state.makeStory.userText);
+const GuideText = Styled.Text`
+  color: #ffffff;
+  font-size: 35;
+  font-weight: bold;
+  padding-bottom: 400;
+`;
+
+const RerecordButton = Styled.Image`
+color: #ffffff;
+size: 1;
+width: 210px;
+height: 70px;
+`;
+
+const ButtonContainer = Styled.TouchableOpacity`
+  position: absolute;
+  padding-top: 400;
+ 
+`;
+
+const AIStory = ({
+  change,
+  setChange,
+  recordFinish,
+  setRecordFinish,
+  storyText,
+  setStoryText,
+  colorEx,
+  setColorEx,
+  imageDalle,
+  setImageDalle,
+  images,
+  setImages,
+  isText,
+  setIsText,
+  isRecord,
+  setIsRecord,
+  grammar,
+  setGrammar,
+  doubleChange,
+  setDoubleChange,
+}) => {
+  const UserMadeText = useSelector(state => state.makeStory.userText);
   const AIMadeText = useSelector(state => state.makeStory.aiText);
   const dalleImage = useSelector(state => state.makeStory.dalleUrl);
   const num = useSelector(state => state.makeStory.num);
+  const stackedText = useSelector(state => state.makeStory.allText);
 
   const dispatch = useDispatch();
 
   const [textChange, setTextChange] = useState(false);
   const [engText, setEngText] = useState();
-  const [isRecord, setIsRecord] = useState(false);
   const [speakingText, setSpeakingText] = useState('');
 
   const voiceLabel = speakingText ? speakingText : '       녹음 버튼을 눌러\n다음 문장을 말해보세요!';
@@ -131,12 +176,14 @@ const AIStory = ({ storyText, setStoryText, colorEx, setColorEx, imageDalle, set
     }
   }, [textChange]);
 
-  useEffect(() => {
-    if (finUserText) {
-      setEngText(requestPAPAGOAPI(finUserText));
-      dispatch(getStoryImage(requestDALLEAPI(engText)));
-    }
-  }, [finUserText]);
+  // useEffect(() => {
+  //   if (UserMadeText) {
+  //     setGrammar(grammarCorrect(UserMadeText));
+  //     dispatch(getUserText(grammarCorrect(UserMadeText)._j));
+  //     // setEngText(requestPAPAGOAPI(grammar));
+  //     // dispatch(getStoryImage(requestDALLEAPI(engText)));
+  //   }
+  // }, [UserMadeText]);
 
   const _onSpeechError = event => {
     console.log('_onSpeechError');
@@ -159,22 +206,51 @@ const AIStory = ({ storyText, setStoryText, colorEx, setColorEx, imageDalle, set
   //     setIsText(!isText);
   //   }
   // });
+  const _onPressRerecord = () => {
+    setIsRecord(false);
+    setRecordFinish(false);
+    setSpeakingText();
+  };
 
   return (
     <>
-      <Container source={require('../../assets/forestBg.png')}>
-        <TextView1>
-          <TextContainer1>
-            <AIText>{AIMadeText}</AIText>
-          </TextContainer1>
-        </TextView1>
+      {!change ? (
+        <Container src={dalleImage}>
+          <TextView1>
+            <TextContainer1>
+              <AIText>{AIMadeText}</AIText>
+            </TextContainer1>
+          </TextView1>
 
-        <TextView2>
-          <TextContainer2>
-            <VoiceText multiline={true}>{voiceLabel}</VoiceText>
-          </TextContainer2>
-        </TextView2>
-      </Container>
+          <TextView2>
+            {recordFinish ? <GuideText>박스를 클릭하면 수정할 수 있어요!</GuideText> : ''}
+            <TextContainer2>
+              <VoiceText multiline={true}>{doubleChange ? '       녹음 버튼을 눌러\n다음 문장을 말해보세요!' : voiceLabel}</VoiceText>
+            </TextContainer2>
+            {recordFinish ? (
+              <ButtonContainer onPress={_onPressRerecord}>
+                <RerecordButton source={rerecord} />
+              </ButtonContainer>
+            ) : (
+              ''
+            )}
+          </TextView2>
+        </Container>
+      ) : (
+        <Container src={dalleImage}>
+          <TextView2>
+            <TextContainer2>
+              <VoiceText multiline={true}>{UserMadeText}</VoiceText>
+            </TextContainer2>
+          </TextView2>
+
+          <TextView1>
+            <TextContainer1>
+              <AIText>{AIMadeText}</AIText>
+            </TextContainer1>
+          </TextView1>
+        </Container>
+      )}
     </>
   );
 };

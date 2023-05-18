@@ -6,7 +6,7 @@ import check from '../../assets/BottomBar/BottomBar_button_check.png';
 import home from '../../assets/BottomBar/BottomBar_button_home.png';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { initText, getAIText, getStoryImage } from '../../modules/makeStory';
+import { initText, getAIText, getStoryImage, getPageNum, getAllText } from '../../modules/makeStory';
 import { initPreset } from '../../modules/presetStory';
 import { getTicketIdx } from '../../modules/ticket';
 import { requestPAPAGOAPI, requestDALLEAPI } from '../../lib/api/fairytale';
@@ -59,10 +59,15 @@ const MainButton = ({
   setIsTitle,
   presetFinish,
   setPresetFinish,
+  rocketFinish,
+  setRocketFinish,
+  showTextFinish,
+  setShowTextFinish,
 }) => {
   const aiMadeText = useSelector(state => state.makeStory.aiText);
   const charName = useSelector(state => state.presetStory.character);
   const bg = useSelector(state => state.presetStory.place);
+  const num = useSelector(state => state.makeStory.num);
 
   const dispatch = useDispatch();
 
@@ -115,17 +120,24 @@ const MainButton = ({
         )
         .then(async response => {
           dispatch(getAIText(response.data.result.text));
+          dispatch(getAllText(response.data.result.text));
           // requestDALLEAPI(requestPAPAGOAPI(response.data.result.text));
           // const translatedText = await requestPAPAGOAPI(response.data.result.text);
           // console.log(translatedText);
-          // const madeImage = await requestDALLEAPI(await requestPAPAGOAPI(response.data.result.text));
-          // console.log(madeImage);
+          const madeImage = await requestDALLEAPI(await requestPAPAGOAPI(response.data.result.text));
+          console.log(madeImage);
+          dispatch(getStoryImage(madeImage));
         })
         .catch(error => console.log('[FAIL] makeFirstSentence ', error));
+
       setPresetFinish((presetFinish: boolean) => !presetFinish);
+
       setTimeout(() => {
-        setPageType('makestory');
-      }, 4000);
+        setRocketFinish(!rocketFinish); //3초 뒤에 실행하라
+        setTimeout(() => {
+          setPageType('makestory');
+        }, 7000);
+      }, 3000);
     } else if (pageType === 'makestory') {
       setPageType('ticketImage');
     } else if (ticketInfo.isActive.ticketImage && pageType === 'ticketImage') {
@@ -177,8 +189,6 @@ const MainButton = ({
         <ButtonContainer isActive={bookInfo.isActive.length} pageType={pageType}>
           <Icon source={check} />
         </ButtonContainer>
-      ) : pageType === 'preRocket' ? (
-        ''
       ) : pageType === 'mylibrary' ? (
         <ButtonContainer isActive={true}>
           <Icon source={plus} />

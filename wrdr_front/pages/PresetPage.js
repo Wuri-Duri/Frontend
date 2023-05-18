@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import NavBar from '../components/Preset/NavBar';
 import Title from '../components/Preset/Title';
@@ -26,12 +26,21 @@ const FinSplash = styled.ImageBackground`
   height: 100%;
 `;
 
+const FinText = styled.Text`
+  font-size: 47;
+  font-weight: bold;
+  text-align: center;
+  color: #ffffff;
+`;
+
 const PresetPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
   const character = useSelector(state => state.presetStory.character);
   const place = useSelector(state => state.presetStory.place);
   const length = useSelector(state => state.presetStory.length);
 
   const [presetFinish, setPresetFinish] = useState(false);
+  const [rocketFinish, setRocketFinish] = useState(false);
+  const [showTextFinish, setShowTextFinish] = useState(false);
 
   // console.log('char: ', character);
   // console.log('bg: ', place);
@@ -64,11 +73,25 @@ const PresetPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
         <SetLength bookInfo={bookInfo} setBookInfo={setBookInfo} presetFinish={presetFinish} setPresetFinish={setPresetFinish} />
       ) : null}
       <Container>
-        <CircleButton pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} presetFinish={presetFinish} setPresetFinish={setPresetFinish} />
+        <CircleButton
+          pageType={pageType}
+          setPageType={setPageType}
+          bookInfo={bookInfo}
+          presetFinish={presetFinish}
+          setPresetFinish={setPresetFinish}
+          rocketFinish={rocketFinish}
+          setRocketFinish={setRocketFinish}
+          showTextFinish={showTextFinish}
+          setShowTextFinish={setShowTextFinish}
+        />
       </Container>
     </>
-  ) : (
+  ) : presetFinish && !rocketFinish ? (
     <FinSplash source={require('../assets/flyRocket.gif')} />
+  ) : presetFinish && rocketFinish ? (
+    <FinText>준비가 끝났어요!{'\n'}새로운 이야기 행성으로 떠나볼까요?</FinText>
+  ) : (
+    ''
   );
 };
 

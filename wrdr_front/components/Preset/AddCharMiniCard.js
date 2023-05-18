@@ -17,15 +17,74 @@ const AddCharMiniCard = ({ isSelected, setIsSelected, bookInfo, setBookInfo }) =
     //얘 눌렀을 때 서버에 랜덤한 캐릭터 정보 요청해야
     //지금은 서버 연결 안 했으니까 수동으로 바꿔볼게요
 
-    const newItem = {
-      bookTitle: '겨울왕국',
-      name: '안나',
-      image: require('../../assets/Preset/SetCharacter/anna.png'),
-    };
+    const newItem = [
+      {
+        bookTitle: '콩쥐팥쥐',
+        name: '콩쥐',
+        image: require('../../assets/Preset/SetCharacter/anna.png'),
+      },
+      {
+        bookTitle: '흥부와 놀부',
+        name: '흥부',
+        image: require('../../assets/Preset/SetCharacter/anna.png'),
+      },
+      {
+        bookTitle: '심청전',
+        name: '심청',
+        image: require('../../assets/Preset/SetCharacter/anna.png'),
+      },
+      {
+        bookTitle: '도깨비 방망이',
+        name: '도깨비',
+        image: require('../../assets/Preset/SetCharacter/anna.png'),
+      },
+      {
+        bookTitle: '선녀와 나무꾼',
+        name: '나무꾼',
+        image: require('../../assets/Preset/SetCharacter/anna.png'),
+      },
+      {
+        bookTitle: '피터팬',
+        name: '피터팬',
+        image: require('../../assets/Preset/SetCharacter/anna.png'),
+      },
+      {
+        bookTitle: '신데렐라',
+        name: '신데렐라',
+        image: require('../../assets/Preset/SetCharacter/anna.png'),
+      },
+      {
+        bookTitle: '인어공주',
+        name: '인어공주',
+        image: require('../../assets/Preset/SetCharacter/anna.png'),
+      },
+      {
+        bookTitle: '백설공주',
+        name: '백설공주',
+        image: require('../../assets/Preset/SetCharacter/anna.png'),
+      },
+      {
+        bookTitle: '피노키오',
+        name: '피노키오',
+        image: require('../../assets/Preset/SetCharacter/anna.png'),
+      },
+      {
+        bookTitle: '라푼젤',
+        name: '라푼젤',
+        image: require('../../assets/Preset/SetCharacter/anna.png'),
+      },
+      {
+        bookTitle: '알라딘',
+        name: '알라딘',
+        image: require('../../assets/Preset/SetCharacter/anna.png'),
+      },
+    ];
+
+    const randomItem = newItem[Math.floor(Math.random() * newItem.length)];
 
     setBookInfo(bookInfo => ({
       ...bookInfo,
-      characters: [...bookInfo.characters, newItem],
+      characters: [...bookInfo.characters, randomItem],
       isActive: {
         ...bookInfo.isActive,
         character: true,
