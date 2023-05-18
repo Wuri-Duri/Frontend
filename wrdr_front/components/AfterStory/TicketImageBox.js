@@ -68,7 +68,7 @@ const TitleInput = Styled.TextInput`
   font-family:'Jalnan';
 `;
 
-const TicketImageBox = ({ ticketInfo, pageType, imageInfo, setTicketInfo, title, setTitle }) => {
+const TicketImageBox = ({ ticketInfo, pageType, setTicketInfo, title, setTitle }) => {
   // const [title, setTitle] = useState('');
   // const [hasKeyboard, setHasKeyboard] = useState(false);
   // const shownKeyboard = () => {
@@ -95,6 +95,7 @@ const TicketImageBox = ({ ticketInfo, pageType, imageInfo, setTicketInfo, title,
 
   const dispatch = useDispatch();
   const storyTitle = useSelector(state => state.ticket.ticketImage);
+
   return (
     <>
       <Container>
@@ -109,7 +110,7 @@ const TicketImageBox = ({ ticketInfo, pageType, imageInfo, setTicketInfo, title,
             {'\n'}선택해주세요!
           </TicketViewText>
         ) : ticketInfo.isActive.ticketImage ? (
-          <Image style={styles.TicketViewImage} source={imageInfo.imageSrc} />
+          <Image style={styles.TicketViewImage} src={ticketInfo.ticketImage} />
         ) : (
           ''
         )}

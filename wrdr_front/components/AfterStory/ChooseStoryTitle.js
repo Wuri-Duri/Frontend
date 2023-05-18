@@ -17,11 +17,11 @@ const FinSplash = Styled.ImageBackground`
 
 `;
 
-const ChooseStoryTitle = ({ pageType, setPageType, ticketInfo, setTicketInfo, imageInfo, setImageInfo, finish, setFinish, title, setTitle }) => {
+const ChooseStoryTitle = ({ pageType, setPageType, ticketInfo, setTicketInfo, finish, setFinish, title, setTitle }) => {
   return (
     <>
       <KeyboardAvoidingView style={styles.rootContainer} keyboardVerticalOffset={-60} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <TicketImageBox pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} title={title} setTitle={setTitle} />
+        <TicketImageBox pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} title={title} setTitle={setTitle} />
       </KeyboardAvoidingView>
       {finish ? <FinSplash source={require('../../assets/finishStory.gif')} /> : ''}
     </>

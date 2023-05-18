@@ -24,9 +24,6 @@ const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo, imageDal
       storyTitle: false,
     },
   });
-  const [imageInfo, setImageInfo] = useState({
-    imageSrc: null,
-  });
 
   const [title, setTitle] = useState('');
 
@@ -45,8 +42,6 @@ const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo, imageDal
           pageType={pageType}
           ticketInfo={ticketInfo}
           setTicketInfo={setTicketInfo}
-          imageInfo={imageInfo}
-          setImageInfo={setImageInfo}
           show={show}
           setShow={setShow}
           imageDalle={imageDalle}
@@ -59,8 +54,6 @@ const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo, imageDal
           pageType={pageType}
           ticketInfo={ticketInfo}
           setTicketInfo={setTicketInfo}
-          imageInfo={imageInfo}
-          setImageInfo={setImageInfo}
           finish={finish}
           setFinish={setFinish}
           title={title}

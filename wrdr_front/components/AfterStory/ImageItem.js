@@ -22,30 +22,27 @@ const SelectArea = styled.ImageBackground`
   opacity: ${props => (props.isActive === true ? '0.8' : '0.4')};
 `;
 
-const ImageItem = ({ id, imageUrl, ticketInfo, setTicketInfo, imageInfo, setImageInfo }) => {
+const ImageItem = ({ id, imageUrl, ticketInfo, setTicketInfo }) => {
   const ticketImage = useSelector(state => state.ticket.ticketImage);
   const dispatch = useDispatch();
 
   const onPressPlaceBtn = () => {
     setTicketInfo(ticketInfo => ({
       ...ticketInfo,
-      ticketImage: imageInfo,
+      ticketImage: imageUrl,
       isActive: {
         ...ticketInfo.isActive,
         ticketImage: true,
       },
     })),
-      setImageInfo(imageInfo => ({
-        ...imageInfo,
-        imageSrc: imageUrl,
-      }));
-    dispatch(getTicketImage(imageInfo));
+      dispatch(getTicketImage(ticketInfo.ticketImage));
   };
+  console.log('아아ㅏㅇ앙: ', ticketInfo.ticketImage);
 
   return (
     <Container>
       <TouchableOpacity onPress={onPressPlaceBtn}>
-        <SelectArea source={imageUrl} isActive={ticketInfo.ticketImage === id} imageInfo={imageInfo} setImageInfo={setImageInfo} />
+        <SelectArea src={imageUrl} isActive={ticketInfo.ticketImage === id} />
       </TouchableOpacity>
     </Container>
   );

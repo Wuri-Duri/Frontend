@@ -22,10 +22,9 @@ const StoryFin = Styled.Text`
 font-size: 28;
 `;
 
-const ChooseTicketImage = ({ id, ticketInfo, setTicketInfo, imageInfo, setImageInfo, show, setShow, imageDalle, setImageDalle }) => {
-  const images = [images];
+const ChooseTicketImage = ({ id, ticketInfo, setTicketInfo, show, setShow, imageDalle, setImageDalle }) => {
+  const images = useSelector(state => state.makeStory.allImageList);
   console.log(images);
-
   (function () {
     if (!show) {
       setTimeout(() => {
@@ -40,13 +39,13 @@ const ChooseTicketImage = ({ id, ticketInfo, setTicketInfo, imageInfo, setImageI
         <StoryFin>'우리가 만든 이야기가 완성됐어요!'</StoryFin>
       ) : (
         <Container>
-          <TicketImageBox ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
+          <TicketImageBox ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} />
           <ScrollContainer>
             <FlatList
               data={images}
               renderItem={({ item }) => (
                 <View style={{ flex: 1, flexDirection: 'column', margin: 1 }}>
-                  <ImageItem id={item.id} imageUrl={item.image} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
+                  <ImageItem id={item} imageUrl={item} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} />
                 </View>
               )}
               numColumns={3}

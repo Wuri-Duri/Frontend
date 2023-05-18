@@ -62,6 +62,7 @@ const initState = {
   num: 0,
   dalleUrl: '',
   allText: '',
+  allImageList: [],
 };
 
 //Reducer
@@ -78,7 +79,7 @@ export default function makestoryReducer(state = initState, action) {
       return { ...state, num: state.num + 1 };
     case 'makeStory/GET_STORY_IMAGE':
       // console.log('reducer dalle image: ', action.dalleUrl);
-      return { ...state, dalleUrl: action.dalleUrl };
+      return { ...state, dalleUrl: action.dalleUrl, allImageList: [...state.allImageList, action.dalleUrl] };
     case 'makeStory/GET_ALL_TEXT':
       console.log('누적: ', action.allText);
       return { ...state, allText: action.allText };
