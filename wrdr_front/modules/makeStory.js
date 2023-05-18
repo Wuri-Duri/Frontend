@@ -74,7 +74,7 @@ export default function makestoryReducer(state = initState, action) {
       console.log('reducer에 들어와쓰: ', action.userText);
       return { ...state, userText: action.userText };
     case 'makeStory/GET_PAGE_NUM':
-      // console.log('reducer page num: ', state.num);
+      console.log('reducer page num: ', state.num);
       return { ...state, num: state.num + 1 };
     case 'makeStory/GET_STORY_IMAGE':
       // console.log('reducer dalle image: ', action.dalleUrl);

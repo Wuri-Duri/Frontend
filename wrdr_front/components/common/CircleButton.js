@@ -47,24 +47,17 @@ const MainButton = ({
   bookInfo,
   setBookInfo,
   ticketInfo,
-  setTicketInfo,
+
   size,
   disabled,
   finish,
   setFinish,
   show,
-  title,
-  setTitle,
-  isTitle,
-  setIsTitle,
-  presetFinish,
+
   setPresetFinish,
   rocketFinish,
   setRocketFinish,
-  showTextFinish,
-  setShowTextFinish,
 }) => {
-  const aiMadeText = useSelector(state => state.makeStory.aiText);
   const charName = useSelector(state => state.presetStory.character);
   const bg = useSelector(state => state.presetStory.place);
   const num = useSelector(state => state.makeStory.num);
@@ -121,9 +114,7 @@ const MainButton = ({
         .then(async response => {
           dispatch(getAIText(response.data.result.text));
           dispatch(getAllText(response.data.result.text));
-          // requestDALLEAPI(requestPAPAGOAPI(response.data.result.text));
-          // const translatedText = await requestPAPAGOAPI(response.data.result.text);
-          // console.log(translatedText);
+
           const madeImage = await requestDALLEAPI(await requestPAPAGOAPI(response.data.result.text));
           console.log(madeImage);
           dispatch(getStoryImage(madeImage));

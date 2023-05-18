@@ -43,6 +43,7 @@ const TextView2 = Styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
+  display: ${props => (props.isShow ? 'none' : 'flex')};
  
 `;
 
@@ -92,6 +93,11 @@ const GuideText = Styled.Text`
   padding-bottom: 400;
 `;
 
+const GuideTextContainer = Styled.View`
+  background-color: #000000;
+  opacity: 0.6;
+`;
+
 const RerecordButton = Styled.Image`
 color: #ffffff;
 size: 1;
@@ -107,46 +113,26 @@ const ButtonContainer = Styled.TouchableOpacity`
 
 const AIStory = ({
   change,
-  setChange,
+
   recordFinish,
   setRecordFinish,
-  storyText,
-  setStoryText,
-  colorEx,
-  setColorEx,
-  imageDalle,
-  setImageDalle,
-  images,
-  setImages,
-  isText,
-  setIsText,
-  isRecord,
+
   setIsRecord,
-  grammar,
-  setGrammar,
-  doubleChange,
-  setDoubleChange,
+
+  speakingText,
+  setSpeakingText,
+  lastCall,
+  setLastCall,
 }) => {
   const UserMadeText = useSelector(state => state.makeStory.userText);
   const AIMadeText = useSelector(state => state.makeStory.aiText);
   const dalleImage = useSelector(state => state.makeStory.dalleUrl);
-  const num = useSelector(state => state.makeStory.num);
-  const stackedText = useSelector(state => state.makeStory.allText);
 
   const dispatch = useDispatch();
 
   const [textChange, setTextChange] = useState(false);
-  const [engText, setEngText] = useState();
-  const [speakingText, setSpeakingText] = useState('');
 
   const voiceLabel = speakingText ? speakingText : '       녹음 버튼을 눌러\n다음 문장을 말해보세요!';
-
-  // //이미지로부터 색상 추출
-  // const color = ImageColors.getColors(imageDalle, {
-  //   fallback: '#000000',
-  //   cache: true,
-  //   key: 'unique_key',
-  // });
 
   const _onSpeechStart = () => {
     console.log('onSpeechStart');
@@ -160,30 +146,16 @@ const AIStory = ({
 
   const _onSpeechEnd = () => {
     console.log('onSpeechEnd');
-    // setColorEx(colorEx => ({
-    //   ...colorEx,
-    //   background: color._j.background,
-    //   primary: color._j.primary,
-    //   secondary: color._j.secondary,
-    //   detail: color._j.detail,
-    // }));
+
     setTextChange(!textChange);
   };
 
   useEffect(() => {
     if (textChange) {
+      setTextChange(!textChange);
       dispatch(getUserText(voiceLabel));
     }
   }, [textChange]);
-
-  // useEffect(() => {
-  //   if (UserMadeText) {
-  //     setGrammar(grammarCorrect(UserMadeText));
-  //     dispatch(getUserText(grammarCorrect(UserMadeText)._j));
-  //     // setEngText(requestPAPAGOAPI(grammar));
-  //     // dispatch(getStoryImage(requestDALLEAPI(engText)));
-  //   }
-  // }, [UserMadeText]);
 
   const _onSpeechError = event => {
     console.log('_onSpeechError');
@@ -201,15 +173,10 @@ const AIStory = ({
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (AIMadeText) {
-  //     setIsText(!isText);
-  //   }
-  // });
   const _onPressRerecord = () => {
     setIsRecord(false);
     setRecordFinish(false);
-    setSpeakingText();
+    setSpeakingText('');
   };
 
   return (
@@ -222,10 +189,10 @@ const AIStory = ({
             </TextContainer1>
           </TextView1>
 
-          <TextView2>
+          <TextView2 isShow={lastCall}>
             {recordFinish ? <GuideText>박스를 클릭하면 수정할 수 있어요!</GuideText> : ''}
             <TextContainer2>
-              <VoiceText multiline={true}>{doubleChange ? '       녹음 버튼을 눌러\n다음 문장을 말해보세요!' : voiceLabel}</VoiceText>
+              <VoiceText multiline={true}>{voiceLabel}</VoiceText>
             </TextContainer2>
             {recordFinish ? (
               <ButtonContainer onPress={_onPressRerecord}>
@@ -240,7 +207,9 @@ const AIStory = ({
         <Container src={dalleImage}>
           <TextView2>
             <TextContainer2>
-              <VoiceText multiline={true}>{UserMadeText}</VoiceText>
+              <VoiceText multiline={true} editable={false}>
+                {UserMadeText}
+              </VoiceText>
             </TextContainer2>
           </TextView2>
 

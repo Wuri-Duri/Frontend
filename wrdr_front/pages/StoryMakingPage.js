@@ -9,8 +9,7 @@ import nextButton from '../assets/nextButton.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllText, getPageNum, getUserText, getStoryImage, getAIText } from '../modules/makeStory';
 
-import { grammarCorrect, postStoryText, requestMiddleSentence } from '../lib/api/fairytale';
-import { requestDALLEAPI, requestPAPAGOAPI } from '../lib/api/fairytale';
+import { grammarCorrect, postStoryText, requestMiddleSentence, requestLastSentence, requestDALLEAPI, requestPAPAGOAPI } from '../lib/api/fairytale';
 
 import { Animated, Easing } from 'react-native';
 
@@ -57,7 +56,7 @@ const HomeButtonContainer = Styled.TouchableOpacity`
   align-self: flex-start;
 `;
 
-const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setImages }) => {
+const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setImages, bookInfo }) => {
   const [storyText, setStoryText] = useState();
 
   const [isRecord, setIsRecord] = useState(false);
@@ -65,36 +64,31 @@ const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setIm
   const [isText, setIsText] = useState(false);
   const [change, setChange] = useState(false);
   const [grammar, setGrammar] = useState();
-  const [newText, setNewText] = useState(false);
-  const [gramFin, setGramFin] = useState(false);
-  const [papaFin, setPapaFin] = useState(false);
-  const [newUrl, setNewUrl] = useState();
   const [doubleChange, setDoubleChange] = useState(false);
+  const [speakingText, setSpeakingText] = useState('');
+  const [lastCall, setLastCall] = useState(false);
+  // const [collectText, setCollectText] = useState();
 
   const [fadeOutAnim] = useState(new Animated.Value(1));
 
   const num = useSelector(state => state.makeStory.num);
-
-  // const userText = useSelector(state => state.makeStory.userText);
+  const idx = useSelector(state => state.ticket.ticketIdx);
+  const aiMadeText = useSelector(state => state.makeStory.aiText);
+  const userMadeText = useSelector(state => state.makeStory.userText);
+  const dalleMadeImage = useSelector(state => state.makeStory.dalleUrl);
+  const stackedText = useSelector(state => state.makeStory.allText);
 
   const dispatch = useDispatch();
 
   const _onRecordVoice = () => {
     if (isRecord) {
       Voice.stop();
-      dispatch(getPageNum(num));
       setRecordFinish(!recordFinish);
     } else {
       Voice.start('ko-KR');
     }
     setIsRecord(!isRecord);
   };
-
-  const idx = useSelector(state => state.ticket.ticketIdx);
-  const aiMadeText = useSelector(state => state.makeStory.aiText);
-  const userMadeText = useSelector(state => state.makeStory.userText);
-  const dalleMadeImage = useSelector(state => state.makeStory.dalleUrl);
-  const stackedText = useSelector(state => state.makeStory.allText);
 
   const _onGenerateAIText = async () => {
     try {
@@ -104,50 +98,47 @@ const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setIm
       //+ userText 문법교정 api 호출, dispatch
       // console.log('교정: ', grammarCorrect(userMadeText));
       //-> 파파고 -> 달리
+
       const grammar = await grammarCorrect(userMadeText);
       console.log('gram: ', grammar);
-      dispatch(getUserText(grammar));
+      console.log('stacked: ', stackedText);
 
-      const papago = await requestPAPAGOAPI(grammar);
+      let collectText;
+      collectText = stackedText + grammar;
+      console.log('collectText: ', collectText);
+
+      let nextSentence;
+      let papago;
+
+      if (bookInfo.length - 3 === num) {
+        console.log('들어왔니');
+        [nextSentence, papago] = await Promise.all([requestLastSentence(collectText), requestPAPAGOAPI(grammar)]);
+      } else if (bookInfo.length - 2 > num) {
+        const [middleSentence, papagoResult] = await Promise.all([requestMiddleSentence(collectText), requestPAPAGOAPI(grammar)]);
+        nextSentence = middleSentence;
+        papago = papagoResult;
+      }
+
+      // if (bookInfo.length - 3 === num) {
+      //   console.log('들어왔니');
+      //   [nextSentence, papago] = await Promise.all([requestLastSentence(collectText), requestPAPAGOAPI(grammar)]);
+      // } else if (bookInfo.length - 2 > num) {
+      //   [nextSentence, papago] = await Promise.all([requestMiddleSentence(collectText), requestPAPAGOAPI(grammar)]);
+      // }
+
+      console.log('생성된문장: ', nextSentence);
       console.log('papa: ', papago);
 
       const url = await requestDALLEAPI(papago);
       console.log('url: ', url);
 
-      dispatch(getAllText(stackedText + grammar));
-
+      dispatch(getUserText(grammar));
+      dispatch(getAllText(collectText));
+      dispatch(getAIText(nextSentence));
       dispatch(getStoryImage(url));
       console.log('이미지: ', url);
 
-      const nextSentence = await requestMiddleSentence(stackedText + grammar);
-      dispatch(getAIText(nextSentence));
-      console.log('생성된문장: ', nextSentence);
-
-      // const gram = await grammarCorrect(userMadeText);
-      // // const papago = await requestPAPAGOAPI(gram);
-      // // const url = await requestDALLEAPI(papago);
-
-      // console.log('gram: ', gram);
-      // // console.log('papa: ', papago);
-      // // console.log('url: ', url);
-
-      // dispatch(getUserText(gram));
-
-      // dispatch(getAllText(stackedText + gram));
-
-      // setGramFin(!gramFin);
-
-      // dispatch(getStoryImage(url));
-      // console.log('이미지: ', url);
-      //->하이퍼클로바
-
-      // const nextSentence = await requestMiddleSentence(stackedText + grammar);
-      // dispatch(getAIText(nextSentence));
-      // console.log('생성된문장: ', nextSentence);
-
-      // setNewText(!newText);
-      setChange(!change);
-
+      (collectText = ''), (nextSentence = ''), (papago = ''), setChange(!change);
       // // 화면 페이드 아웃 애니메이션
       // Animated.timing(fadeOutAnim, {
       //   toValue: 0, // 목표값 (완전히 사라짐)
@@ -164,34 +155,24 @@ const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setIm
     }
   };
 
-  // useEffect(() => {
-  //   if (gramFin) {
-  //     requestPAPAGOAPI(userMadeText);
-  //     setGrammar(requestPAPAGOAPI(userMadeText));
-  //     setPapaFin(!papaFin);
-  //     setNewText(!newText);
-  //   }
-  // }, [gramFin]);
-  // console.log(grammar);
-  // useEffect(() => {
-  //   if (papaFin) {
-  //     requestDALLEAPI(grammar);
-  //     console.log(requestPAPAGOAPI(grammar));
-  //     setNewUrl(requestDALLEAPI(grammar));
-  //   }
-  // }, [papaFin]);
-
-  // useEffect(() => {
-  //   if (newText) {
-  //     const middleText = requestMiddleSentence(stackedText);
-  //     console.log('middle: ', middleText);
-  //   }
-  // }, [newText]);
-
   const _onClickNextPage = async () => {
+    dispatch(getPageNum(num));
+    setGrammar('');
     setChange(!change);
     setDoubleChange(!doubleChange);
+    dispatch(getStoryImage(await requestDALLEAPI(aiMadeText)));
     await postStoryText(idx, userMadeText, dalleMadeImage);
+    dispatch(getAllText(stackedText + aiMadeText));
+    setRecordFinish(false);
+    setSpeakingText('');
+    console.log('speakingText: ', speakingText);
+    if (bookInfo.length - 2 === num) {
+      setLastCall(!lastCall);
+    }
+  };
+
+  const _onLastPage = () => {
+    dispatch(getPageNum(num));
   };
 
   return (
@@ -215,9 +196,17 @@ const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setIm
         setGrammar={setGrammar}
         doubleChange={doubleChange}
         setDoubleChange={setDoubleChange}
+        speakingText={speakingText}
+        setSpeakingText={setSpeakingText}
+        lastCall={lastCall}
+        setLastCall={setLastCall}
       />
 
-      {recordFinish ? (
+      {bookInfo.length - 1 === num ? (
+        <ButtonContainer onPress={_onLastPage}>
+          <ButtonRecord source={nextButton} />
+        </ButtonContainer>
+      ) : !change && recordFinish ? (
         <ButtonContainer onPress={_onGenerateAIText}>
           <ButtonRecord source={nextButton} />
         </ButtonContainer>

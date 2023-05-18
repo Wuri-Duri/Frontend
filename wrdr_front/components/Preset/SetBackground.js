@@ -21,12 +21,12 @@ const InsideContainer = styled.View`
 
 const SelectBackground = ({ bookInfo, setBookInfo }) => {
   const places = [
-    { key: 0, image: require('../../assets/Preset/SetBackground/bgCabin.png'), title: '숲 속' },
+    { key: 0, image: require('../../assets/Preset/SetBackground/bgForest.png'), title: '숲 속' },
     { key: 1, image: require('../../assets/Preset/SetBackground/bgDeepSea.png'), title: '깊은 바닷속' },
-    { key: 2, image: require('../../assets/Preset/SetBackground/bgMagicCastle.png'), title: '궁전' },
-    { key: 3, image: require('../../assets/Preset/SetBackground/bgSkyIsland.png'), title: '넓은 들판' },
-    { key: 4, image: require('../../assets/Preset/SetBackground/bgCabin.png'), title: '잔잔한 호수' },
-    { key: 5, image: require('../../assets/Preset/SetBackground/bgCabin.png'), title: '작은 마을' },
+    { key: 2, image: require('../../assets/Preset/SetBackground/bgPalace.png'), title: '궁전' },
+    { key: 3, image: require('../../assets/Preset/SetBackground/bgField.png'), title: '넓은 들판' },
+    { key: 4, image: require('../../assets/Preset/SetBackground/bgLake.png'), title: '잔잔한 호수' },
+    { key: 5, image: require('../../assets/Preset/SetBackground/bgTown.png'), title: '작은 마을' },
   ];
 
   return (
