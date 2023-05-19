@@ -36,10 +36,13 @@ const initState = {
 export default function ticketReducer(state = initState, action) {
   switch (action.type) {
     case 'ticket/GET_TICKET_IMAGE':
+      console.log('이미지여기야: ', action.ticketImage);
       return { ...state, ticketImage: action.ticketImage };
     case 'ticket/GET_TICKET_TITLE':
+      console.log('제목: ', action.storyTitle);
       return { ...state, storyTitle: action.storyTitle };
     case 'ticket/GET_TICKET_IDX':
+      console.log("여기야 ", action.ticketIdx);
       return { ...state, ticketIdx: action.ticketIdx };
     default:
       return state;

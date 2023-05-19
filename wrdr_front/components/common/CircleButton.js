@@ -61,6 +61,8 @@ const MainButton = ({
   const charName = useSelector(state => state.presetStory.character);
   const bg = useSelector(state => state.presetStory.place);
   const num = useSelector(state => state.makeStory.num);
+  const ticketId = useSelector(state => state.ticket.ticketIdx);
+  const ticketTitle = useSelector(state => state.ticket.storyTitle);
 
   const dispatch = useDispatch();
 
@@ -135,10 +137,11 @@ const MainButton = ({
       console.log(pageType);
       setPageType('storyTitle');
     } else if (ticketInfo.isActive.storyTitle && pageType === 'storyTitle') {
+      console.log('야이자식아', ticketId, ticketTitle, ticketInfo.ticketImage);
       axios
-        .post(config.BASE_URL + '/fairytale/createcover', {
-          ticketIdx: 1,
-          title: ticketInfo.storyTitle,
+        .post(config.BASE_URL + '/fairytale/cover', {
+          ticketIdx: ticketId,
+          title: ticketTitle,
           coverImage: ticketInfo.ticketImage,
         })
         .then(response => {
@@ -150,7 +153,7 @@ const MainButton = ({
       setTimeout(() => {
         setPageType('mylibrary');
       }, 1500);
-      console.log('destroyed');
+
       dispatch(initText());
       dispatch(initPreset());
       setBookInfo(bookInfo => ({

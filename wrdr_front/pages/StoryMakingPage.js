@@ -100,45 +100,35 @@ const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setIm
       //-> 파파고 -> 달리
 
       const grammar = await grammarCorrect(userMadeText);
-      console.log('gram: ', grammar);
-      console.log('stacked: ', stackedText);
-
-      let collectText;
-      collectText = stackedText + grammar;
-      console.log('collectText: ', collectText);
-
+      //papago로 안버냄
       let nextSentence;
       let papago;
+      let url;
+      let collectText;
+
+      collectText = stackedText + grammar;
 
       if (bookInfo.length - 3 === num) {
         console.log('들어왔니');
-        [nextSentence, papago] = await Promise.all([requestLastSentence(collectText), requestPAPAGOAPI(grammar)]);
+        const [lastSentence, papagoResult] = await Promise.all([requestLastSentence(collectText), requestPAPAGOAPI(grammar)]);
+        nextSentence = lastSentence;
+        papago = papagoResult;
+        url = await requestDALLEAPI(papago);
       } else if (bookInfo.length - 2 > num) {
         const [middleSentence, papagoResult] = await Promise.all([requestMiddleSentence(collectText), requestPAPAGOAPI(grammar)]);
         nextSentence = middleSentence;
         papago = papagoResult;
+        url = await requestDALLEAPI(papago);
       }
-
-      // if (bookInfo.length - 3 === num) {
-      //   console.log('들어왔니');
-      //   [nextSentence, papago] = await Promise.all([requestLastSentence(collectText), requestPAPAGOAPI(grammar)]);
-      // } else if (bookInfo.length - 2 > num) {
-      //   [nextSentence, papago] = await Promise.all([requestMiddleSentence(collectText), requestPAPAGOAPI(grammar)]);
-      // }
-
-      console.log('생성된문장: ', nextSentence);
-      console.log('papa: ', papago);
-
-      const url = await requestDALLEAPI(papago);
-      console.log('url: ', url);
 
       dispatch(getUserText(grammar));
       dispatch(getAllText(collectText));
       dispatch(getAIText(nextSentence));
       dispatch(getStoryImage(url));
-      console.log('이미지: ', url);
 
-      (collectText = ''), (nextSentence = ''), (papago = ''), setChange(!change);
+      // console.log('이미지: ', url);
+
+      (collectText = ''), (nextSentence = ''), (papago = ''), (url = ''), setChange(!change);
       // // 화면 페이드 아웃 애니메이션
       // Animated.timing(fadeOutAnim, {
       //   toValue: 0, // 목표값 (완전히 사라짐)
@@ -160,7 +150,7 @@ const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setIm
     setGrammar('');
     setChange(!change);
     setDoubleChange(!doubleChange);
-    dispatch(getStoryImage(await requestDALLEAPI(aiMadeText)));
+    dispatch(getStoryImage(await requestDALLEAPI(await requestPAPAGOAPI(aiMadeText))));
     await postStoryText(idx, userMadeText, dalleMadeImage);
     dispatch(getAllText(stackedText + aiMadeText));
     setRecordFinish(false);
@@ -171,8 +161,10 @@ const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setIm
     }
   };
 
-  const _onLastPage = () => {
+  const _onLastPage = async () => {
     dispatch(getPageNum(num));
+    await postStoryText(idx, aiMadeText, dalleMadeImage);
+    console.log(idx, aiMadeText, dalleMadeImage);
   };
 
   return (

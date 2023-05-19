@@ -120,17 +120,29 @@ const TicketImageBox = ({ ticketInfo, pageType, setTicketInfo, title, setTitle }
             <TitleInput
               // onPress={shownKeyboard}
               onChange={event => {
-                setTitle(event.nativeEvent.text);
-                //setticketinfo
-                setTicketInfo(ticketInfo => ({
-                  ...ticketInfo,
-                  storyTitle: title,
-                  isActive: {
-                    ...ticketInfo.isActive,
-                    storyTitle: true,
-                  },
-                }));
-                dispatch(getTicketTitle(title));
+                //리덕스에 다 넣어라
+                if (event.nativeEvent.text != null) {
+                  setTitle(event.nativeEvent.text);
+                  //제목을 다 지웠을때 감지어케해~~
+                  setTicketInfo(ticketInfo => ({
+                    ...ticketInfo,
+                    storyTitle: title,
+                    isActive: {
+                      ...ticketInfo.isActive,
+                      storyTitle: true,
+                    },
+                  }));
+                }
+                // //setticketinfo
+                // setTicketInfo(ticketInfo => ({
+                //   ...ticketInfo,
+                //   storyTitle: title,
+                //   isActive: {
+                //     ...ticketInfo.isActive,
+                //     storyTitle: true,
+                //   },
+                // }));
+                dispatch(getTicketTitle(ticketInfo.storyTitle));
               }}
               multiline
               placeholder="이곳을 클릭해 제목을 입력해주세요!"
