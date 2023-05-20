@@ -10,9 +10,6 @@ import CircleButton from '../components/common/CircleButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPreCharInfo, getPreBgInfo, getPreLenInfo } from '../modules/presetStory';
 
-// import { useSelector, useDispatch } from 'react-redux';
-// import { getPreInfo } from '../redux/modules/presetStory';
-
 const Container = styled.View`
   width: 100%;
   height: 20%;
@@ -42,21 +39,8 @@ const PresetPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
   const [rocketFinish, setRocketFinish] = useState(false);
   const [showTextFinish, setShowTextFinish] = useState(false);
 
-  // console.log('char: ', character);
-  // console.log('bg: ', place);
-  // console.log('len: ', length);
   const dispatch = useDispatch();
 
-  // const [bookInfo, setBookInfo] = useState({
-  //   characters: [''],
-  //   place: null,
-  //   length: null,
-  //   isActive: {
-  //     character: false,
-  //     place: false,
-  //     length: false, //나중에는 length만이 아니라 나머지 요소들이 모두 true일 때 true가 되도록 변경해야 함. 우선 length만 해둠.
-  //   },
-  // });
   dispatch(getPreCharInfo(bookInfo.characters));
   dispatch(getPreBgInfo(bookInfo.place));
   dispatch(getPreLenInfo(bookInfo.length));

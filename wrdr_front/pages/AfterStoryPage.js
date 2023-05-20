@@ -30,10 +30,6 @@ const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo, imageDal
   const [finish, setFinish] = useState(false);
   const [show, setShow] = useState(false);
 
-  // const ticketImage = useSelector(state => state.ticket.ticketImage);
-  // const storyTitle = useSelector(state => state.ticket.ticketImage);
-  // const dispatch = useDispatch();
-
   return (
     <>
       <AfterStoryTitle pageType={pageType} setPageType={setPageType} show={show} setShow={setShow} />

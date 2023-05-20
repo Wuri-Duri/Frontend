@@ -2,6 +2,29 @@
 import axios from 'axios';
 import config from '../../config';
 
+export const getMyTickets = async () => {
+  try {
+    const response = (await axios.get(config.BASE_URL + '/fairytale/main/1')).data.data;
+    console.log('[success] getMyTickets ', response);
+    return response;
+  } catch (error) {
+    console.log('[FAIL} getMyTickets ', error);
+    throw error;
+  }
+};
+
+export const getFairyTale = async ticketIdx => {
+  // console.log(ticketIdx);
+  try {
+    const response = await axios.get(config.BASE_URL + '/fairytale/book/' + ticketIdx);
+    // console.log('[success] getFairyTale ', response.data);
+    return response.data.data;
+  } catch (error) {
+    console.log('[FAIL} getFairyTale ', error);
+    throw error;
+  }
+};
+
 export const requestPAPAGOAPI = async madeText => {
   try {
     const response = await axios.post(
@@ -27,7 +50,6 @@ export const requestPAPAGOAPI = async madeText => {
 
 export const requestDALLEAPI = async engText => {
   try {
-    console.log('야이놈아 ', engText);
     const response = await axios.post(
       config.DALLE_URL,
       {
@@ -42,7 +64,6 @@ export const requestDALLEAPI = async engText => {
         },
       },
     );
-    console.log(response.data.data[0]);
     return response.data.data[0].url;
   } catch (e) {
     console.error('Dalle API request fail: ', e);
@@ -60,6 +81,71 @@ export const postStoryText = async (idx, text, image) => {
     console.log('success: ', response.data);
   } catch (e) {
     console.error('PostStoryText fail: ', e);
+  }
+};
+
+export const postPresetInfo = async (characters, bgPlace, length) => {
+  try {
+    const postData = {
+      userIdx: 1,
+      characters: characters,
+      bgPlace: bgPlace,
+      length: length,
+    };
+    const response = await axios.post(config.BASE_URL + '/fairytale/preset', postData);
+    console.log('success preset: ', response.data);
+    return response.data.data;
+  } catch (e) {
+    console.error('PostPresetInfo fail: ', e);
+  }
+};
+
+export const postTicketCover = async (ticketId, ticketTitle, ticketImage) => {
+  try {
+    const postData = {
+      ticketIdx: ticketId,
+      title: ticketTitle,
+      coverImage: ticketImage,
+    };
+    const response = await axios.post(config.BASE_URL + '/fairytale/cover', postData);
+    console.log('success ticket: ', response.data);
+  } catch (e) {
+    console.error('PostTicketCover fail: ', e);
+  }
+};
+
+export const requestFirstSentence = async (charName, bgPlace) => {
+  try {
+    const response = await axios.post(
+      config.CLOVASTUDIO_URL,
+      {
+        topK: 4,
+        includeProbs: false,
+        includeTokens: false,
+        restart: '',
+        includeAiFilters: true,
+        maxTokens: 300,
+        temperature: 0.85,
+        start: '',
+        stopBefore: ['<|endoftext|>'],
+        text: '인물:' + charName + '배경:' + bgPlace,
+        repeatPenalty: 5.0,
+        topP: 0.8,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-NCP-CLOVASTUDIO-API-KEY': config.CLOVASTUDIO_API_KEY,
+          'X-NCP-APIGW-API-KEY': config.APIGW_API_KEY,
+          'X-NCP-CLOVASTUDIO-REQUEST-ID': config.CLOVASTUDIO_REQUEST_ID,
+        },
+      },
+    );
+
+    return response.data.result.text;
+  } catch (error) {
+    console.error('HYPERCLOVA FIRST API request fail: ', error);
+    throw error;
   }
 };
 
@@ -96,7 +182,6 @@ export const requestMiddleSentence = async currentText => {
     const result = response.data.result.outputText;
     const splitedText = result.split(/(?<=[?!."])\s+(?=(?:[^"]|"[^"]*")*$)/);
     const middleSentence = splitedText[0] + splitedText[1];
-    console.log('Middle Sentence:', middleSentence);
     return middleSentence;
   } catch (error) {
     console.error('HYPERCLOVA MIDDLE API request fail: ', error);
@@ -137,10 +222,7 @@ export const requestLastSentence = currentText => {
       )
       .then(response => {
         const result = response.data.result.outputText;
-        console.log(result);
-        // const splitedText = result.split(/[!,?,.,:]/);
-        // console.log(splitedText[0] + splitedText[1]);
-        // resolve(splitedText[0] + splitedText[1]);
+
         resolve(result);
       })
       .catch(error => {
@@ -180,7 +262,7 @@ export const grammarCorrect = async text => {
         },
       },
     );
-    console.log('grammar response:   ', response.data.result.outputText);
+
     return response.data.result.outputText;
   } catch (e) {
     console.error('HYPERCLOVA GRAMMAR API request fail: ', e);

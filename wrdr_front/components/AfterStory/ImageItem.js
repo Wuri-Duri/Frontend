@@ -37,7 +37,6 @@ const ImageItem = ({ id, imageUrl, ticketInfo, setTicketInfo }) => {
     })),
       dispatch(getTicketImage(imageUrl));
   };
-  console.log('아아ㅏㅇ앙: ', ticketInfo.ticketImage);
 
   return (
     <Container>

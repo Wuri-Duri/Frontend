@@ -93,14 +93,12 @@ const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setIm
   const _onGenerateAIText = async () => {
     try {
       dispatch(getPageNum(num));
-      //aiText랑 생성된 이미지 서버로 보내기
+      setChange(!change);
+
       await postStoryText(idx, aiMadeText, dalleMadeImage);
-      //+ userText 문법교정 api 호출, dispatch
-      // console.log('교정: ', grammarCorrect(userMadeText));
-      //-> 파파고 -> 달리
 
       const grammar = await grammarCorrect(userMadeText);
-      //papago로 안버냄
+
       let nextSentence;
       let papago;
       let url;
@@ -109,7 +107,6 @@ const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setIm
       collectText = stackedText + grammar;
 
       if (bookInfo.length - 3 === num) {
-        console.log('들어왔니');
         const [lastSentence, papagoResult] = await Promise.all([requestLastSentence(collectText), requestPAPAGOAPI(grammar)]);
         nextSentence = lastSentence;
         papago = papagoResult;
@@ -126,9 +123,7 @@ const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setIm
       dispatch(getAIText(nextSentence));
       dispatch(getStoryImage(url));
 
-      // console.log('이미지: ', url);
-
-      (collectText = ''), (nextSentence = ''), (papago = ''), (url = ''), setChange(!change);
+      (collectText = ''), (nextSentence = ''), (papago = ''), (url = '');
       // // 화면 페이드 아웃 애니메이션
       // Animated.timing(fadeOutAnim, {
       //   toValue: 0, // 목표값 (완전히 사라짐)
@@ -147,15 +142,15 @@ const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setIm
 
   const _onClickNextPage = async () => {
     dispatch(getPageNum(num));
+    setRecordFinish(false);
     setGrammar('');
     setChange(!change);
     setDoubleChange(!doubleChange);
     dispatch(getStoryImage(await requestDALLEAPI(await requestPAPAGOAPI(aiMadeText))));
     await postStoryText(idx, userMadeText, dalleMadeImage);
     dispatch(getAllText(stackedText + aiMadeText));
-    setRecordFinish(false);
     setSpeakingText('');
-    console.log('speakingText: ', speakingText);
+
     if (bookInfo.length - 2 === num) {
       setLastCall(!lastCall);
     }
@@ -164,7 +159,6 @@ const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setIm
   const _onLastPage = async () => {
     dispatch(getPageNum(num));
     await postStoryText(idx, aiMadeText, dalleMadeImage);
-    console.log(idx, aiMadeText, dalleMadeImage);
   };
 
   return (

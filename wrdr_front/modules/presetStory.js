@@ -43,13 +43,10 @@ const initState = {
 export default function presetstoryReducer(state = initState, action) {
   switch (action.type) {
     case 'presetStory/GET_PRESET_CHARACTER_INFO':
-      // console.log('인러니러ㅣㄴ: ', state.character);
       return { ...state, character: action.character };
     case 'presetStory/GET_PRESET_BACKGROUND_INFO':
-      // console.log('sdkfj' + state.place);
       return { ...state, place: action.place };
     case 'presetStory/GET_PRESET_LENGTH_INFO':
-      // console.log('presetStory:', state);
       return { ...state, length: action.length };
     case 'presetStory/INIT_PRESET':
       return { character: initState.character, place: initState.place, length: initState.length };

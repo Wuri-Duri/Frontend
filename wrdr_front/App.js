@@ -6,6 +6,7 @@ import MyLibraryPage from './pages/MyLibraryPage';
 import BottomBar from './components/common/BottomBar';
 import StoryMakingPage from './pages/StoryMakingPage';
 import AfterStoryPage from './pages/AfterStoryPage';
+import ReadStoryPage from './pages/ReadStoryPage';
 import SplashScreen from 'react-native-splash-screen';
 
 import { useSelector } from 'react-redux';
@@ -57,6 +58,8 @@ const App = ({ props }) => {
             <MyLibraryPage pageType={pageType} setPageType={setPageType} />
             <BottomBar pageType={pageType} setPageType={setPageType} />
           </>
+        ) : pageType === 'readstory' ? (
+          <ReadStoryPage pageType={pageType} setPageType={setPageType} />
         ) : pageType === 'character' || pageType === 'place' || pageType === 'length' ? (
           <PresetPage pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} setBookInfo={setBookInfo} images={images} setImages={setImages} />
         ) : pageType === 'makestory' && bookInfo.length !== num ? (

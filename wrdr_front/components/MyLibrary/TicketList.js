@@ -27,14 +27,15 @@ const TicketList = ({ tickets, pageType, setPageType }) => {
     <Container>
       <ScrollContainer horizontal={true} centerContent={true} showsHorizontalScrollIndicator={false}>
         <InsideContainer>
-          {tickets && tickets.map((ticket, index) => <TicketItem key={ticket.id} number={index + 1} image={ticket.coverImage} title={ticket.title} />)}
+          {tickets &&
+            tickets.map((ticket, index) => (
+              <TicketItem key={ticket.id} idx={ticket.idx} number={index + 1} image={ticket.coverImage} title={ticket.title} pageType={pageType} setPageType={setPageType} />
+            ))}
           <LastTicketForAdd pageType={pageType} setPageType={setPageType} />
         </InsideContainer>
       </ScrollContainer>
     </Container>
   );
 };
-
+//TicketItem 안에다 넣어 - id 받아와서 하는거
 export default TicketList;
-
-//https://reime005.medium.com/build-your-own-scroll-indicator-in-react-native-e61ca56a7c10

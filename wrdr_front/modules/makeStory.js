@@ -4,7 +4,7 @@
 // import * as makeStoryAPI from '../../api/fairytale';
 // import { takeLatest } from 'redux-saga/effects';
 
-// //Action
+// Action
 // const [GET_AI_TEXT, GET_AI_TEXT_SUCCESS, GET_AI_TEXT_FAILURE] = createRequestActionTypes('makeStory/GET_AI_TEXT');
 const GET_AI_TEXT = 'makeStory/GET_AI_TEXT';
 const GET_USER_TEXT = 'makeStory/GET_USER_TEXT';
@@ -69,19 +69,14 @@ const initState = {
 export default function makestoryReducer(state = initState, action) {
   switch (action.type) {
     case 'makeStory/GET_AI_TEXT': //정의한 액션 부르면
-      console.log('makeStory aitext: ', action.aiText);
       return { ...state, aiText: action.aiText }; //이렇게 해라
     case 'makeStory/GET_USER_TEXT':
-      console.log('makeStory usertext: ', action.userText);
       return { ...state, userText: action.userText };
     case 'makeStory/GET_PAGE_NUM':
-      console.log('makeStory page num: ', state.num);
       return { ...state, num: state.num + 1 };
     case 'makeStory/GET_STORY_IMAGE':
-      console.log('makeStory image: ', action.dalleUrl);
       return { ...state, dalleUrl: action.dalleUrl, allImageList: [...state.allImageList, action.dalleUrl] };
     case 'makeStory/GET_ALL_TEXT':
-      console.log('makeStory 누적: ', action.allText);
       return { ...state, allText: action.allText };
     case 'makeStory/INIT_TEXT':
       return { aiText: initState.aiText, userText: initState.userText, num: initState.num };

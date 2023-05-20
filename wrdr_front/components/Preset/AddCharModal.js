@@ -36,7 +36,6 @@ const CharImage = styled.Image`
 const AddCharModal = ({ isModalAcitve, setIsModalActive, bookInfo, setBookInfo }) => {
   const [isSelected, setIsSelected] = useState(false);
   const onPressSelectedCard = () => {
-    //선택된 카드를 클릭할 경우 선택된 카드 & 전체 모달창을 안 보이게
     setIsModalActive(false);
     setIsSelected(false);
   };

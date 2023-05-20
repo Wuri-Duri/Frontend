@@ -69,29 +69,15 @@ const TitleInput = Styled.TextInput`
 `;
 
 const TicketImageBox = ({ ticketInfo, pageType, setTicketInfo, title, setTitle }) => {
-  // const [title, setTitle] = useState('');
   // const [hasKeyboard, setHasKeyboard] = useState(false);
   // const shownKeyboard = () => {
-  //   //키보드가 보이면 ticketviewimage가 안보이게(사라지게) 키보드 사라지면 다시 보이게
+  // 키보드가 보이면 ticketviewimage가 안보이게(사라지게) 키보드 사라지면 다시 보이게
   //   if (Keyboard.isVisible) {
   //     setHasKeyboard(true);
   //   } else {
   //     setHasKeyboard(false);
   //   }
   // };
-
-  // const event = () => {
-  //   setTicketInfo(ticketInfo => ({
-  //     ...ticketInfo,
-  //     storyTitle: null,
-  //     isActive: {
-  //       ...ticketInfo.isActive,
-  //       storyTitle: null,
-  //     },
-  //   }));
-  // };
-
-  // console.log('ticketinfo ', ticketInfo.storyTitle);
 
   const dispatch = useDispatch();
   const storyTitle = useSelector(state => state.ticket.ticketImage);
@@ -120,10 +106,9 @@ const TicketImageBox = ({ ticketInfo, pageType, setTicketInfo, title, setTitle }
             <TitleInput
               // onPress={shownKeyboard}
               onChange={event => {
-                //리덕스에 다 넣어라
                 if (event.nativeEvent.text != null) {
                   setTitle(event.nativeEvent.text);
-                  //제목을 다 지웠을때 감지어케해~~
+
                   setTicketInfo(ticketInfo => ({
                     ...ticketInfo,
                     storyTitle: title,
@@ -133,15 +118,7 @@ const TicketImageBox = ({ ticketInfo, pageType, setTicketInfo, title, setTitle }
                     },
                   }));
                 }
-                // //setticketinfo
-                // setTicketInfo(ticketInfo => ({
-                //   ...ticketInfo,
-                //   storyTitle: title,
-                //   isActive: {
-                //     ...ticketInfo.isActive,
-                //     storyTitle: true,
-                //   },
-                // }));
+
                 dispatch(getTicketTitle(ticketInfo.storyTitle));
               }}
               multiline
@@ -169,7 +146,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
     paddingBottom: 0,
     resizeMode: 'cover',
-    // display:
   },
   container: {
     flex: 1,

@@ -111,19 +111,7 @@ const ButtonContainer = Styled.TouchableOpacity`
  
 `;
 
-const AIStory = ({
-  change,
-
-  recordFinish,
-  setRecordFinish,
-
-  setIsRecord,
-
-  speakingText,
-  setSpeakingText,
-  lastCall,
-  setLastCall,
-}) => {
+const AIStory = ({ change, recordFinish, setRecordFinish, setIsRecord, speakingText, setSpeakingText, lastCall, setLastCall }) => {
   const UserMadeText = useSelector(state => state.makeStory.userText);
   const AIMadeText = useSelector(state => state.makeStory.aiText);
   const dalleImage = useSelector(state => state.makeStory.dalleUrl);

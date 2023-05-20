@@ -10,13 +10,9 @@ const Conatiner = styled.ImageBackground`
   margin-left: 10;
   margin-right: 10;
 `;
-//타로카드 뒷면 이미지로 추후 변경
 
 const AddCharMiniCard = ({ isSelected, setIsSelected, bookInfo, setBookInfo }) => {
   const selectCard = () => {
-    //얘 눌렀을 때 서버에 랜덤한 캐릭터 정보 요청해야
-    //지금은 서버 연결 안 했으니까 수동으로 바꿔볼게요
-
     const newItem = [
       {
         bookTitle: '콩쥐팥쥐',
@@ -91,9 +87,6 @@ const AddCharMiniCard = ({ isSelected, setIsSelected, bookInfo, setBookInfo }) =
       },
     }));
 
-    // console.log(bookInfo);
-
-    //카드를 선택할 경우 선택된 카드가 가운데 뜨게
     setIsSelected(true);
   };
 

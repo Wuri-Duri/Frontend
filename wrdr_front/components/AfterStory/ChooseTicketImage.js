@@ -24,7 +24,6 @@ font-size: 28;
 
 const ChooseTicketImage = ({ id, ticketInfo, setTicketInfo, show, setShow, imageDalle, setImageDalle }) => {
   const images = useSelector(state => state.makeStory.allImageList);
-  console.log(images);
   (function () {
     if (!show) {
       setTimeout(() => {
