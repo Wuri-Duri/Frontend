@@ -37,23 +37,7 @@ const Icon = styled.Image`
   resize-mode: contain;
 `;
 
-const MainButton = ({
-  pageType,
-  setPageType,
-  bookInfo,
-  setBookInfo,
-  ticketInfo,
-
-  size,
-  disabled,
-  finish,
-  setFinish,
-  show,
-
-  setPresetFinish,
-  rocketFinish,
-  setRocketFinish,
-}) => {
+const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, setTicketInfo, ticketInfo, size, disabled, finish, setFinish, show, setPresetFinish, rocketFinish, setRocketFinish }) => {
   const charName = useSelector(state => state.presetStory.character);
   const bg = useSelector(state => state.presetStory.place);
   const ticketId = useSelector(state => state.ticket.ticketIdx);
@@ -94,6 +78,7 @@ const MainButton = ({
       dispatch(getAllText(firstSentence));
 
       const madeImage = await requestDALLEAPI(await requestPAPAGOAPI(firstSentence));
+
       dispatch(getStoryImage(madeImage));
     } else if (pageType === 'makestory') {
       setPageType('ticketImage');
@@ -110,13 +95,21 @@ const MainButton = ({
       dispatch(initText());
       dispatch(initPreset());
       setBookInfo(bookInfo => ({
-        characters: [''],
+        characters: [],
         place: null,
         length: null,
         isActive: {
           character: false,
           place: false,
           length: false,
+        },
+      }));
+      setTicketInfo(ticketInfo => ({
+        ticketImage: [],
+        storyTitle: null,
+        isActive: {
+          ticketImage: false,
+          storyTitle: false,
         },
       }));
     }

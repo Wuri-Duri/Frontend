@@ -49,6 +49,7 @@ export default function presetstoryReducer(state = initState, action) {
     case 'presetStory/GET_PRESET_LENGTH_INFO':
       return { ...state, length: action.length };
     case 'presetStory/INIT_PRESET':
+      console.log('char: ', initState.character, ' place: ', initState.place, ' length: ', initState.length);
       return { character: initState.character, place: initState.place, length: initState.length };
     default:
       return state;

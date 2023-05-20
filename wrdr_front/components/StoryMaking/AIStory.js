@@ -4,7 +4,7 @@ import Voice from '@react-native-voice/voice';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserText } from '../../modules/makeStory';
-
+import { TouchableOpacity, Platform } from 'react-native';
 import rerecord from '../../assets/ReRecordButton.png';
 
 const VoiceText = Styled.TextInput`
@@ -55,9 +55,18 @@ const TextContainer2 = Styled.View`
   margin-left: 50;
   margin-right: 50;
   border-radius: 10;
-  background-color: #ffffff;
-  opacity: 0.6;
+  background-color: rgba(255,255,255, 0.63); 
   position: absolute;
+  ${Platform.select({
+    ios: `
+      shadow-color: #000;
+      shadow-opacity: 0.3;
+      shadow-radius: 10;
+    `,
+    android: `
+      elevation: 5;
+    `,
+  })}
 `;
 
 const AIText = Styled.Text`
@@ -74,9 +83,20 @@ const AIText = Styled.Text`
 
 const GuideText = Styled.Text`
   color: #ffffff;
+  ${Platform.select({
+    ios: `
+      shadow-color: #000;
+      shadow-opacity: 1;
+      shadow-radius: 10;
+    `,
+    android: `
+      elevation: 2;
+    `,
+  })}
   font-size: 35;
   font-weight: bold;
   padding-bottom: 400;
+  
 `;
 
 const RerecordButton = Styled.Image`
@@ -86,9 +106,12 @@ width: 210px;
 height: 70px;
 `;
 
-const ButtonContainer = Styled.TouchableOpacity`
+const ButtonContainer = Styled.View`
   position: absolute;
   padding-top: 400;
+
+  justify-content: center;
+  align-items: center;
  
 `;
 
@@ -122,6 +145,7 @@ const AIStory = ({ change, recordFinish, setRecordFinish, setIsRecord, speakingT
   useEffect(() => {
     if (textChange) {
       setTextChange(!textChange);
+
       dispatch(getUserText(voiceLabel));
     }
   }, [textChange]);
@@ -163,9 +187,12 @@ const AIStory = ({ change, recordFinish, setRecordFinish, setIsRecord, speakingT
             <TextContainer2>
               <VoiceText multiline={true}>{voiceLabel}</VoiceText>
             </TextContainer2>
+
             {recordFinish ? (
-              <ButtonContainer onPress={_onPressRerecord}>
-                <RerecordButton source={rerecord} />
+              <ButtonContainer>
+                <TouchableOpacity onPress={_onPressRerecord}>
+                  <RerecordButton source={rerecord} />
+                </TouchableOpacity>
               </ButtonContainer>
             ) : (
               ''

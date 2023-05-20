@@ -79,7 +79,7 @@ export default function makestoryReducer(state = initState, action) {
     case 'makeStory/GET_ALL_TEXT':
       return { ...state, allText: action.allText };
     case 'makeStory/INIT_TEXT':
-      return { aiText: initState.aiText, userText: initState.userText, num: initState.num };
+      return { aiText: initState.aiText, userText: initState.userText, num: initState.num, dalleUrl: initState.dalleUrl, allText: initState.allText, allImageList: initState.allImageList };
     default:
       return state;
   }

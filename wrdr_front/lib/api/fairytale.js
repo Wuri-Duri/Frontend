@@ -14,10 +14,8 @@ export const getMyTickets = async () => {
 };
 
 export const getFairyTale = async ticketIdx => {
-  // console.log(ticketIdx);
   try {
     const response = await axios.get(config.BASE_URL + '/fairytale/book/' + ticketIdx);
-    // console.log('[success] getFairyTale ', response.data);
     return response.data.data;
   } catch (error) {
     console.log('[FAIL} getFairyTale ', error);
@@ -49,6 +47,7 @@ export const requestPAPAGOAPI = async madeText => {
 };
 
 export const requestDALLEAPI = async engText => {
+  console.log('da: ', engText);
   try {
     const response = await axios.post(
       config.DALLE_URL,

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Styled from 'styled-components/native';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, KeyboardAvoidingView } from 'react-native';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getTicketTitle } from '../../modules/ticket';
 
 const Container = Styled.View`
@@ -82,22 +82,18 @@ const TicketImageBox = ({ ticketInfo, pageType, setTicketInfo, title, setTitle }
         <TicketTitleView>
           {pageType === 'storyTitle' ? (
             <TitleInput
-              // onPress={shownKeyboard}
               onChange={event => {
-                if (event.nativeEvent.text != null) {
-                  setTitle(event.nativeEvent.text);
-
-                  setTicketInfo(ticketInfo => ({
-                    ...ticketInfo,
-                    storyTitle: title,
-                    isActive: {
-                      ...ticketInfo.isActive,
-                      storyTitle: true,
-                    },
-                  }));
-                }
-
-                dispatch(getTicketTitle(ticketInfo.storyTitle));
+                const text = event.nativeEvent.text;
+                setTitle(text);
+                setTicketInfo(ticketInfo => ({
+                  ...ticketInfo,
+                  storyTitle: text,
+                  isActive: {
+                    ...ticketInfo.isActive,
+                    storyTitle: true,
+                  },
+                }));
+                dispatch(getTicketTitle(text));
               }}
               multiline
               placeholder="이곳을 클릭해 제목을 입력해주세요!"
