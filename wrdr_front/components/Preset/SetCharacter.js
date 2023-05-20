@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { View, Image } from 'react-native';
 import styled from 'styled-components/native';
 import AddCharCard from './AddCharCard';
 import NewCharCard from './NewCharCard';

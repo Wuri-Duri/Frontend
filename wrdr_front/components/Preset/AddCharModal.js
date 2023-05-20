@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { View, Image, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import AddCharMiniCard from './AddCharMiniCard';
 

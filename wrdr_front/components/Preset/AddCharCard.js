@@ -1,5 +1,4 @@
 import React from 'react';
-import { TouchableOpacity, View, Image } from 'react-native';
 import styled from 'styled-components/native';
 import plus from '../../assets/BottomBar/BottomBar_button_plus.png';
 

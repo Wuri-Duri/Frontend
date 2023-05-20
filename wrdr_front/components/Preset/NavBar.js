@@ -1,5 +1,5 @@
-import { React, useState } from 'react';
-import { Text, View, TouchableOpacity, Image } from 'react-native';
+import { React } from 'react';
+import { Image } from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 Icon.loadFont().then();

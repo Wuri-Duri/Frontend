@@ -3,7 +3,6 @@ import styled from 'styled-components/native';
 import Title from '../components/MyLibrary/Title';
 import TicketList from '../components/MyLibrary/TicketList';
 import { getMyTickets } from '../lib/api/fairytale';
-import config from '../config.js';
 
 const TicketListContainer = styled.View`
   width: 100%;

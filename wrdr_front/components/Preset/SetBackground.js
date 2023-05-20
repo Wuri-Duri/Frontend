@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
-import { ScrollView, View, Image, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-native';
 import PlaceItem from './PlaceItem';
 
 const Container = styled.View`

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { TouchableOpacity, Image } from 'react-native';
 import left from '../../assets/BottomBar/BottomBar_background_left.png';
 import right from '../../assets/BottomBar/BottomBar_background_right.png';
 
@@ -24,8 +23,6 @@ const Piece = styled.Image`
   position: relative;
   display: flex;
 `;
-
-const Icon = styled.TouchableOpacity``;
 
 const BackgroundBar = () => {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { TouchableOpacity, Image, Text } from 'react-native';
+import { Image } from 'react-native';
 
 const SelectArea = styled.TouchableOpacity`
   display: flex;

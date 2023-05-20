@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, View, Image } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 
 const Conatiner = styled.ImageBackground`
@@ -11,7 +11,7 @@ const Conatiner = styled.ImageBackground`
   margin-right: 10;
 `;
 
-const AddCharMiniCard = ({ isSelected, setIsSelected, bookInfo, setBookInfo }) => {
+const AddCharMiniCard = ({ setIsSelected, setBookInfo }) => {
   const selectCard = () => {
     const newItem = [
       {

@@ -1,14 +1,7 @@
 import React from 'react';
 import Styled from 'styled-components';
 import TicketImageBox from './TicketImageBox';
-import { KeyboardAvoidingView, Keyboard, StyleSheet, Platform } from 'react-native';
-
-const Container = Styled.View`
-  width: 100%;
-  height:78%;
-  flex-direction: row;
-  justify-content: center;
-`;
+import { KeyboardAvoidingView, StyleSheet, Platform } from 'react-native';
 
 const FinSplash = Styled.ImageBackground`
   position: absolute;
@@ -17,7 +10,7 @@ const FinSplash = Styled.ImageBackground`
 
 `;
 
-const ChooseStoryTitle = ({ pageType, setPageType, ticketInfo, setTicketInfo, finish, setFinish, title, setTitle }) => {
+const ChooseStoryTitle = ({ pageType, ticketInfo, setTicketInfo, finish, title, setTitle }) => {
   return (
     <>
       <KeyboardAvoidingView style={styles.rootContainer} keyboardVerticalOffset={-60} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>

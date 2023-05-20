@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { TouchableOpacity, View, Image, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 const Container = styled.View`
   width: 300;

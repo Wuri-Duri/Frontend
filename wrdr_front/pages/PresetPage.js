@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import NavBar from '../components/Preset/NavBar';
 import Title from '../components/Preset/Title';
@@ -31,10 +31,6 @@ const FinText = styled.Text`
 `;
 
 const PresetPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
-  const character = useSelector(state => state.presetStory.character);
-  const place = useSelector(state => state.presetStory.place);
-  const length = useSelector(state => state.presetStory.length);
-
   const [presetFinish, setPresetFinish] = useState(false);
   const [rocketFinish, setRocketFinish] = useState(false);
   const [showTextFinish, setShowTextFinish] = useState(false);

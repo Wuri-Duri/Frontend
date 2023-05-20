@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Styled from 'styled-components/native';
-import { KeyboardAvoidingView, Keyboard, StyleSheet, Image, Platform } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getTicketTitle } from '../../modules/ticket';
@@ -28,27 +28,6 @@ const TicketViewText = Styled.Text`
   font-weight: bold;
   text-align: center;
 `;
-
-const TicketViewImage = Styled.ImageBackground`
-  width: 57%;
-  height: 75%;
-  justify-content: center;
-  align-items: center;
-  background-color: #000000;
-  border-radius: 20;
-  opacity: 0.6;
-  margin-left: 10;
-  margin-right: 10;
-  paddingbottom: 0;
-  display: ${props => (props.isVisible ? 'none' : 'flex')};
-`;
-
-const Text = Styled.Text`
-  color: #ffffff;
-  font-size: 25;
-  font-weight: bold;
-  text-align: center;
-  `;
 
 const TicketTitleView = Styled.View`
     width: 57%;
@@ -80,7 +59,6 @@ const TicketImageBox = ({ ticketInfo, pageType, setTicketInfo, title, setTitle }
   // };
 
   const dispatch = useDispatch();
-  const storyTitle = useSelector(state => state.ticket.ticketImage);
 
   return (
     <>

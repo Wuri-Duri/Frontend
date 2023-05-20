@@ -1,5 +1,4 @@
 import React from 'react';
-import { ScrollView, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import LengthItem from './LengthItem';
 
@@ -14,7 +13,7 @@ const Container = styled.View`
   padding-bottom: 180;
 `;
 
-const SetLength = ({ bookInfo, setBookInfo, presetFinish }) => {
+const SetLength = ({ bookInfo, setBookInfo }) => {
   const lengthList = [
     { key: 3, image: require('../../assets/Preset/SetLength/len1.png'), title: '짧은 이야기' },
     { key: 13, image: require('../../assets/Preset/SetLength/len2.png'), title: '중간 이야기' },

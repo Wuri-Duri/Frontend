@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View, Image, Text } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import CircleButton from '../common/CircleButton';
 

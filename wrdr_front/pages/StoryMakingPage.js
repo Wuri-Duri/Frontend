@@ -11,7 +11,7 @@ import { getAllText, getPageNum, getUserText, getStoryImage, getAIText } from '.
 
 import { grammarCorrect, postStoryText, requestMiddleSentence, requestLastSentence, requestDALLEAPI, requestPAPAGOAPI } from '../lib/api/fairytale';
 
-import { Animated, Easing } from 'react-native';
+import { Animated } from 'react-native';
 
 const MainContainer = Styled.View`
   width: 100%;
@@ -40,23 +40,7 @@ const Icon = Styled.Image`
   resize-mode: contain;
 `;
 
-const NextButtonContainer = Styled.View`
-  display: flex;
-  width: 100;
-  height: 100;
-  background-color: '#FFB966' ;
-  border-radius: 100;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-`;
-
-const HomeButtonContainer = Styled.TouchableOpacity`
-  position: relative;
-  align-self: flex-start;
-`;
-
-const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setImages, bookInfo }) => {
+const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInfo }) => {
   const [storyText, setStoryText] = useState();
 
   const [isRecord, setIsRecord] = useState(false);
@@ -67,9 +51,8 @@ const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setIm
   const [doubleChange, setDoubleChange] = useState(false);
   const [speakingText, setSpeakingText] = useState('');
   const [lastCall, setLastCall] = useState(false);
-  // const [collectText, setCollectText] = useState();
 
-  const [fadeOutAnim] = useState(new Animated.Value(1));
+  // const [fadeOutAnim] = useState(new Animated.Value(1));
 
   const num = useSelector(state => state.makeStory.num);
   const idx = useSelector(state => state.ticket.ticketIdx);
@@ -142,6 +125,9 @@ const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setIm
 
   const _onClickNextPage = async () => {
     dispatch(getPageNum(num));
+    if (bookInfo.length - 2 === num) {
+      setLastCall(!lastCall);
+    }
     setRecordFinish(false);
     setGrammar('');
     setChange(!change);
@@ -150,10 +136,6 @@ const StoryMakingPage = ({ setPageType, imageDalle, setImageDalle, images, setIm
     await postStoryText(idx, userMadeText, dalleMadeImage);
     dispatch(getAllText(stackedText + aiMadeText));
     setSpeakingText('');
-
-    if (bookInfo.length - 2 === num) {
-      setLastCall(!lastCall);
-    }
   };
 
   const _onLastPage = async () => {

@@ -23,7 +23,6 @@ const SelectArea = styled.ImageBackground`
 `;
 
 const ImageItem = ({ id, imageUrl, ticketInfo, setTicketInfo }) => {
-  const ticketImage = useSelector(state => state.ticket.ticketImage);
   const dispatch = useDispatch();
 
   const onPressPlaceBtn = () => {

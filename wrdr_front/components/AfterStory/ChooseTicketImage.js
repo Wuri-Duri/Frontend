@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Styled from 'styled-components/native';
 import { FlatList, View } from 'react-native';
 import ImageItem from './ImageItem';
@@ -22,7 +22,7 @@ const StoryFin = Styled.Text`
 font-size: 28;
 `;
 
-const ChooseTicketImage = ({ id, ticketInfo, setTicketInfo, show, setShow, imageDalle, setImageDalle }) => {
+const ChooseTicketImage = ({ ticketInfo, setTicketInfo, show, setShow }) => {
   const images = useSelector(state => state.makeStory.allImageList);
   (function () {
     if (!show) {

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { TouchableOpacity, View, Image, Text } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getTicketIdx } from '../../modules/ticket';
 
 const Container = styled.View`
@@ -53,7 +52,7 @@ const TitleText = styled.Text`
   color: #2e3236;
 `;
 
-const TicketItem = ({ key, idx, number, title, image, setPageType }) => {
+const TicketItem = ({ idx, number, title, image, setPageType }) => {
   const dispatch = useDispatch();
   const onPressTicket = () => {
     setPageType('readstory');

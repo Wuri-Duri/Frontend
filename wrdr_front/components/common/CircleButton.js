@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 import plus from '../../assets/BottomBar/BottomBar_button_plus.png';
 import next from '../../assets/BottomBar/BottomBar_button_next.png';
@@ -6,7 +6,7 @@ import check from '../../assets/BottomBar/BottomBar_button_check.png';
 import home from '../../assets/BottomBar/BottomBar_button_home.png';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { initText, getAIText, getStoryImage, getPageNum, getAllText } from '../../modules/makeStory';
+import { initText, getAIText, getStoryImage, getAllText } from '../../modules/makeStory';
 import { initPreset } from '../../modules/presetStory';
 import { getTicketIdx } from '../../modules/ticket';
 import { requestFirstSentence, requestPAPAGOAPI, requestDALLEAPI, postPresetInfo, postTicketCover } from '../../lib/api/fairytale';

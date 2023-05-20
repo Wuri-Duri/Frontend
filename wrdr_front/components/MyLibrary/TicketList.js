@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { ScrollView } from 'react-native';
 import TicketItem from './TicketItem';
 import LastTicketForAdd from './LastTicketForAdd';
 

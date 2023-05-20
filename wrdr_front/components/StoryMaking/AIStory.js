@@ -2,19 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Styled from 'styled-components/native';
 import Voice from '@react-native-voice/voice';
 
-import ImageColors from 'react-native-image-colors';
-
 import { useSelector, useDispatch } from 'react-redux';
-import { getAIText, getAllText, getPageNum, getStoryImage, getUserText, minusPageNum } from '../../modules/makeStory';
-import { requestPAPAGOAPI, requestDALLEAPI, grammarCorrect } from '../../lib/api/fairytale';
+import { getUserText } from '../../modules/makeStory';
 
 import rerecord from '../../assets/ReRecordButton.png';
-
-import axios from 'axios';
-
-const ButtonRecord = Styled.Button`
-position: relative;
-`;
 
 const VoiceText = Styled.TextInput`
   margin: 32px;
@@ -81,21 +72,11 @@ const AIText = Styled.Text`
   margin-bottom: 40;
 `;
 
-const ImageView = Styled.View`
-  flex: 1;
-  background-color: #1d1d1d;
-`;
-
 const GuideText = Styled.Text`
   color: #ffffff;
   font-size: 35;
   font-weight: bold;
   padding-bottom: 400;
-`;
-
-const GuideTextContainer = Styled.View`
-  background-color: #000000;
-  opacity: 0.6;
 `;
 
 const RerecordButton = Styled.Image`

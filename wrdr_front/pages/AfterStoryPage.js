@@ -5,9 +5,6 @@ import ChooseStoryTitle from '../components/AfterStory/ChooseStoryTitle';
 import ChooseTicketImage from '../components/AfterStory/ChooseTicketImage';
 import CircleButton from '../components/common/CircleButton';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { getTicketImage, getTicketTitle } from '../modules/ticket';
-
 const Container = Styled.View`
   width: 100%;
   height: 20%;

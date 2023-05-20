@@ -1,5 +1,4 @@
 import React from 'react';
-import { TouchableOpacity, View, Image } from 'react-native';
 import styled from 'styled-components/native';
 
 const Conatiner = styled.View`
