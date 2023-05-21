@@ -78,6 +78,7 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
     try {
       dispatch(getPageNum(num));
       setChange(!change);
+      dispatch(getAIText(''));
 
       await postStoryText(idx, aiMadeText, dalleMadeImage);
 
@@ -127,11 +128,13 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
 
   const _onClickNextPage = async () => {
     dispatch(getPageNum(num));
+    setSpeakingText('');
+    // dispatch(getUserText(''));
     if (bookInfo.length - 2 === num) {
       setLastCall(!lastCall);
     }
-    const randomNum = Math.floor(Math.random() * 3);
-    // const randomNum = 2;
+    // const randomNum = Math.floor(Math.random() * 3);
+    const randomNum = 2;
     dispatch(getRandomNum(randomNum));
     if (randomNum === 2) {
       setSelectPage(true); //selectPage -> true
@@ -154,7 +157,6 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
     } else {
       ('');
     }
-    setSpeakingText('');
   };
 
   const _onLastPage = async () => {
@@ -164,9 +166,11 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
 
   const _onSelectText = async () => {
     try {
-      dispatch(getPageNum(num));
       setChange(!change);
-      setSelectPage(false); //
+      dispatch(getPageNum(num));
+      dispatch(getAIText(''));
+      dispatch(getUserText(selectedText));
+      setSelectPage(false);
       setSelectText(false);
 
       await postStoryText(idx, aiMadeText, dalleMadeImage);
@@ -190,7 +194,6 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
         url = await requestDALLEAPI(papago);
       }
 
-      dispatch(getUserText(selectedText));
       dispatch(getAllText(collectText));
       dispatch(getAIText(nextSentence));
       dispatch(getStoryImage(url));

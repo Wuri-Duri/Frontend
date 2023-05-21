@@ -264,6 +264,8 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
     setIsCorrected(true);
   };
 
+  const showAIText = AIMadeText;
+
   const randomNum = useSelector(state => state.makeStory.randomNum);
   const guideText = num === 0 ? '' : num !== 0 && randomNum === 2 ? '다음에 올 문장을 선택해요!' : num !== 0 && randomNum === 0 ? '' : num !== 0 && randomNum === 1 ? question : '';
   ////////randomNum이 2이면 <VoiceText>가 2개 나옴. 둘다 TouchableOpacity로 해서 누르면 그 텍스트 값이 userText로 디스패치하기
@@ -330,7 +332,7 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
 
           <TextView1>
             <TextContainer1>
-              <AIText>{AIMadeText}</AIText>
+              <AIText>{showAIText}</AIText>
             </TextContainer1>
           </TextView1>
         </Container>
