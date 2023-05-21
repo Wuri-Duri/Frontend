@@ -14,6 +14,7 @@ const IconText = styled.Text`
   font-size: 25;
   font-weight: bold;
   margin-top: 30;
+  font-family: jalnan;
 `;
 
 const LengthItem = ({ id, imageUrl, title, bookInfo, setBookInfo }) => {

@@ -27,6 +27,7 @@ const TicketViewText = Styled.Text`
   font-size: 25;
   font-weight: bold;
   text-align: center;
+  font-family: jalnan;
 `;
 
 const TicketTitleView = Styled.View`
@@ -48,16 +49,7 @@ const TitleInput = Styled.TextInput`
 `;
 
 const TicketImageBox = ({ ticketInfo, pageType, setTicketInfo, title, setTitle }) => {
-  // const [hasKeyboard, setHasKeyboard] = useState(false);
-  // const shownKeyboard = () => {
-  // 키보드가 보이면 ticketviewimage가 안보이게(사라지게) 키보드 사라지면 다시 보이게
-  //   if (Keyboard.isVisible) {
-  //     setHasKeyboard(true);
-  //   } else {
-  //     setHasKeyboard(false);
-  //   }
-  // };
-
+  
   const dispatch = useDispatch();
 
   return (

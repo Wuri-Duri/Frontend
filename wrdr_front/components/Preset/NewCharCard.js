@@ -33,6 +33,7 @@ const TopText = styled.Text`
   color: #ffffff;
   font-weight: bold;
   font-size: 18;
+  font-family: jalnan;
 `;
 
 const BottomText = styled.Text`
@@ -40,6 +41,7 @@ const BottomText = styled.Text`
   font-weight: bold;
   font-size: 30;
   margin-top: 1%;
+  font-family: jalnan;
 `;
 
 const NewCharCard = ({ bookTitle, name, image }) => {

@@ -28,6 +28,7 @@ const InsideText = styled.Text`
   font-weight: bold;
   font-size: 30;
   color: #ffffff;
+  font-family: jalnan;
 `;
 
 const PlaceItem = ({ id, imageUrl, title, bookInfo, setBookInfo }) => {

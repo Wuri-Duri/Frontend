@@ -28,6 +28,8 @@ const FinText = styled.Text`
   font-weight: bold;
   text-align: center;
   color: #ffffff;
+  font-family: jalnan;
+  font-height: 70px;
 `;
 
 const PresetPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {

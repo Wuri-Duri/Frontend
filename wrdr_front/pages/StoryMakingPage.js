@@ -5,13 +5,10 @@ import Voice from '@react-native-voice/voice';
 import recordActive from '../assets/BottomBar/BottomBar_button_record_active.png';
 import recordInactive from '../assets/BottomBar/BottomBar_button_record_inactive.png';
 import nextButton from '../assets/nextButton.png';
-
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllText, getPageNum, getUserText, getStoryImage, getAIText } from '../modules/makeStory';
+import { getAllText, getPageNum, getUserText, getStoryImage, getAIText, getRandomNum, getSelectText1, getSelectText2 } from '../modules/makeStory';
 
-import { grammarCorrect, postStoryText, requestMiddleSentence, requestLastSentence, requestDALLEAPI, requestPAPAGOAPI } from '../lib/api/fairytale';
-
-import { Animated } from 'react-native';
+import { grammarCorrect, postStoryText, requestMiddleSentence, requestLastSentence, requestDALLEAPI, requestPAPAGOAPI, requestQuestion, requestMiddleSentence2 } from '../lib/api/fairytale';
 
 const MainContainer = Styled.View`
   width: 100%;
@@ -24,12 +21,12 @@ const MainContainer = Styled.View`
 
 const ButtonContainer = Styled.TouchableOpacity`
   position: absolute;
-  padding-top: 650;
- 
+  padding-top: 650px;
 `;
+
 const ButtonRecord = Styled.Image`
-  width: 90;
-  height: 90;
+  width: 90px;
+  height: 90px;
 `;
 
 const Icon = Styled.Image`
@@ -47,12 +44,13 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
   const [recordFinish, setRecordFinish] = useState(false);
   const [isText, setIsText] = useState(false);
   const [change, setChange] = useState(false);
-  const [grammar, setGrammar] = useState();
   const [doubleChange, setDoubleChange] = useState(false);
   const [speakingText, setSpeakingText] = useState('');
   const [lastCall, setLastCall] = useState(false);
-
-  // const [fadeOutAnim] = useState(new Animated.Value(1));
+  const [question, setQuestion] = useState();
+  const [selectPage, setSelectPage] = useState(false);
+  const [selectText, setSelectText] = useState(false);
+  const [isCorrected, setIsCorrected] = useState(false);
 
   const num = useSelector(state => state.makeStory.num);
   const idx = useSelector(state => state.ticket.ticketIdx);
@@ -60,6 +58,9 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
   const userMadeText = useSelector(state => state.makeStory.userText);
   const dalleMadeImage = useSelector(state => state.makeStory.dalleUrl);
   const stackedText = useSelector(state => state.makeStory.allText);
+  const selectedText = useSelector(state => state.makeStory.selectedText);
+  const correctedText = useSelector(state => state.makeStory.correctedText);
+  const recordVoice = useSelector(state => state.makeStory.recordVoice);
 
   const dispatch = useDispatch();
 
@@ -80,44 +81,45 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
 
       await postStoryText(idx, aiMadeText, dalleMadeImage);
 
-      const grammar = await grammarCorrect(userMadeText);
+      let inputSentence;
+
+      if (!isCorrected) {
+        inputSentence = recordVoice; //voiceLabel
+
+        console.log('recordVoice ', recordVoice);
+      } else {
+        inputSentence = correctedText;
+
+        console.log('correctedText ', correctedText);
+      }
+      console.log('example ', inputSentence);
+
+      dispatch(getUserText(inputSentence));
 
       let nextSentence;
       let papago;
       let url;
       let collectText;
 
-      collectText = stackedText + grammar;
+      collectText = stackedText + inputSentence;
 
       if (bookInfo.length - 3 === num) {
-        const [lastSentence, papagoResult] = await Promise.all([requestLastSentence(collectText), requestPAPAGOAPI(grammar)]);
+        const [lastSentence, papagoResult] = await Promise.all([requestLastSentence(collectText), requestPAPAGOAPI(inputSentence)]);
         nextSentence = lastSentence;
         papago = papagoResult;
         url = await requestDALLEAPI(papago);
       } else if (bookInfo.length - 2 > num) {
-        const [middleSentence, papagoResult] = await Promise.all([requestMiddleSentence(collectText), requestPAPAGOAPI(grammar)]);
+        const [middleSentence, papagoResult] = await Promise.all([requestMiddleSentence(collectText), requestPAPAGOAPI(inputSentence)]);
         nextSentence = middleSentence;
         papago = papagoResult;
         url = await requestDALLEAPI(papago);
       }
 
-      dispatch(getUserText(grammar));
       dispatch(getAllText(collectText));
       dispatch(getAIText(nextSentence));
       dispatch(getStoryImage(url));
 
-      (collectText = ''), (nextSentence = ''), (papago = ''), (url = '');
-      // // 화면 페이드 아웃 애니메이션
-      // Animated.timing(fadeOutAnim, {
-      //   toValue: 0, // 목표값 (완전히 사라짐)
-      //   duration: 10000, // 애니메이션 진행 시간 (10초)
-      //   easing: Easing.linear, // 이징 함수 (선형)
-      //   useNativeDriver: true, // 네이티브 드라이버 사용 (성능 향상)
-      // }).start(() => {
-      //   // 애니메이션 완료 후 페이지 전환 등 필요한 작업 수행
-      //   // 예를 들면, setPageType('newPageType') 등
-      //   setPageType('');
-      // });
+      (collectText = ''), (nextSentence = ''), (papago = ''), (url = ''), (inputSentence = '');
     } catch (error) {
       console.log('API error: ', error);
     }
@@ -128,19 +130,75 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
     if (bookInfo.length - 2 === num) {
       setLastCall(!lastCall);
     }
+    const randomNum = Math.floor(Math.random() * 3);
+    // const randomNum = 2;
+    dispatch(getRandomNum(randomNum));
+    if (randomNum === 2) {
+      setSelectPage(true); //selectPage -> true
+    }
+
     setRecordFinish(false);
-    setGrammar('');
     setChange(!change);
     setDoubleChange(!doubleChange);
     dispatch(getStoryImage(await requestDALLEAPI(await requestPAPAGOAPI(aiMadeText))));
     await postStoryText(idx, userMadeText, dalleMadeImage);
     dispatch(getAllText(stackedText + aiMadeText));
+
+    if (randomNum === 1) {
+      console.log('Entering if randomNum === 1');
+      setQuestion(await requestQuestion(stackedText + aiMadeText));
+    } else if (randomNum === 2) {
+      console.log('Entering if randomNum === 2');
+      dispatch(getSelectText1(await requestMiddleSentence(stackedText + aiMadeText)));
+      dispatch(getSelectText2(await requestMiddleSentence2(stackedText + aiMadeText)));
+    } else {
+      ('');
+    }
     setSpeakingText('');
   };
 
   const _onLastPage = async () => {
     dispatch(getPageNum(num));
     await postStoryText(idx, aiMadeText, dalleMadeImage);
+  };
+
+  const _onSelectText = async () => {
+    try {
+      dispatch(getPageNum(num));
+      setChange(!change);
+      setSelectPage(false); //
+      setSelectText(false);
+
+      await postStoryText(idx, aiMadeText, dalleMadeImage);
+
+      let nextSentence;
+      let papago;
+      let url;
+      let collectText;
+
+      collectText = stackedText + selectedText;
+
+      if (bookInfo.length - 3 === num) {
+        const [lastSentence, papagoResult] = await Promise.all([requestLastSentence(collectText), requestPAPAGOAPI(selectedText)]);
+        nextSentence = lastSentence;
+        papago = papagoResult;
+        url = await requestDALLEAPI(papago);
+      } else if (bookInfo.length - 2 > num) {
+        const [middleSentence, papagoResult] = await Promise.all([requestMiddleSentence(collectText), requestPAPAGOAPI(selectedText)]);
+        nextSentence = middleSentence;
+        papago = papagoResult;
+        url = await requestDALLEAPI(papago);
+      }
+
+      dispatch(getUserText(selectedText));
+      dispatch(getAllText(collectText));
+      dispatch(getAIText(nextSentence));
+      dispatch(getStoryImage(url));
+
+      (collectText = ''), (nextSentence = ''), (papago = ''), (url = '');
+    } catch (error) {
+      console.log('API error: ', error);
+    }
   };
 
   return (
@@ -160,14 +218,17 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
         setRecordFinish={setRecordFinish}
         change={change}
         setChange={setChange}
-        grammar={grammar}
-        setGrammar={setGrammar}
         doubleChange={doubleChange}
         setDoubleChange={setDoubleChange}
         speakingText={speakingText}
         setSpeakingText={setSpeakingText}
         lastCall={lastCall}
         setLastCall={setLastCall}
+        question={question}
+        selectPage={selectPage}
+        setSelectText={setSelectText}
+        isCorrected={isCorrected}
+        setIsCorrected={setIsCorrected}
       />
 
       {bookInfo.length - 1 === num ? (
@@ -178,15 +239,19 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
         <ButtonContainer onPress={_onGenerateAIText}>
           <ButtonRecord source={nextButton} />
         </ButtonContainer>
-      ) : change && recordFinish ? (
+      ) : change && !selectPage ? (
         <ButtonContainer onPress={_onClickNextPage}>
           <ButtonRecord source={nextButton} />
         </ButtonContainer>
-      ) : !isRecord ? (
+      ) : !isRecord && selectPage ? (
+        <ButtonContainer onPress={_onSelectText}>
+          <ButtonRecord source={nextButton} />
+        </ButtonContainer>
+      ) : !isRecord && !selectPage ? (
         <ButtonContainer onPress={_onRecordVoice}>
           <ButtonRecord source={recordActive} />
         </ButtonContainer>
-      ) : isRecord && !recordFinish ? (
+      ) : isRecord && !selectPage && !recordFinish ? (
         <ButtonContainer onPress={_onRecordVoice}>
           <ButtonRecord source={recordInactive} />
         </ButtonContainer>

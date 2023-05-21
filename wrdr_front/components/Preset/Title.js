@@ -12,6 +12,7 @@ const TitleText = styled.Text`
   color: #ffffff;
   font-size: 30;
   font-weight: bold;
+  font-family: jalnan;
 `;
 
 const Title = ({ pageType }) => {

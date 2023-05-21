@@ -61,7 +61,7 @@ const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, setTicketInf
       setPresetFinish((presetFinish: boolean) => !presetFinish);
 
       setTimeout(() => {
-        setRocketFinish(!rocketFinish); //3초 뒤에 실행하라
+        setRocketFinish(!rocketFinish);
         setTimeout(() => {
           setPageType('makestory');
         }, 4000);
@@ -122,11 +122,11 @@ const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, setTicketInf
           <Icon source={next} />
         </ButtonContainer>
       ) : pageType === 'place' ? (
-        <ButtonContainer isActive={bookInfo.isActive.place} pageType={pageType}>
+        <ButtonContainer isActive={bookInfo.isActive.character && bookInfo.isActive.place} pageType={pageType}>
           <Icon source={next} />
         </ButtonContainer>
       ) : pageType === 'length' ? (
-        <ButtonContainer isActive={bookInfo.isActive.length} pageType={pageType}>
+        <ButtonContainer isActive={bookInfo.isActive.character && bookInfo.isActive.place && bookInfo.isActive.length} pageType={pageType}>
           <Icon source={check} />
         </ButtonContainer>
       ) : pageType === 'mylibrary' ? (

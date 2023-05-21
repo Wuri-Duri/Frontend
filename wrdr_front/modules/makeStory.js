@@ -12,6 +12,12 @@ const GET_PAGE_NUM = 'makeStory/GET_PAGE_NUM';
 const INIT_TEXT = 'makeStory/INIT_TEXT';
 const GET_STORY_IMAGE = 'makeStory/GET_STORY_IMAGE';
 const GET_ALL_TEXT = 'makeStory/GET_ALL_TEXT';
+const GET_RANDOM_NUM = 'makeStory/GET_RANDOM_NUM';
+const GET_SELECT_TEXT1 = 'makeStory/GET_SELECT_TEXT1';
+const GET_SELECT_TEXT2 = 'makeStory/GET_SELECT_TEXT2';
+const GET_SELECTED_TEXT = 'makeStory/GET_SELECTED_TEXT';
+const GET_GRAMMAR_CORRECT = 'makeStory/GET_GRAMMAR_CORRECT';
+const GET_RECORD_VOICE = 'makeStory/GET_RECORD_VOICE';
 
 //Action Creators
 export const getAIText = aiText => {
@@ -49,6 +55,48 @@ export const getStoryImage = dalleUrl => {
   };
 };
 
+export const getRandomNum = randomNum => {
+  return {
+    type: GET_RANDOM_NUM,
+    randomNum,
+  };
+};
+
+export const getSelectText1 = selectText1 => {
+  return {
+    type: GET_SELECT_TEXT1,
+    selectText1,
+  };
+};
+
+export const getSelectText2 = selectText2 => {
+  return {
+    type: GET_SELECT_TEXT2,
+    selectText2,
+  };
+};
+
+export const getSelectedText = selectedText => {
+  return {
+    type: GET_SELECTED_TEXT,
+    selectedText,
+  };
+};
+
+export const getGrammarCorrect = correctedText => {
+  return {
+    type: GET_GRAMMAR_CORRECT,
+    correctedText,
+  };
+};
+
+export const getRecordVoice = recordVoice => {
+  return {
+    type: GET_RECORD_VOICE,
+    recordVoice,
+  };
+};
+
 export function initText() {
   return {
     type: INIT_TEXT,
@@ -63,6 +111,12 @@ const initState = {
   dalleUrl: '',
   allText: '',
   allImageList: [],
+  randomNum: 0,
+  selectText1: '',
+  selectText2: '',
+  selectedText: '',
+  correctedText: '',
+  recordVoice: '',
 };
 
 //Reducer
@@ -71,6 +125,7 @@ export default function makestoryReducer(state = initState, action) {
     case 'makeStory/GET_AI_TEXT': //정의한 액션 부르면
       return { ...state, aiText: action.aiText }; //이렇게 해라
     case 'makeStory/GET_USER_TEXT':
+      console.log('getUserText ', action.userText);
       return { ...state, userText: action.userText };
     case 'makeStory/GET_PAGE_NUM':
       return { ...state, num: state.num + 1 };
@@ -78,6 +133,18 @@ export default function makestoryReducer(state = initState, action) {
       return { ...state, dalleUrl: action.dalleUrl, allImageList: [...state.allImageList, action.dalleUrl] };
     case 'makeStory/GET_ALL_TEXT':
       return { ...state, allText: action.allText };
+    case 'makeStory/GET_RANDOM_NUM':
+      return { ...state, randomNum: action.randomNum };
+    case 'makeStory/GET_SELECT_TEXT1':
+      return { ...state, selectText1: action.selectText1 };
+    case 'makeStory/GET_SELECT_TEXT2':
+      return { ...state, selectText2: action.selectText2 };
+    case 'makeStory/GET_SELECTED_TEXT':
+      return { ...state, selectedText: action.selectedText };
+    case 'makeStory/GET_GRAMMAR_CORRECT':
+      return { ...state, correctedText: action.correctedText };
+    case 'makeStory/GET_RECORD_VOICE':
+      return { ...state, recordVoice: action.recordVoice };
     case 'makeStory/INIT_TEXT':
       return { aiText: initState.aiText, userText: initState.userText, num: initState.num, dalleUrl: initState.dalleUrl, allText: initState.allText, allImageList: initState.allImageList };
     default:

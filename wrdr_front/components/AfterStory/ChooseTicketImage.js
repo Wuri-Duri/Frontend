@@ -20,6 +20,7 @@ const ScrollContainer = Styled.ScrollView`
 
 const StoryFin = Styled.Text`
 font-size: 28;
+font-family: jalnan;
 `;
 
 const ChooseTicketImage = ({ ticketInfo, setTicketInfo, show, setShow }) => {

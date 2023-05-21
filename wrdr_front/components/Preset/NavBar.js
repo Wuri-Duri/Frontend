@@ -34,6 +34,7 @@ const IconText = styled.Text`
   font-size: 25;
   font-weight: bold;
   margin-top: 15;
+  font-family: jalnan;
 `;
 
 const BtnContainer = styled.TouchableOpacity``;

@@ -24,6 +24,7 @@ const SubText = styled.Text`
   color: #ffffff;
   font-size: 20;
   margin-top: 20;
+  font-family: jalnan;
   display: ${props => (props.isActive === true ? 'flex' : 'none')};
 `;
 
