@@ -14,6 +14,7 @@ import UserSection from './ UserSection';
 const VoiceText = Styled.TextInput`
   margin: 32px;
   color: #000000;
+  word-break: keep-all;
   font-size: 35px;
   font-weight: bold;
   padding: 0;
@@ -26,6 +27,7 @@ const SelectText = Styled.Text`
   color: #000000;
   font-size: 35;
   font-weight: bold;
+  word-break: keep-all;
   padding: 0;
   margin: 0;
   line-height: 50px;
@@ -54,12 +56,12 @@ const TextView2 = Styled.View`
 `;
 
 const TextContainer1 = Styled.View`
-  
   margin-left: 30;
   margin-right: 30;
   border-radius: 10;
-  
-  
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const TextContainer2 = Styled.View`
@@ -132,7 +134,7 @@ const SelectTextContainer2 = Styled.View`
 const AIText = Styled.Text`
   position: relative;
   color: #ffffff;
-  text-align: center;
+  word-break: keep-all;
   font-size: 35;
   font-weight: bold;
   margin-left: 40;
@@ -140,6 +142,7 @@ const AIText = Styled.Text`
   margin-top: 40;
   margin-bottom: 40;
   line-height: 50px;
+
 `;
 
 const GuideText = Styled.Text`
@@ -157,7 +160,6 @@ const GuideText = Styled.Text`
   font-size: 35;
   font-weight: bold;
   padding-bottom: 40;
-  
 `;
 
 const RerecordButton = Styled.Image`
@@ -168,16 +170,31 @@ height: 70px;
 `;
 
 const GrammarButton = Styled.Image`
-color: #ffffff;
-size: 1;
-width: 70px;
-height: 70px;
+  color: #ffffff;
+  size: 1;
+  width: 70px;
+  height: 70px;
 `;
 
 const ButtonContainer = Styled.View`
   padding-top: 40;
   justify-content: center;
   align-items: center;
+`;
+
+const DelayText = Styled.Text`
+  color: #ffffff;
+  font-size: 35;
+  font-weight: bold;
+`;
+
+const DelaySplashContainer = Styled.View`
+  width: 400px;
+  height: 400px;
+`;
+const DelaySplash = Styled.Image`
+  flex: 1;
+  width: 100%;
 `;
 
 const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFinish, setRecordFinish, setIsRecord, isRecord, speakingText, setSpeakingText, lastCall, question, isQuestion }) => {
@@ -195,7 +212,7 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
 
   const dispatch = useDispatch();
 
-  const voiceLabel = speakingText ? speakingText : '       녹음 버튼을 눌러\n다음 문장을 말해보세요!';
+  const voiceLabel = speakingText ? speakingText : randomNum === 1 ? '       녹음 버튼을 눌러\n질문에 답을 해보세요!' : '       녹음 버튼을 눌러\n다음 문장을 말해보세요!';
 
   const _onSpeechStart = () => {
     console.log('onSpeechStart');
@@ -250,6 +267,8 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
     setSelectText(true);
     setSelect1(true);
     setSelect2(false);
+    console.log('select1-1 ', select1);
+    console.log('select2-1 ', select2);
   };
 
   const _onSelectText2 = () => {
@@ -257,11 +276,8 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
     setSelectText(true);
     setSelect1(false);
     setSelect2(true);
-  };
-
-  const _onGrammarCorrect = async () => {
-    dispatch(getGrammarCorrect(await grammarCorrect(UserMadeText)));
-    setIsCorrected(true);
+    console.log('select1-2 ', select1);
+    console.log('select2-2 ', select2);
   };
 
   const showAIText = AIMadeText;
@@ -299,7 +315,7 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
                 </SelectTextContainer2>
               </>
             ) : (
-              <TextContainer2>{!isCorrected ? <VoiceText multiline={true}>{voiceLabel}</VoiceText> : <VoiceText multiline={true}> {correctedText}</VoiceText>}</TextContainer2>
+              <TextContainer2>{!isCorrected ? <VoiceText multiline={true}>{voiceLabel}</VoiceText> : <VoiceText multiline={true}>{correctedText}</VoiceText>}</TextContainer2>
             )}
 
             {recordFinish ? (
@@ -307,11 +323,6 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
                 <ButtonContainer>
                   <TouchableOpacity onPress={_onPressRerecord}>
                     <RerecordButton source={rerecord} />
-                  </TouchableOpacity>
-                </ButtonContainer>
-                <ButtonContainer>
-                  <TouchableOpacity onPress={_onGrammarCorrect}>
-                    <GrammarButton source={nextButton} />
                   </TouchableOpacity>
                 </ButtonContainer>
               </>
@@ -332,7 +343,16 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
 
           <TextView1>
             <TextContainer1>
-              <AIText>{showAIText}</AIText>
+              {AIMadeText ? (
+                <AIText>{showAIText}</AIText>
+              ) : (
+                <>
+                  <DelayText multiline={true}>AI가 문장을 만들고 있어요...</DelayText>
+                  <DelaySplashContainer>
+                    <DelaySplash source={require('../../assets/delaySplash.gif')} />
+                  </DelaySplashContainer>
+                </>
+              )}
             </TextContainer1>
           </TextView1>
         </Container>

@@ -3,10 +3,12 @@ import Styled from 'styled-components/native';
 import AIStory from '../components/StoryMaking/AIStory';
 import Voice from '@react-native-voice/voice';
 import recordActive from '../assets/BottomBar/BottomBar_button_record_active.png';
-import recordInactive from '../assets/BottomBar/BottomBar_button_record_inactive.png';
+import recordInactive from '../assets/stopButton.png';
 import nextButton from '../assets/nextButton.png';
+import inactiveNextButton from '../assets/inactiveNextButton.png';
+import finishButton from '../assets/finishButton.png';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllText, getPageNum, getUserText, getStoryImage, getAIText, getRandomNum, getSelectText1, getSelectText2 } from '../modules/makeStory';
+import { getAllText, getPageNum, getUserText, getStoryImage, getAIText, getRandomNum, getSelectText1, getSelectText2, getGrammarCorrect } from '../modules/makeStory';
 
 import { grammarCorrect, postStoryText, requestMiddleSentence, requestLastSentence, requestDALLEAPI, requestPAPAGOAPI, requestQuestion, requestMiddleSentence2 } from '../lib/api/fairytale';
 
@@ -51,6 +53,8 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
   const [selectPage, setSelectPage] = useState(false);
   const [selectText, setSelectText] = useState(false);
   const [isCorrected, setIsCorrected] = useState(false);
+  const [select1, setSelect1] = useState(false);
+  const [select2, setSelect2] = useState(false);
 
   const num = useSelector(state => state.makeStory.num);
   const idx = useSelector(state => state.ticket.ticketIdx);
@@ -61,6 +65,7 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
   const selectedText = useSelector(state => state.makeStory.selectedText);
   const correctedText = useSelector(state => state.makeStory.correctedText);
   const recordVoice = useSelector(state => state.makeStory.recordVoice);
+  const allImageList = useSelector(state => state.makeStory.allImageList);
 
   const dispatch = useDispatch();
 
@@ -129,12 +134,13 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
   const _onClickNextPage = async () => {
     dispatch(getPageNum(num));
     setSpeakingText('');
-    // dispatch(getUserText(''));
+    setIsCorrected(false);
+
     if (bookInfo.length - 2 === num) {
       setLastCall(!lastCall);
     }
-    // const randomNum = Math.floor(Math.random() * 3);
-    const randomNum = 2;
+    const randomNum = Math.floor(Math.random() * 3);
+    // const randomNum = 2;
     dispatch(getRandomNum(randomNum));
     if (randomNum === 2) {
       setSelectPage(true); //selectPage -> true
@@ -157,6 +163,11 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
     } else {
       ('');
     }
+  };
+
+  const _onGrammarCorrect = async () => {
+    dispatch(getGrammarCorrect(await grammarCorrect(userMadeText)));
+    setIsCorrected(true);
   };
 
   const _onLastPage = async () => {
@@ -232,23 +243,45 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
         setSelectText={setSelectText}
         isCorrected={isCorrected}
         setIsCorrected={setIsCorrected}
+        setSelect1={setSelect1}
+        setSelect2={setSelect2}
       />
 
-      {bookInfo.length - 1 === num ? (
+      {bookInfo.length - 1 === num && allImageList.length !== num + 1 ? (
+        <ButtonContainer>
+          <ButtonRecord source={inactiveNextButton} />
+        </ButtonContainer>
+      ) : bookInfo.length - 1 === num ? (
         <ButtonContainer onPress={_onLastPage}>
           <ButtonRecord source={nextButton} />
+        </ButtonContainer>
+      ) : !change && recordFinish && !isCorrected ? (
+        <ButtonContainer onPress={_onGrammarCorrect}>
+          <ButtonRecord source={finishButton} />
         </ButtonContainer>
       ) : !change && recordFinish ? (
         <ButtonContainer onPress={_onGenerateAIText}>
           <ButtonRecord source={nextButton} />
         </ButtonContainer>
+      ) : !aiMadeText && change && !selectPage ? (
+        <ButtonContainer>
+          <ButtonRecord source={inactiveNextButton} />
+        </ButtonContainer>
       ) : change && !selectPage ? (
         <ButtonContainer onPress={_onClickNextPage}>
           <ButtonRecord source={nextButton} />
         </ButtonContainer>
-      ) : !isRecord && selectPage ? (
+      ) : !isRecord && selectPage && !userMadeText && isCorrected ? (
+        <ButtonContainer>
+          <ButtonRecord source={inactiveNextButton} />
+        </ButtonContainer>
+      ) : !isRecord && selectPage && selectedText ? (
         <ButtonContainer onPress={_onSelectText}>
           <ButtonRecord source={nextButton} />
+        </ButtonContainer>
+      ) : !isRecord && selectPage ? (
+        <ButtonContainer>
+          <ButtonRecord source={inactiveNextButton} />
         </ButtonContainer>
       ) : !isRecord && !selectPage ? (
         <ButtonContainer onPress={_onRecordVoice}>
