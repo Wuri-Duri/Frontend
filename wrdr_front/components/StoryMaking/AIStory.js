@@ -209,6 +209,14 @@ const TypingCheckButton = Styled.Image`
   height: 90px;
 `;
 
+const TypingImageContainer = Styled.ImageBackground`
+flex:1;
+width: 100%;
+height: 100%;
+align-items: center;
+justify-content: center;
+`;
+
 const AIStory = ({
   setStartTyping,
   startTyping,
@@ -335,24 +343,26 @@ const AIStory = ({
     <>
       {!change && pressTyping ? (
         <>
-          <TextContainer2>
-            <VoiceText
-              multiline={true}
-              onChange={event => {
-                const text = event.nativeEvent.text;
-                setModifiedText(text);
-                console.log('text ', text);
-                setTypingStart(true);
-              }}
-              maxLength={50}
-            >
-              {isCorrected ? correctedText : recordVoice}
-            </VoiceText>
-          </TextContainer2>
+          <TypingImageContainer src={dalleImage}>
+            <TextContainer2>
+              <VoiceText
+                multiline={true}
+                onChange={event => {
+                  const text = event.nativeEvent.text;
+                  setModifiedText(text);
+                  console.log('text ', text);
+                  setTypingStart(true);
+                }}
+                maxLength={50}
+              >
+                {isCorrected ? correctedText : recordVoice}
+              </VoiceText>
+            </TextContainer2>
 
-          <TypingCheckButtonContainer onPress={_onFinishTyping}>
-            <TypingCheckButton source={finishButton} />
-          </TypingCheckButtonContainer>
+            <TypingCheckButtonContainer onPress={_onFinishTyping}>
+              <TypingCheckButton source={finishButton} />
+            </TypingCheckButtonContainer>
+          </TypingImageContainer>
         </>
       ) : !change ? (
         <Container src={dalleImage}>

@@ -179,9 +179,9 @@ export const requestMiddleSentence = async currentText => {
     );
 
     const result = response.data.result.outputText;
-    const splitedText = result.split(/(?<=[?!."])\s+(?=(?:[^"]|"[^"]*")*$)/);
-    const middleSentence = splitedText[0];
-    return middleSentence;
+    const sentences = result.match(/[^.!?]+[.!?]+/g);
+    console.log(sentences);
+    return sentences[0];
   } catch (error) {
     console.error('HYPERCLOVA MIDDLE API request fail: ', error);
     throw error;
@@ -220,9 +220,9 @@ export const requestMiddleSentence2 = async currentText => {
     );
 
     const result = response.data.result.outputText;
-    const splitedText = result.split(/(?<=[?!."])\s+(?=(?:[^"]|"[^"]*")*$)/);
-    const middleSentence = splitedText[0];
-    return middleSentence;
+    const sentences = result.match(/[^.!?]+[.!?]+/g);
+    console.log(sentences);
+    return sentences[0];
   } catch (error) {
     console.error('HYPERCLOVA MIDDLE API request fail: ', error);
     throw error;
@@ -262,8 +262,9 @@ export const requestLastSentence = currentText => {
       )
       .then(response => {
         const result = response.data.result.outputText;
-
-        resolve(result);
+        const sentences = result.match(/[^.!?]+[.!?]+/g);
+        console.log(sentences);
+        resolve(sentences[0] + sentences[1]);
       })
       .catch(error => {
         console.error('HYPERCLOVA LAST API request fail: ', error);

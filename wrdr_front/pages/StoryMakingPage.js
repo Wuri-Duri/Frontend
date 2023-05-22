@@ -70,6 +70,7 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
   const selectText2 = useSelector(state => state.makeStory.selectText2);
   const questionText = useSelector(state => state.makeStory.question);
   const [pressTyping, setPressTyping] = useState(false);
+  const randomNum = useSelector(state => state.makeStory.randomNum);
 
   const dispatch = useDispatch();
 
@@ -167,8 +168,9 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
   };
 
   const _onGrammarCorrect = async () => {
-    dispatch(getGrammarCorrect(await grammarCorrect(userMadeText)));
-    dispatch(getUserText(await grammarCorrect(userMadeText)));
+    const grammarCorrectedText = await grammarCorrect(userMadeText);
+    dispatch(getGrammarCorrect(grammarCorrectedText));
+    dispatch(getUserText(grammarCorrectedText));
     setIsCorrected(true);
   };
 
@@ -295,7 +297,11 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
           <ButtonContainer>
             <ButtonRecord source={inactiveNextButton} />
           </ButtonContainer>
-        ) : !isRecord && !selectPage && num !== 0 && !questionText ? (
+        ) : !isRecord && !selectPage && num !== 0 && randomNum === 1 && !questionText  ? (
+          <ButtonContainer>
+            <ButtonRecord source={inactiveRecordButton} />
+          </ButtonContainer>
+        ) : !isRecord && !selectPage && num !== 0 && isRecord ? (
           <ButtonContainer>
             <ButtonRecord source={inactiveRecordButton} />
           </ButtonContainer>
