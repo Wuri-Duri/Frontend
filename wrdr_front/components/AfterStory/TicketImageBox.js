@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Styled from 'styled-components/native';
-import { KeyboardAvoidingView, Keyboard, StyleSheet, Image, Platform } from 'react-native';
+import { StyleSheet, Image, KeyboardAvoidingView } from 'react-native';
+
+import { useDispatch } from 'react-redux';
+import { getTicketTitle } from '../../modules/ticket';
 
 const Container = Styled.View`
   width: 50%;
@@ -24,28 +27,8 @@ const TicketViewText = Styled.Text`
   font-size: 25;
   font-weight: bold;
   text-align: center;
+  font-family: jalnan;
 `;
-
-const TicketViewImage = Styled.ImageBackground`
-  width: 57%;
-  height: 75%;
-  justify-content: center;
-  align-items: center;
-  background-color: #000000;
-  border-radius: 20;
-  opacity: 0.6;
-  margin-left: 10;
-  margin-right: 10;
-  paddingbottom: 0;
-  display: ${props => (props.isVisible ? 'none' : 'flex')};
-`;
-
-const Text = Styled.Text`
-  color: #ffffff;
-  font-size: 25;
-  font-weight: bold;
-  text-align: center;
-  `;
 
 const TicketTitleView = Styled.View`
     width: 57%;
@@ -65,31 +48,10 @@ const TitleInput = Styled.TextInput`
   font-family:'Jalnan';
 `;
 
-const TicketImageBox = ({ ticketInfo, pageType, imageInfo, setTicketInfo }) => {
-  const [title, setTitle] = useState('');
-  // const [hasKeyboard, setHasKeyboard] = useState(false);
-  // const shownKeyboard = () => {
-  //   //키보드가 보이면 ticketviewimage가 안보이게(사라지게) 키보드 사라지면 다시 보이게
-  //   if (Keyboard.isVisible) {
-  //     setHasKeyboard(true);
-  //   } else {
-  //     setHasKeyboard(false);
-  //   }
-  // };
-
-  // const event = () => {
-  //   setTicketInfo(ticketInfo => ({
-  //     ...ticketInfo,
-  //     storyTitle: null,
-  //     isActive: {
-  //       ...ticketInfo.isActive,
-  //       storyTitle: null,
-  //     },
-  //   }));
-  // };
-
+const TicketImageBox = ({ ticketInfo, pageType, setTicketInfo, title, setTitle }) => {
   
-  console.log('ticketinfo ', ticketInfo.storyTitle);
+  const dispatch = useDispatch();
+
   return (
     <>
       <Container>
@@ -104,7 +66,7 @@ const TicketImageBox = ({ ticketInfo, pageType, imageInfo, setTicketInfo }) => {
             {'\n'}선택해주세요!
           </TicketViewText>
         ) : ticketInfo.isActive.ticketImage ? (
-          <Image style={styles.TicketViewImage} source={imageInfo.imageSrc} />
+          <Image style={styles.TicketViewImage} src={ticketInfo.ticketImage} />
         ) : (
           ''
         )}
@@ -112,18 +74,18 @@ const TicketImageBox = ({ ticketInfo, pageType, imageInfo, setTicketInfo }) => {
         <TicketTitleView>
           {pageType === 'storyTitle' ? (
             <TitleInput
-              // onPress={shownKeyboard}
               onChange={event => {
-                setTitle(event.nativeEvent.text);
-                //setticketinfo
+                const text = event.nativeEvent.text;
+                setTitle(text);
                 setTicketInfo(ticketInfo => ({
                   ...ticketInfo,
-                  storyTitle: title,
+                  storyTitle: text,
                   isActive: {
                     ...ticketInfo.isActive,
                     storyTitle: true,
                   },
                 }));
+                dispatch(getTicketTitle(text));
               }}
               multiline
               placeholder="이곳을 클릭해 제목을 입력해주세요!"
@@ -150,7 +112,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
     paddingBottom: 0,
     resizeMode: 'cover',
-    // display:
   },
   container: {
     flex: 1,

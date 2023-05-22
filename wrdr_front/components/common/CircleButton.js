@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 import plus from '../../assets/BottomBar/BottomBar_button_plus.png';
 import next from '../../assets/BottomBar/BottomBar_button_next.png';
@@ -6,8 +6,10 @@ import check from '../../assets/BottomBar/BottomBar_button_check.png';
 import home from '../../assets/BottomBar/BottomBar_button_home.png';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { initText } from '../../redux/modules/makeStory';
-import { initPreset } from '../../redux/modules/presetStory';
+import { initText, getAIText, getStoryImage, getAllText } from '../../modules/makeStory';
+import { initPreset } from '../../modules/presetStory';
+import { getTicketIdx } from '../../modules/ticket';
+import { requestFirstSentence, requestPAPAGOAPI, requestDALLEAPI, postPresetInfo, postTicketCover } from '../../lib/api/fairytale';
 
 const HomeButtonContainer = styled.TouchableOpacity`
   width: ${props => props.size || '95'};
@@ -35,18 +37,15 @@ const Icon = styled.Image`
   resize-mode: contain;
 `;
 
-const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, ticketInfo, size, disabled, finish, setFinish, show }) => {
-  const num = useSelector(state => state.makeStory.num);
-  const userText = useSelector(state => state.makeStory.userText);
-  const aiText = useSelector(state => state.makeStory.aiText);
-
-  const character = useSelector(state => state.presetStory.character);
-  const place = useSelector(state => state.presetStory.place);
-  const length = useSelector(state => state.presetStory.length);
+const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, setTicketInfo, ticketInfo, size, disabled, finish, setFinish, show, setPresetFinish, rocketFinish, setRocketFinish }) => {
+  const charName = useSelector(state => state.presetStory.character);
+  const bg = useSelector(state => state.presetStory.place);
+  const ticketId = useSelector(state => state.ticket.ticketIdx);
+  const ticketTitle = useSelector(state => state.ticket.storyTitle);
 
   const dispatch = useDispatch();
 
-  const onPressMainBtn = () => {
+  const onPressMainBtn = async () => {
     if (pageType === 'mylibrary') {
       setPageType('character');
     } else if (bookInfo && bookInfo.isActive.character && pageType === 'character') {
@@ -54,35 +53,63 @@ const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, ticketInfo, 
     } else if (bookInfo && bookInfo.isActive.place && pageType === 'place') {
       setPageType('length');
     } else if (bookInfo && bookInfo.isActive.length && pageType === 'length') {
-      //   setPageType('preRocket');
-      // } else if (pageType === 'preRocket') {
-      //   //setPageType('');
-      //   //동화 제작 뷰로 넘어가기
-      setPageType('makestory');
+      const ticketIdx = await postPresetInfo(
+        bookInfo.characters.map(character => character.name),
+        bookInfo.place,
+        bookInfo.length,
+      );
+      setPresetFinish((presetFinish: boolean) => !presetFinish);
+
+      setTimeout(() => {
+        setRocketFinish(!rocketFinish);
+        setTimeout(() => {
+          setPageType('makestory');
+        }, 4000);
+      }, 3000);
+
+      dispatch(getTicketIdx(ticketIdx));
+
+      const firstSentence = await requestFirstSentence(
+        charName.map(character => character.name),
+        bg,
+      );
+
+      dispatch(getAIText(firstSentence));
+      dispatch(getAllText(firstSentence));
+
+      const madeImage = await requestDALLEAPI(await requestPAPAGOAPI(firstSentence));
+
+      dispatch(getStoryImage(madeImage));
     } else if (pageType === 'makestory') {
       setPageType('ticketImage');
     } else if (ticketInfo.isActive.ticketImage && pageType === 'ticketImage') {
-      console.log(pageType);
       setPageType('storyTitle');
     } else if (ticketInfo.isActive.storyTitle && pageType === 'storyTitle') {
-      console.log(finish);
-      // setFinish(!finish);
+      postTicketCover(ticketId, ticketTitle, ticketInfo.ticketImage);
+
       setFinish((finish: boolean) => !finish);
       setTimeout(() => {
         setPageType('mylibrary');
       }, 1500);
-      console.log('destroyed');
-      console.log('없어져라: ', userText);
+
       dispatch(initText());
       dispatch(initPreset());
       setBookInfo(bookInfo => ({
-        characters: [''],
+        characters: [],
         place: null,
         length: null,
         isActive: {
           character: false,
           place: false,
           length: false,
+        },
+      }));
+      setTicketInfo(ticketInfo => ({
+        ticketImage: [],
+        storyTitle: null,
+        isActive: {
+          ticketImage: false,
+          storyTitle: false,
         },
       }));
     }
@@ -95,15 +122,13 @@ const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, ticketInfo, 
           <Icon source={next} />
         </ButtonContainer>
       ) : pageType === 'place' ? (
-        <ButtonContainer isActive={bookInfo.isActive.place} pageType={pageType}>
+        <ButtonContainer isActive={bookInfo.isActive.character && bookInfo.isActive.place} pageType={pageType}>
           <Icon source={next} />
         </ButtonContainer>
       ) : pageType === 'length' ? (
-        <ButtonContainer isActive={bookInfo.isActive.length} pageType={pageType}>
+        <ButtonContainer isActive={bookInfo.isActive.character && bookInfo.isActive.place && bookInfo.isActive.length} pageType={pageType}>
           <Icon source={check} />
         </ButtonContainer>
-      ) : pageType === 'preRocket' ? (
-        ''
       ) : pageType === 'mylibrary' ? (
         <ButtonContainer isActive={true}>
           <Icon source={plus} />

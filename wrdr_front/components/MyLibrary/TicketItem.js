@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { TouchableOpacity, View, Image, Text } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { getTicketIdx } from '../../modules/ticket';
 
 const Container = styled.View`
   width: 300;
@@ -23,7 +24,6 @@ const ImageContainer = styled.View`
   margin:0 auto;
 `;
 
-//이미지 width가 티켓 가로 길이보다는 커야 됨
 const TicketImage = styled.Image`
   width: 100%;
   height: 100%;
@@ -46,21 +46,23 @@ const OrderText = styled.Text`
   margin-bottom: 5;
 `;
 
-//제목 텍스트 최대 글자수 제한 있어야 될듯
 const TitleText = styled.Text`
   font-size: 28;
   font-family: 'Jalnan';
   color: #2e3236;
 `;
 
-const TicketItem = ({ key, number, title, image }) => {
-  //나중에 실제 image url 서버에서 받으면 source 부분에 image props 넣기
-  //id값 따라서 TicketContainer 클릭 시 모달 창 띄우도록 연결
+const TicketItem = ({ idx, number, title, image, setPageType }) => {
+  const dispatch = useDispatch();
+  const onPressTicket = () => {
+    setPageType('readstory');
+    dispatch(getTicketIdx(idx));
+  };
   return (
     <Container>
-      <TicketContainer>
+      <TicketContainer onPress={onPressTicket}>
         <ImageContainer>
-          <TicketImage source={image} />
+          <TicketImage src={image} />
         </ImageContainer>
         <BottomContainer>
           <OrderText>{number}번째 이야기</OrderText>

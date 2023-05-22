@@ -452,7 +452,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = wrdr_frontTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -476,7 +476,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = wrdr_frontTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -503,6 +503,7 @@
 				DEVELOPMENT_TEAM = X783W7398R;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = wrdr_front/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "우리두리";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -531,6 +532,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X783W7398R;
 				INFOPLIST_FILE = wrdr_front/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "우리두리";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -1,9 +1,8 @@
-import { React, useState } from 'react';
-import { Text, View, TouchableOpacity, Image } from 'react-native';
+import { React } from 'react';
+import { Image } from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 Icon.loadFont().then();
-//아이콘이 안드로이드에서는 엑박으로 떠서 확인 필요
 
 const NavbarContainer = styled.View`
   width: 100%;
@@ -35,6 +34,7 @@ const IconText = styled.Text`
   font-size: 25;
   font-weight: bold;
   margin-top: 15;
+  font-family: jalnan;
 `;
 
 const BtnContainer = styled.TouchableOpacity``;

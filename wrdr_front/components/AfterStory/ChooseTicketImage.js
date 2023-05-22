@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Styled from 'styled-components/native';
 import { FlatList, View } from 'react-native';
 import ImageItem from './ImageItem';
 import TicketImageBox from './TicketImageBox';
+import { useSelector } from 'react-redux';
 
 const Container = Styled.View`
   width: 100%;
-  height:78%;
+  height: 78%;
   flex-direction: row;
   justify-content: center;
 `;
@@ -18,32 +19,27 @@ const ScrollContainer = Styled.ScrollView`
 `;
 
 const StoryFin = Styled.Text`
-font-size: 28;
+  font-size: 28;
+  font-family: jalnan;
 `;
 
-const ChooseTicketImage = ({ id, ticketInfo, setTicketInfo, imageInfo, setImageInfo, show, setShow }) => {
-  const images = [
-    { id: 0, image: require('../../assets/AfterStory/TicketImage/ticketImage1.png') },
-    { id: 1, image: require('../../assets/AfterStory/TicketImage/ticketImage2.png') },
-    { id: 2, image: require('../../assets/AfterStory/TicketImage/ticketImage1.png') },
-    { id: 3, image: require('../../assets/AfterStory/TicketImage/ticketImage2.png') },
-    { id: 4, image: require('../../assets/AfterStory/TicketImage/ticketImage1.png') },
-    { id: 5, image: require('../../assets/AfterStory/TicketImage/ticketImage2.png') },
-    { id: 6, image: require('../../assets/AfterStory/TicketImage/ticketImage1.png') },
-    { id: 7, image: require('../../assets/AfterStory/TicketImage/ticketImage2.png') },
-    { id: 8, image: require('../../assets/AfterStory/TicketImage/ticketImage1.png') },
-    { id: 9, image: require('../../assets/AfterStory/TicketImage/ticketImage2.png') },
-    { id: 10, image: require('../../assets/AfterStory/TicketImage/ticketImage1.png') },
-    { id: 11, image: require('../../assets/AfterStory/TicketImage/ticketImage2.png') },
-  ];
+const ImageListContainer = Styled.View`
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
 
-  (function () {
+const ChooseTicketImage = ({ ticketInfo, setTicketInfo, show, setShow }) => {
+  const images = useSelector(state => state.makeStory.allImageList);
+
+  React.useEffect(() => {
     if (!show) {
       setTimeout(() => {
-        setShow(!show);
-      }, 3000);
+        setShow(true);
+      }, 2000);
     }
-  })();
+  }, [show, setShow]);
 
   return (
     <>
@@ -51,18 +47,16 @@ const ChooseTicketImage = ({ id, ticketInfo, setTicketInfo, imageInfo, setImageI
         <StoryFin>'우리가 만든 이야기가 완성됐어요!'</StoryFin>
       ) : (
         <Container>
-          <TicketImageBox ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
+          <TicketImageBox ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} />
           <ScrollContainer>
-            <FlatList
-              data={images}
-              renderItem={({ item }) => (
-                <View style={{ flex: 1, flexDirection: 'column', margin: 1 }}>
-                  <ImageItem id={item.id} imageUri={item.image} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} />
+            <ImageListContainer>
+              {images.map((item, index) => (
+                <View style={{ flexBasis: '33.33%', marginBottom: 5 }} key={index}>
+                  <ImageItem id={item} imageUrl={item} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} />
                 </View>
-              )}
-              numColumns={3}
-              keyExtractor={(item, index) => index}
-            />
+              ))}
+              {images.length % 3 !== 0 && <View style={{ flexBasis: '33.33%' }} />}
+            </ImageListContainer>
           </ScrollContainer>
         </Container>
       )}

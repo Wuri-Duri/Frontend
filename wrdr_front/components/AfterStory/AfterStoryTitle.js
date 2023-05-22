@@ -12,6 +12,7 @@ const TitleText = Styled.Text`
   color: #ffffff;
   font-size: 47;
   font-weight: bold;
+  font-family: jalnan;
 `;
 
 const AfterStoryTitle = ({ pageType, show }) => {

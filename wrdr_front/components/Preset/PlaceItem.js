@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { TouchableOpacity, View, Image, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 const Container = styled.View`
   width: 300;
@@ -28,9 +28,10 @@ const InsideText = styled.Text`
   font-weight: bold;
   font-size: 30;
   color: #ffffff;
+  font-family: jalnan;
 `;
 
-const PlaceItem = ({ id, imageUri, title, bookInfo, setBookInfo }) => {
+const PlaceItem = ({ id, imageUrl, title, bookInfo, setBookInfo }) => {
   const onPressPlaceBtn = () => {
     setBookInfo(bookInfo => ({
       ...bookInfo,
@@ -45,7 +46,7 @@ const PlaceItem = ({ id, imageUri, title, bookInfo, setBookInfo }) => {
   return (
     <Container even={parseInt(id) % 2}>
       <TouchableOpacity onPress={onPressPlaceBtn}>
-        <SelectArea source={imageUri} isActive={bookInfo.place === title}>
+        <SelectArea source={imageUrl} isActive={bookInfo.place === title}>
           <InsideText>{title}</InsideText>
         </SelectArea>
       </TouchableOpacity>

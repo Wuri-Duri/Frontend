@@ -12,7 +12,7 @@ const Container = Styled.View`
   bottom: 0;
 `;
 
-const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
+const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo, imageDalle, setImageDalle, images, setImages }) => {
   const [ticketInfo, setTicketInfo] = useState({
     ticketImage: [''],
     storyTitle: null,
@@ -21,9 +21,8 @@ const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
       storyTitle: false,
     },
   });
-  const [imageInfo, setImageInfo] = useState({
-    imageSrc: null,
-  });
+
+  const [title, setTitle] = useState('');
 
   const [finish, setFinish] = useState(false);
   const [show, setShow] = useState(false);
@@ -32,9 +31,31 @@ const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
     <>
       <AfterStoryTitle pageType={pageType} setPageType={setPageType} show={show} setShow={setShow} />
       {pageType === 'ticketImage' ? (
-        <ChooseTicketImage pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} show={show} setShow={setShow} />
+        <ChooseTicketImage
+          pageType={pageType}
+          ticketInfo={ticketInfo}
+          setTicketInfo={setTicketInfo}
+          show={show}
+          setShow={setShow}
+          imageDalle={imageDalle}
+          setImageDalle={setImageDalle}
+          images={images}
+          setImages={setImages}
+        />
       ) : pageType === 'storyTitle' ? (
-        <ChooseStoryTitle pageType={pageType} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} imageInfo={imageInfo} setImageInfo={setImageInfo} finish={finish} setFinish={setFinish} />
+        <ChooseStoryTitle
+          pageType={pageType}
+          ticketInfo={ticketInfo}
+          setTicketInfo={setTicketInfo}
+          finish={finish}
+          setFinish={setFinish}
+          title={title}
+          setTitle={setTitle}
+          imageDalle={imageDalle}
+          setImageDalle={setImageDalle}
+          images={images}
+          setImages={setImages}
+        />
       ) : null}
       <Container>
         <CircleButton
@@ -47,6 +68,8 @@ const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
           setFinish={setFinish}
           show={show}
           setShow={setShow}
+          title={title}
+          setTitle={setTitle}
         />
       </Container>
     </>

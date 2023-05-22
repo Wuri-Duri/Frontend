@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
 
 const TitleContianer = styled.View`
@@ -13,6 +12,7 @@ const TitleText = styled.Text`
   color: #ffffff;
   font-size: 30;
   font-weight: bold;
+  font-family: jalnan;
 `;
 
 const Title = ({ pageType }) => {

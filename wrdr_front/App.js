@@ -6,6 +6,8 @@ import MyLibraryPage from './pages/MyLibraryPage';
 import BottomBar from './components/common/BottomBar';
 import StoryMakingPage from './pages/StoryMakingPage';
 import AfterStoryPage from './pages/AfterStoryPage';
+import ReadStoryPage from './pages/ReadStoryPage';
+import SplashScreen from 'react-native-splash-screen';
 
 import { useSelector } from 'react-redux';
 
@@ -22,17 +24,29 @@ const MainBackgroundImg = styled.ImageBackground`
 `;
 
 const App = ({ props }) => {
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 3000);
+  }, []);
+
   const [pageType, setPageType] = useState('mylibrary');
   const num = useSelector(state => state.makeStory.num);
+  const [images, setImages] = useState({
+    id: [],
+    images: [],
+  });
+
+  const [imageDalle, setImageDalle] = useState({});
 
   const [bookInfo, setBookInfo] = useState({
-    characters: [''],
+    characters: [],
     place: null,
     length: null,
     isActive: {
       character: false,
       place: false,
-      length: false, //나중에는 length만이 아니라 나머지 요소들이 모두 true일 때 true가 되도록 변경해야 함. 우선 length만 해둠.
+      length: false,
     },
   });
 
@@ -44,14 +58,34 @@ const App = ({ props }) => {
             <MyLibraryPage pageType={pageType} setPageType={setPageType} />
             <BottomBar pageType={pageType} setPageType={setPageType} />
           </>
+        ) : pageType === 'readstory' ? (
+          <ReadStoryPage pageType={pageType} setPageType={setPageType} />
         ) : pageType === 'character' || pageType === 'place' || pageType === 'length' ? (
-          <PresetPage pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} setBookInfo={setBookInfo} />
+          <PresetPage pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} setBookInfo={setBookInfo} images={images} setImages={setImages} />
         ) : pageType === 'makestory' && bookInfo.length !== num ? (
-          <StoryMakingPage pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} setBookInfo={setBookInfo} />
+          <StoryMakingPage
+            pageType={pageType}
+            setPageType={setPageType}
+            bookInfo={bookInfo}
+            setBookInfo={setBookInfo}
+            imageDalle={imageDalle}
+            setImageDalle={setImageDalle}
+            images={images}
+            setImages={setImages}
+          />
         ) : pageType === 'makestory' && bookInfo.length === num ? (
           setPageType('ticketImage')
         ) : pageType === 'ticketImage' || pageType === 'storyTitle' ? (
-          <AfterStoryPage pageType={pageType} setPageType={setPageType} bookInfo={bookInfo} setBookInfo={setBookInfo} />
+          <AfterStoryPage
+            pageType={pageType}
+            setPageType={setPageType}
+            bookInfo={bookInfo}
+            setBookInfo={setBookInfo}
+            imageDalle={imageDalle}
+            setImageDalle={setImageDalle}
+            images={images}
+            setImages={setImages}
+          />
         ) : (
           ''
         )}

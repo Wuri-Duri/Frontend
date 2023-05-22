@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { TouchableOpacity, Image, Text } from 'react-native';
+import { Image } from 'react-native';
 
 const SelectArea = styled.TouchableOpacity`
   display: flex;
@@ -14,9 +14,10 @@ const IconText = styled.Text`
   font-size: 25;
   font-weight: bold;
   margin-top: 30;
+  font-family: jalnan;
 `;
 
-const LengthItem = ({ id, imageUri, title, bookInfo, setBookInfo }) => {
+const LengthItem = ({ id, imageUrl, title, bookInfo, setBookInfo }) => {
   const onPressLenBtn = () => {
     setBookInfo(bookInfo => ({
       ...bookInfo,
@@ -30,7 +31,7 @@ const LengthItem = ({ id, imageUri, title, bookInfo, setBookInfo }) => {
 
   return (
     <SelectArea isActive={bookInfo.length == id} onPress={onPressLenBtn}>
-      <Image source={imageUri} />
+      <Image source={imageUrl} />
       <IconText>{title}</IconText>
     </SelectArea>
   );
