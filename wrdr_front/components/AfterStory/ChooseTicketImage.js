@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 const Container = Styled.View`
   width: 100%;
-  height:78%;
+  height: 78%;
   flex-direction: row;
   justify-content: center;
 `;
@@ -19,19 +19,27 @@ const ScrollContainer = Styled.ScrollView`
 `;
 
 const StoryFin = Styled.Text`
-font-size: 28;
-font-family: jalnan;
+  font-size: 28;
+  font-family: jalnan;
+`;
+
+const ImageListContainer = Styled.View`
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 const ChooseTicketImage = ({ ticketInfo, setTicketInfo, show, setShow }) => {
   const images = useSelector(state => state.makeStory.allImageList);
-  (function () {
+
+  React.useEffect(() => {
     if (!show) {
       setTimeout(() => {
-        setShow(!show);
+        setShow(true);
       }, 2000);
     }
-  })();
+  }, [show, setShow]);
 
   return (
     <>
@@ -41,16 +49,14 @@ const ChooseTicketImage = ({ ticketInfo, setTicketInfo, show, setShow }) => {
         <Container>
           <TicketImageBox ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} />
           <ScrollContainer>
-            <FlatList
-              data={images}
-              renderItem={({ item }) => (
-                <View style={{ flex: 1, flexDirection: 'column', margin: 1 }}>
+            <ImageListContainer>
+              {images.map((item, index) => (
+                <View style={{ flexBasis: '33.33%', marginBottom: 5 }} key={index}>
                   <ImageItem id={item} imageUrl={item} ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} />
                 </View>
-              )}
-              numColumns={3}
-              keyExtractor={(item, index) => index}
-            />
+              ))}
+              {images.length % 3 !== 0 && <View style={{ flexBasis: '33.33%' }} />}
+            </ImageListContainer>
           </ScrollContainer>
         </Container>
       )}

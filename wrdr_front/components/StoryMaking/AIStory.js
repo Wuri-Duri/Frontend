@@ -7,8 +7,6 @@ import { getUserText } from '../../modules/makeStory';
 import { TouchableOpacity, Platform } from 'react-native';
 import rerecord from '../../assets/ReRecordButton.png';
 import { getSelectedText, getGrammarCorrect, getRecordVoice } from '../../modules/makeStory';
-import { grammarCorrect } from '../../lib/api/fairytale';
-import nextButton from '../../assets/nextButton.png';
 import UserSection from './ UserSection';
 
 const VoiceText = Styled.TextInput`
@@ -94,7 +92,7 @@ const SelectTextContainer1 = Styled.View`
   margin-left: 50;
   margin-right: 50;
   border-radius: 10;
-  background-color:  ${props => (props.isActive == false ? 'rgba(255,255,255, 0.53)' : 'rgba(81, 87, 92, 0.23)')};
+  background-color:  ${props => (props.isActive == false ? 'rgba(81, 87, 92, 0.23)' : 'rgba(255,255,255, 0.53)')};
   align-items: center;
   position: relative;
   ${Platform.select({
@@ -117,7 +115,7 @@ const SelectTextContainer2 = Styled.View`
   margin-left: 50;
   margin-right: 50;
   border-radius: 10;
-  background-color:${props => (props.isActive == false ? 'rgba(255,255,255, 0.53)' : 'rgba(81, 87, 92, 0.23)')}; 
+  background-color:${props => (props.isActive == false ? 'rgba(81, 87, 92, 0.23)' : 'rgba(255,255,255, 0.53)')}; 
   position: relative;
   ${Platform.select({
     ios: `
@@ -197,7 +195,7 @@ const DelaySplash = Styled.Image`
   width: 100%;
 `;
 
-const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFinish, setRecordFinish, setIsRecord, isRecord, speakingText, setSpeakingText, lastCall, question, isQuestion }) => {
+const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFinish, setRecordFinish, setIsRecord, speakingText, setSpeakingText, lastCall }) => {
   const UserMadeText = useSelector(state => state.makeStory.userText);
   const AIMadeText = useSelector(state => state.makeStory.aiText);
   const dalleImage = useSelector(state => state.makeStory.dalleUrl);
@@ -205,6 +203,7 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
   const selectText2 = useSelector(state => state.makeStory.selectText2);
   const num = useSelector(state => state.makeStory.num);
   const correctedText = useSelector(state => state.makeStory.correctedText);
+  const questionText = useSelector(state => state.makeStory.question);
 
   const [textChange, setTextChange] = useState(false);
   const [select1, setSelect1] = useState(false);
@@ -283,7 +282,7 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
   const showAIText = AIMadeText;
 
   const randomNum = useSelector(state => state.makeStory.randomNum);
-  const guideText = num === 0 ? '' : num !== 0 && randomNum === 2 ? '다음에 올 문장을 선택해요!' : num !== 0 && randomNum === 0 ? '' : num !== 0 && randomNum === 1 ? question : '';
+  const guideText = num === 0 ? '' : num !== 0 && randomNum === 2 ? '다음에 올 문장을 선택해요!' : num !== 0 && randomNum === 0 ? '' : num !== 0 && randomNum === 1 ? questionText : '';
   ////////randomNum이 2이면 <VoiceText>가 2개 나옴. 둘다 TouchableOpacity로 해서 누르면 그 텍스트 값이 userText로 디스패치하기
   return (
     <>
@@ -296,8 +295,15 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
           </TextView1>
 
           <TextView2 isShow={lastCall}>
-            {recordFinish ? <GuideText>박스를 클릭하면 수정할 수 있어요!</GuideText> : <GuideText>{guideText}</GuideText>}
-            {num !== 0 && randomNum === 2 ? (
+            {recordFinish ? <GuideText>박스를 클릭하면 수정할 수 있어요!</GuideText> : selectText2 || questionText ? <GuideText>{guideText}</GuideText> : ''}
+            {num !== 0 && randomNum === 2 && !selectText2 ? (
+              <>
+                <DelayText multiline={true}>AI가 문장을 만들고 있어요...</DelayText>
+                <DelaySplashContainer>
+                  <DelaySplash source={require('../../assets/delaySplash.gif')} />
+                </DelaySplashContainer>
+              </>
+            ) : num !== 0 && randomNum === 2 ? (
               <>
                 <SelectTextContainer1 isActive={select1}>
                   <TouchableOpacity onPress={_onSelectText1}>
@@ -313,6 +319,13 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
                     </SelectText>
                   </TouchableOpacity>
                 </SelectTextContainer2>
+              </>
+            ) : num !== 0 && randomNum === 1 && !questionText ? (
+              <>
+                <DelayText multiline={true}>AI가 문장을 만들고 있어요...</DelayText>
+                <DelaySplashContainer>
+                  <DelaySplash source={require('../../assets/delaySplash.gif')} />
+                </DelaySplashContainer>
               </>
             ) : (
               <TextContainer2>{!isCorrected ? <VoiceText multiline={true}>{voiceLabel}</VoiceText> : <VoiceText multiline={true}>{correctedText}</VoiceText>}</TextContainer2>

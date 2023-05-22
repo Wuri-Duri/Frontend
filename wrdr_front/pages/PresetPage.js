@@ -29,7 +29,6 @@ const FinText = styled.Text`
   text-align: center;
   color: #ffffff;
   font-family: jalnan;
-  font-height: 70px;
 `;
 
 const PresetPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
@@ -71,7 +70,10 @@ const PresetPage = ({ pageType, setPageType, bookInfo, setBookInfo }) => {
   ) : presetFinish && !rocketFinish ? (
     <FinSplash source={require('../assets/flyRocket.gif')} />
   ) : presetFinish && rocketFinish ? (
-    <FinText>준비가 끝났어요!{'\n'}새로운 이야기 행성으로 떠나볼까요?</FinText>
+    <FinText>
+      준비가 끝났어요!{'\n'}
+      {'\n'}새로운 이야기 행성으로 떠나볼까요?
+    </FinText>
   ) : (
     ''
   );

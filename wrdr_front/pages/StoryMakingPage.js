@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Styled from 'styled-components/native';
 import AIStory from '../components/StoryMaking/AIStory';
 import Voice from '@react-native-voice/voice';
@@ -7,8 +7,9 @@ import recordInactive from '../assets/stopButton.png';
 import nextButton from '../assets/nextButton.png';
 import inactiveNextButton from '../assets/inactiveNextButton.png';
 import finishButton from '../assets/finishButton.png';
+import inactiveRecordButton from '../assets/BottomBar/BottomBar_button_record_inactive.png';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllText, getPageNum, getUserText, getStoryImage, getAIText, getRandomNum, getSelectText1, getSelectText2, getGrammarCorrect } from '../modules/makeStory';
+import { getQuestion, getAllText, getPageNum, getUserText, getStoryImage, getAIText, getRandomNum, getSelectText1, getSelectText2, getGrammarCorrect } from '../modules/makeStory';
 
 import { grammarCorrect, postStoryText, requestMiddleSentence, requestLastSentence, requestDALLEAPI, requestPAPAGOAPI, requestQuestion, requestMiddleSentence2 } from '../lib/api/fairytale';
 
@@ -49,7 +50,6 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
   const [doubleChange, setDoubleChange] = useState(false);
   const [speakingText, setSpeakingText] = useState('');
   const [lastCall, setLastCall] = useState(false);
-  const [question, setQuestion] = useState();
   const [selectPage, setSelectPage] = useState(false);
   const [selectText, setSelectText] = useState(false);
   const [isCorrected, setIsCorrected] = useState(false);
@@ -66,6 +66,8 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
   const correctedText = useSelector(state => state.makeStory.correctedText);
   const recordVoice = useSelector(state => state.makeStory.recordVoice);
   const allImageList = useSelector(state => state.makeStory.allImageList);
+  const selectText2 = useSelector(state => state.makeStory.selectText2);
+  const questionText = useSelector(state => state.makeStory.question);
 
   const dispatch = useDispatch();
 
@@ -124,6 +126,9 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
       dispatch(getAllText(collectText));
       dispatch(getAIText(nextSentence));
       dispatch(getStoryImage(url));
+      dispatch(getSelectText1(''));
+      dispatch(getSelectText2(''));
+      dispatch(getQuestion(''));
 
       (collectText = ''), (nextSentence = ''), (papago = ''), (url = ''), (inputSentence = '');
     } catch (error) {
@@ -139,8 +144,9 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
     if (bookInfo.length - 2 === num) {
       setLastCall(!lastCall);
     }
+
     const randomNum = Math.floor(Math.random() * 3);
-    // const randomNum = 2;
+    // const randomNum = 1;
     dispatch(getRandomNum(randomNum));
     if (randomNum === 2) {
       setSelectPage(true); //selectPage -> true
@@ -155,7 +161,7 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
 
     if (randomNum === 1) {
       console.log('Entering if randomNum === 1');
-      setQuestion(await requestQuestion(stackedText + aiMadeText));
+      dispatch(getQuestion(await requestQuestion(stackedText + aiMadeText)));
     } else if (randomNum === 2) {
       console.log('Entering if randomNum === 2');
       dispatch(getSelectText1(await requestMiddleSentence(stackedText + aiMadeText)));
@@ -238,7 +244,6 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
         setSpeakingText={setSpeakingText}
         lastCall={lastCall}
         setLastCall={setLastCall}
-        question={question}
         selectPage={selectPage}
         setSelectText={setSelectText}
         isCorrected={isCorrected}
@@ -258,6 +263,10 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
       ) : !change && recordFinish && !isCorrected ? (
         <ButtonContainer onPress={_onGrammarCorrect}>
           <ButtonRecord source={finishButton} />
+        </ButtonContainer>
+      ) : !change && recordFinish && selectText2 ? ( //여기여
+        <ButtonContainer>
+          <ButtonRecord source={inactiveNextButton} />
         </ButtonContainer>
       ) : !change && recordFinish ? (
         <ButtonContainer onPress={_onGenerateAIText}>
@@ -282,6 +291,10 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
       ) : !isRecord && selectPage ? (
         <ButtonContainer>
           <ButtonRecord source={inactiveNextButton} />
+        </ButtonContainer>
+      ) : !isRecord && !selectPage && num !== 0 && !questionText ? (
+        <ButtonContainer>
+          <ButtonRecord source={inactiveRecordButton} />
         </ButtonContainer>
       ) : !isRecord && !selectPage ? (
         <ButtonContainer onPress={_onRecordVoice}>

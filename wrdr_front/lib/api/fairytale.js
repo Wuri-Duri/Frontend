@@ -342,8 +342,10 @@ export const grammarCorrect = async text => {
         },
       },
     );
-
-    return response.data.result.outputText;
+    var result = response.data.result.outputText;
+    result = result.replace(/\n$/, '');
+    result = result.trimLeft();
+    return result;
   } catch (e) {
     console.error('HYPERCLOVA GRAMMAR API request fail: ', e);
   }

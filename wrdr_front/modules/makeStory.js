@@ -18,6 +18,7 @@ const GET_SELECT_TEXT2 = 'makeStory/GET_SELECT_TEXT2';
 const GET_SELECTED_TEXT = 'makeStory/GET_SELECTED_TEXT';
 const GET_GRAMMAR_CORRECT = 'makeStory/GET_GRAMMAR_CORRECT';
 const GET_RECORD_VOICE = 'makeStory/GET_RECORD_VOICE';
+const GET_QUESTION = 'makeStory/GET_QUESTION';
 
 //Action Creators
 export const getAIText = aiText => {
@@ -97,6 +98,13 @@ export const getRecordVoice = recordVoice => {
   };
 };
 
+export const getQuestion = question => {
+  return {
+    type: GET_QUESTION,
+    question,
+  };
+};
+
 export function initText() {
   return {
     type: INIT_TEXT,
@@ -117,6 +125,7 @@ const initState = {
   selectedText: '',
   correctedText: '',
   recordVoice: '',
+  question: '',
 };
 
 //Reducer
@@ -145,6 +154,8 @@ export default function makestoryReducer(state = initState, action) {
       return { ...state, correctedText: action.correctedText };
     case 'makeStory/GET_RECORD_VOICE':
       return { ...state, recordVoice: action.recordVoice };
+    case 'makeStory/GET_QUESTION':
+      return { ...state, question: action.question };
     case 'makeStory/INIT_TEXT':
       return { aiText: initState.aiText, userText: initState.userText, num: initState.num, dalleUrl: initState.dalleUrl, allText: initState.allText, allImageList: initState.allImageList };
     default:
