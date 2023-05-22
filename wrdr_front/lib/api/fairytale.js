@@ -244,7 +244,7 @@ export const requestLastSentence = currentText => {
           restart: '',
           includeAiFilters: true,
           maxTokens: 50,
-          temperature: 0.5,
+          temperature: 0.2,
           start: '',
           stopBefore: ['###'],
           text: lastText + currentText + '\n결말:',
@@ -275,6 +275,7 @@ export const requestLastSentence = currentText => {
 const questionText =
   '동화 다음 내용에 이어지도록 질문을 제시하시오.\n\n동화: 앨리스는 들판에 앉아 아무것도 하지 않는 일상이 너무 지루했어요. 언니는 옆에서 책만 읽고 있었지요. 그 때, 하얀 토끼 한마리가 앨리스를 지나쳐 뛰어가며 말했어요. "에구구! 이러다 너무 늦겠네!" 앨리스는 호기심에 불타올라 토끼를 쫓아 들판을 가로질러 달리기 시작했어요.\n질문: 토끼는 어디로 갔을까요?\n###\n동화: 눈이 몹시 내리는 추운 겨울 날, 마을에서 성냥팔이소녀가 외롭게 성냥을 팔고 있었어요. 소녀는 다 떨어진 옷에 신발도 신지 않은 맨발이었어요. 하루종일 성냥을 하나도 팔지 못한 소녀는 너무 배가 고파 눈 위에 털썩 주저 앉았어요. 갑자기 소녀 앞에 누군가 나타났어요.\n질문: 소녀 앞에 나타난 사람은 누구일까요?\n###\n동화: 옛날 숲속에 신데렐라와 피터팬이 살았어요. 둘은 서로 친구였죠. 그러던 어느 날 신데렐라는 숲 속으로 놀러 갔다가 길을 잃고 말았어요. 한참을 헤매던 신데렐라는 그만 발을 헛디뎌서 연못에 빠지고 말았어요. \n질문: 물에 빠진 신데렐라는 어떻게 되었을까요?\n###\n동화: 어느 한 왕국에 임금님이 살고 있었어요. 궁전이 너무 재미없었던 임금님은 신하들 몰래 마을로 나가 시장을 구경하곤 했답니다. 임금님은 옷을 무척 좋아해서 시장에서 새 옷을 많이 샀어요. 어느 날, 궁전에 낯선 사나이 두 명이 임금님을 찾아왔어요.\n질문: 이 사나이들은 왜 임금님을 찾아왔을까요?\n###\n동화: 피터펜과 신데렐라는 바다 위에서 항상 새로운 모험을 겪었어요. 그들은 함께 바다를 항해하며 먼 섬을 찾아갔어요. 그곳에는 마법의 동굴이 있었고, 그곳에서 만난 마법사가 그들에게 고마운 마음으로 두 사람에게 각각 하나씩 소원을 들어주기로 했어요.\n질문:피터팬과 신데렐라는 무슨 소원을 빌었을까요?\n###\n동화:';
 export const requestQuestion = currentText => {
+  console.log('질문api');
   return new Promise((resolve, reject) => {
     axios
       .post(
@@ -304,6 +305,7 @@ export const requestQuestion = currentText => {
       )
       .then(response => {
         const result = response.data.result.outputText;
+
         resolve(result);
       })
       .catch(error => {

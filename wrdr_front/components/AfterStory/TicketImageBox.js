@@ -49,7 +49,6 @@ const TitleInput = Styled.TextInput`
 `;
 
 const TicketImageBox = ({ ticketInfo, pageType, setTicketInfo, title, setTitle }) => {
-  
   const dispatch = useDispatch();
 
   return (

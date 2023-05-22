@@ -3,16 +3,18 @@ import Styled from 'styled-components/native';
 import Voice from '@react-native-voice/voice';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserText } from '../../modules/makeStory';
+import { getGrammarCorrect, getUserText } from '../../modules/makeStory';
 import { TouchableOpacity, Platform } from 'react-native';
 import rerecord from '../../assets/ReRecordButton.png';
-import { getSelectedText, getGrammarCorrect, getRecordVoice } from '../../modules/makeStory';
+import finishButton from '../../assets/finishButton.png';
+import inactiveFinishButton from '../../assets/inactiveFinishButton.png';
+import { getSelectedText, getRecordVoice, getTypedText } from '../../modules/makeStory';
 import UserSection from './ UserSection';
 
 const VoiceText = Styled.TextInput`
   margin: 32px;
   color: #000000;
-  word-break: keep-all;
+ 
   font-size: 35px;
   font-weight: bold;
   padding: 0;
@@ -25,7 +27,7 @@ const SelectText = Styled.Text`
   color: #000000;
   font-size: 35;
   font-weight: bold;
-  word-break: keep-all;
+
   padding: 0;
   margin: 0;
   line-height: 50px;
@@ -92,7 +94,7 @@ const SelectTextContainer1 = Styled.View`
   margin-left: 50;
   margin-right: 50;
   border-radius: 10;
-  background-color:  ${props => (props.isActive == false ? 'rgba(81, 87, 92, 0.23)' : 'rgba(255,255,255, 0.53)')};
+  background-color:  ${props => (props.isActive == false ? 'rgba(255,255,255, 0.53)' : 'rgba(255,255,255, 1)')};
   align-items: center;
   position: relative;
   ${Platform.select({
@@ -115,7 +117,7 @@ const SelectTextContainer2 = Styled.View`
   margin-left: 50;
   margin-right: 50;
   border-radius: 10;
-  background-color:${props => (props.isActive == false ? 'rgba(81, 87, 92, 0.23)' : 'rgba(255,255,255, 0.53)')}; 
+  background-color:${props => (props.isActive == false ? 'rgba(255,255,255, 0.53)' : 'rgba(255,255,255, 1)')}; 
   position: relative;
   ${Platform.select({
     ios: `
@@ -132,7 +134,7 @@ const SelectTextContainer2 = Styled.View`
 const AIText = Styled.Text`
   position: relative;
   color: #ffffff;
-  word-break: keep-all;
+ 
   font-size: 35;
   font-weight: bold;
   margin-left: 40;
@@ -157,7 +159,9 @@ const GuideText = Styled.Text`
   })}
   font-size: 35;
   font-weight: bold;
-  padding-bottom: 40;
+  width: 70%;
+  text-align: center;
+  padding-bottom: 30;
 `;
 
 const RerecordButton = Styled.Image`
@@ -195,7 +199,32 @@ const DelaySplash = Styled.Image`
   width: 100%;
 `;
 
-const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFinish, setRecordFinish, setIsRecord, speakingText, setSpeakingText, lastCall }) => {
+const TypingCheckButtonContainer = Styled.TouchableOpacity`
+  position: absolute;
+  padding-top: 650px;
+`;
+
+const TypingCheckButton = Styled.Image`
+  width: 90px;
+  height: 90px;
+`;
+
+const AIStory = ({
+  setStartTyping,
+  startTyping,
+  setPressTyping,
+  pressTyping,
+  isCorrected,
+  setIsCorrected,
+  setSelectText,
+  change,
+  recordFinish,
+  setRecordFinish,
+  setIsRecord,
+  speakingText,
+  setSpeakingText,
+  lastCall,
+}) => {
   const UserMadeText = useSelector(state => state.makeStory.userText);
   const AIMadeText = useSelector(state => state.makeStory.aiText);
   const dalleImage = useSelector(state => state.makeStory.dalleUrl);
@@ -204,10 +233,14 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
   const num = useSelector(state => state.makeStory.num);
   const correctedText = useSelector(state => state.makeStory.correctedText);
   const questionText = useSelector(state => state.makeStory.question);
+  const typedText = useSelector(state => state.makeStory.typedText);
+  const recordVoice = useSelector(state => state.makeStory.recordVoice);
 
   const [textChange, setTextChange] = useState(false);
   const [select1, setSelect1] = useState(false);
   const [select2, setSelect2] = useState(false);
+  const [modifiedText, setModifiedText] = useState('');
+  const [typingStart, setTypingStart] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -258,6 +291,8 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
     setRecordFinish(false);
     setSpeakingText('');
     setIsCorrected(false);
+    setStartTyping(false);
+    setPressTyping(false);
   };
 
   //
@@ -279,6 +314,18 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
     console.log('select2-2 ', select2);
   };
 
+  const _onPressTyping = () => {
+    setPressTyping(true);
+    setStartTyping(true);
+  };
+
+  const _onFinishTyping = () => {
+    setPressTyping(false);
+    setTypingStart(false);
+    dispatch(getGrammarCorrect(modifiedText));
+    dispatch(getUserText(modifiedText));
+  };
+
   const showAIText = AIMadeText;
 
   const randomNum = useSelector(state => state.makeStory.randomNum);
@@ -286,7 +333,28 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
   ////////randomNum이 2이면 <VoiceText>가 2개 나옴. 둘다 TouchableOpacity로 해서 누르면 그 텍스트 값이 userText로 디스패치하기
   return (
     <>
-      {!change ? (
+      {!change && pressTyping ? (
+        <>
+          <TextContainer2>
+            <VoiceText
+              multiline={true}
+              onChange={event => {
+                const text = event.nativeEvent.text;
+                setModifiedText(text);
+                console.log('text ', text);
+                setTypingStart(true);
+              }}
+              maxLength={50}
+            >
+              {isCorrected ? correctedText : recordVoice}
+            </VoiceText>
+          </TextContainer2>
+
+          <TypingCheckButtonContainer onPress={_onFinishTyping}>
+            <TypingCheckButton source={finishButton} />
+          </TypingCheckButtonContainer>
+        </>
+      ) : !change ? (
         <Container src={dalleImage}>
           <TextView1>
             <TextContainer1>
@@ -295,7 +363,7 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
           </TextView1>
 
           <TextView2 isShow={lastCall}>
-            {recordFinish ? <GuideText>박스를 클릭하면 수정할 수 있어요!</GuideText> : selectText2 || questionText ? <GuideText>{guideText}</GuideText> : ''}
+            {recordFinish ? <GuideText>박스를 클릭하면{'\n'}수정할 수 있어요!</GuideText> : selectText2 || questionText ? <GuideText>{guideText}</GuideText> : ''}
             {num !== 0 && randomNum === 2 && !selectText2 ? (
               <>
                 <DelayText multiline={true}>AI가 문장을 만들고 있어요...</DelayText>
@@ -328,7 +396,21 @@ const AIStory = ({ isCorrected, setIsCorrected, setSelectText, change, recordFin
                 </DelaySplashContainer>
               </>
             ) : (
-              <TextContainer2>{!isCorrected ? <VoiceText multiline={true}>{voiceLabel}</VoiceText> : <VoiceText multiline={true}>{correctedText}</VoiceText>}</TextContainer2>
+              <TouchableOpacity onPress={_onPressTyping}>
+                {!isCorrected ? (
+                  <TextContainer2>
+                    <VoiceText multiline={true} editable={false}>
+                      {startTyping ? modifiedText : voiceLabel}
+                    </VoiceText>
+                  </TextContainer2>
+                ) : (
+                  <TextContainer2>
+                    <VoiceText multiline={true} editable={false}>
+                      {correctedText}
+                    </VoiceText>
+                  </TextContainer2>
+                )}
+              </TouchableOpacity>
             )}
 
             {recordFinish ? (

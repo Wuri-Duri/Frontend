@@ -55,6 +55,7 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
   const [isCorrected, setIsCorrected] = useState(false);
   const [select1, setSelect1] = useState(false);
   const [select2, setSelect2] = useState(false);
+  const [startTyping, setStartTyping] = useState(false);
 
   const num = useSelector(state => state.makeStory.num);
   const idx = useSelector(state => state.ticket.ticketIdx);
@@ -68,6 +69,7 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
   const allImageList = useSelector(state => state.makeStory.allImageList);
   const selectText2 = useSelector(state => state.makeStory.selectText2);
   const questionText = useSelector(state => state.makeStory.question);
+  const [pressTyping, setPressTyping] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -89,17 +91,10 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
 
       await postStoryText(idx, aiMadeText, dalleMadeImage);
 
+      inputSentence = correctedText;
+
       let inputSentence;
 
-      if (!isCorrected) {
-        inputSentence = recordVoice; //voiceLabel
-
-        console.log('recordVoice ', recordVoice);
-      } else {
-        inputSentence = correctedText;
-
-        console.log('correctedText ', correctedText);
-      }
       console.log('example ', inputSentence);
 
       dispatch(getUserText(inputSentence));
@@ -126,8 +121,7 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
       dispatch(getAllText(collectText));
       dispatch(getAIText(nextSentence));
       dispatch(getStoryImage(url));
-      dispatch(getSelectText1(''));
-      dispatch(getSelectText2(''));
+
       dispatch(getQuestion(''));
 
       (collectText = ''), (nextSentence = ''), (papago = ''), (url = ''), (inputSentence = '');
@@ -140,6 +134,7 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
     dispatch(getPageNum(num));
     setSpeakingText('');
     setIsCorrected(false);
+    setStartTyping(false);
 
     if (bookInfo.length - 2 === num) {
       setLastCall(!lastCall);
@@ -173,6 +168,7 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
 
   const _onGrammarCorrect = async () => {
     dispatch(getGrammarCorrect(await grammarCorrect(userMadeText)));
+    dispatch(getUserText(await grammarCorrect(userMadeText)));
     setIsCorrected(true);
   };
 
@@ -185,10 +181,12 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
     try {
       setChange(!change);
       dispatch(getPageNum(num));
-      dispatch(getAIText(''));
-      dispatch(getUserText(selectedText));
       setSelectPage(false);
       setSelectText(false);
+      dispatch(getAIText(''));
+      dispatch(getUserText(selectedText));
+      dispatch(getSelectText1(''));
+      dispatch(getSelectText2(''));
 
       await postStoryText(idx, aiMadeText, dalleMadeImage);
 
@@ -250,60 +248,68 @@ const StoryMakingPage = ({ imageDalle, setImageDalle, images, setImages, bookInf
         setIsCorrected={setIsCorrected}
         setSelect1={setSelect1}
         setSelect2={setSelect2}
+        pressTyping={pressTyping}
+        setPressTyping={setPressTyping}
+        startTyping={startTyping}
+        setStartTyping={setStartTyping}
       />
 
-      {bookInfo.length - 1 === num && allImageList.length !== num + 1 ? (
-        <ButtonContainer>
-          <ButtonRecord source={inactiveNextButton} />
-        </ButtonContainer>
-      ) : bookInfo.length - 1 === num ? (
-        <ButtonContainer onPress={_onLastPage}>
-          <ButtonRecord source={nextButton} />
-        </ButtonContainer>
-      ) : !change && recordFinish && !isCorrected ? (
-        <ButtonContainer onPress={_onGrammarCorrect}>
-          <ButtonRecord source={finishButton} />
-        </ButtonContainer>
-      ) : !change && recordFinish && selectText2 ? ( //여기여
-        <ButtonContainer>
-          <ButtonRecord source={inactiveNextButton} />
-        </ButtonContainer>
-      ) : !change && recordFinish ? (
-        <ButtonContainer onPress={_onGenerateAIText}>
-          <ButtonRecord source={nextButton} />
-        </ButtonContainer>
-      ) : !aiMadeText && change && !selectPage ? (
-        <ButtonContainer>
-          <ButtonRecord source={inactiveNextButton} />
-        </ButtonContainer>
-      ) : change && !selectPage ? (
-        <ButtonContainer onPress={_onClickNextPage}>
-          <ButtonRecord source={nextButton} />
-        </ButtonContainer>
-      ) : !isRecord && selectPage && !userMadeText && isCorrected ? (
-        <ButtonContainer>
-          <ButtonRecord source={inactiveNextButton} />
-        </ButtonContainer>
-      ) : !isRecord && selectPage && selectedText ? (
-        <ButtonContainer onPress={_onSelectText}>
-          <ButtonRecord source={nextButton} />
-        </ButtonContainer>
-      ) : !isRecord && selectPage ? (
-        <ButtonContainer>
-          <ButtonRecord source={inactiveNextButton} />
-        </ButtonContainer>
-      ) : !isRecord && !selectPage && num !== 0 && !questionText ? (
-        <ButtonContainer>
-          <ButtonRecord source={inactiveRecordButton} />
-        </ButtonContainer>
-      ) : !isRecord && !selectPage ? (
-        <ButtonContainer onPress={_onRecordVoice}>
-          <ButtonRecord source={recordActive} />
-        </ButtonContainer>
-      ) : isRecord && !selectPage && !recordFinish ? (
-        <ButtonContainer onPress={_onRecordVoice}>
-          <ButtonRecord source={recordInactive} />
-        </ButtonContainer>
+      {!pressTyping ? (
+        bookInfo.length - 1 === num && allImageList.length !== num + 1 ? (
+          <ButtonContainer>
+            <ButtonRecord source={inactiveNextButton} />
+          </ButtonContainer>
+        ) : bookInfo.length - 1 === num ? (
+          <ButtonContainer onPress={_onLastPage}>
+            <ButtonRecord source={nextButton} />
+          </ButtonContainer>
+        ) : !change && recordFinish && !isCorrected ? (
+          <ButtonContainer onPress={_onGrammarCorrect}>
+            <ButtonRecord source={finishButton} />
+          </ButtonContainer>
+        ) : !change && recordFinish && isCorrected ? (
+          <ButtonContainer onPress={_onGenerateAIText}>
+            <ButtonRecord source={nextButton} />
+          </ButtonContainer>
+        ) : !change && recordFinish && selectText2 ? ( //여기여
+          <ButtonContainer>
+            <ButtonRecord source={inactiveNextButton} />
+          </ButtonContainer>
+        ) : !aiMadeText && change && !selectPage ? (
+          <ButtonContainer>
+            <ButtonRecord source={inactiveNextButton} />
+          </ButtonContainer>
+        ) : change && !selectPage ? (
+          <ButtonContainer onPress={_onClickNextPage}>
+            <ButtonRecord source={nextButton} />
+          </ButtonContainer>
+        ) : !isRecord && selectPage && !userMadeText && isCorrected ? (
+          <ButtonContainer>
+            <ButtonRecord source={inactiveNextButton} />
+          </ButtonContainer>
+        ) : !isRecord && selectPage && selectedText ? (
+          <ButtonContainer onPress={_onSelectText}>
+            <ButtonRecord source={nextButton} />
+          </ButtonContainer>
+        ) : !isRecord && selectPage ? (
+          <ButtonContainer>
+            <ButtonRecord source={inactiveNextButton} />
+          </ButtonContainer>
+        ) : !isRecord && !selectPage && num !== 0 && !questionText ? (
+          <ButtonContainer>
+            <ButtonRecord source={inactiveRecordButton} />
+          </ButtonContainer>
+        ) : !isRecord && !selectPage ? (
+          <ButtonContainer onPress={_onRecordVoice}>
+            <ButtonRecord source={recordActive} />
+          </ButtonContainer>
+        ) : isRecord && !selectPage && !recordFinish ? (
+          <ButtonContainer onPress={_onRecordVoice}>
+            <ButtonRecord source={recordInactive} />
+          </ButtonContainer>
+        ) : (
+          ''
+        )
       ) : (
         ''
       )}

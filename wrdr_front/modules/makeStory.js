@@ -19,6 +19,8 @@ const GET_SELECTED_TEXT = 'makeStory/GET_SELECTED_TEXT';
 const GET_GRAMMAR_CORRECT = 'makeStory/GET_GRAMMAR_CORRECT';
 const GET_RECORD_VOICE = 'makeStory/GET_RECORD_VOICE';
 const GET_QUESTION = 'makeStory/GET_QUESTION';
+const GET_TYPING_TEXT = 'makeStory/GET_TYPING_TEXT';
+const GET_TYPED_TEXT = 'makeStory/GET_TYPED_TEXT';
 
 //Action Creators
 export const getAIText = aiText => {
@@ -105,6 +107,20 @@ export const getQuestion = question => {
   };
 };
 
+export const getTypingText = typingText => {
+  return {
+    type: GET_TYPING_TEXT,
+    typingText,
+  };
+};
+
+export const getTypedText = typedText => {
+  return {
+    type: GET_TYPING_TEXT,
+    typedText,
+  };
+};
+
 export function initText() {
   return {
     type: INIT_TEXT,
@@ -126,6 +142,8 @@ const initState = {
   correctedText: '',
   recordVoice: '',
   question: '',
+  typingText: '',
+  typedText: '',
 };
 
 //Reducer
@@ -151,11 +169,18 @@ export default function makestoryReducer(state = initState, action) {
     case 'makeStory/GET_SELECTED_TEXT':
       return { ...state, selectedText: action.selectedText };
     case 'makeStory/GET_GRAMMAR_CORRECT':
+      console.log('grammar ', action.correctedText);
       return { ...state, correctedText: action.correctedText };
     case 'makeStory/GET_RECORD_VOICE':
       return { ...state, recordVoice: action.recordVoice };
     case 'makeStory/GET_QUESTION':
       return { ...state, question: action.question };
+    case 'makeStory/GET_TYPING_TEXT':
+      console.log('수정할 문장: ', action.typingText);
+      return { ...state, typingText: action.typingText };
+    case 'makeStory/GET_TYPED_TEXT':
+      console.log('수정된 문장: ', action.typedText);
+      return { ...state, typedText: action.typedText };
     case 'makeStory/INIT_TEXT':
       return { aiText: initState.aiText, userText: initState.userText, num: initState.num, dalleUrl: initState.dalleUrl, allText: initState.allText, allImageList: initState.allImageList };
     default:
