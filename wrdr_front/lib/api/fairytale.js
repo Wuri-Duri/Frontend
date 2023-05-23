@@ -148,6 +148,42 @@ export const requestFirstSentence = async (charName, bgPlace) => {
   }
 };
 
+export const requestFirstSentence2 = async (charName, bgPlace) => {
+  try {
+    console.log('들어와');
+    const response = await axios.post(
+      config.CLOVASTUDIO_URL,
+      {
+        topK: 4,
+        includeProbs: false,
+        includeTokens: false,
+        restart: '',
+        includeAiFilters: true,
+        maxTokens: 300,
+        temperature: 0.85,
+        start: '',
+        stopBefore: ['<|endoftext|>'],
+        text: '인물:' + charName + '배경:' + bgPlace,
+        repeatPenalty: 5.0,
+        topP: 0.8,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-NCP-CLOVASTUDIO-API-KEY': config.CLOVASTUDIO_2_API_KEY,
+          'X-NCP-APIGW-API-KEY': config.APIGW_2_API_KEY,
+          'X-NCP-CLOVASTUDIO-REQUEST-ID': config.CLOVASTUDIO_2_REQUEST_ID,
+        },
+      },
+    );
+
+    return response.data.result.text;
+  } catch (error) {
+    console.error('HYPERCLOVA FIRST API 2 request fail: ', error);
+    throw error;
+  }
+};
+
 const middleTextTest =
   '동화의 다음 문장을 생성하시오.\n\n동화: 한 바닷가 마을에서 살던 작은 소녀인 릴리는 바닷가에서 자주 피터팬을 만났습니다. 피터팬은 바닷가를 사랑하고, 항상 멋진 모험 이야기를 들려주었기 때문에 릴리는 그를 좋아하게 되었습니다. 그러던 어느 날, 릴리는 피터팬과 함께 바닷가를 탐험하던 중에, 바다 속으로 빠져버렸어요.\n결과: 피터팬은 릴리를 구하기 위해 바다에 뛰어들었지만 바닷속이 너무 어두워서 아무것도 볼 수 없었어요.\n###\n동화: 깊고 깊은 바닷속 인어공주에게는 다섯 명의 언니들이 있었어요. 언니들은 막내 인어공주에게 바다 위 세상에 대한 이야기를 매일매일 해주었죠. 바다 위 세상에 대한 이야기를 들을 때마다 인어공주의 가슴은 두근두근 뛰었답니다. 그리고 드디어 공주의 열다섯 번째 생일날 열다섯 살이 된 인어공주는 바다 위로 힘차게 헤엄쳤어요. 그때 흥겨운 음악 소리와 함께 배 한 척이 다가왔어요. 인어공주는 배 갑판에 서 있는 왕자님을 본 순간 숨을 쉴 수가 없었어요.\n결과: 왕자님에게 한 눈에 반해버리고 만 인어공주는 그 이후로 왕자님을 볼 수 없게 되자 시름시름 앓았답니다.\n###\n동화: 옛날 마을에 어느 가난한 나무꾼이 살았어요. 그 나무꾼은 너무 가난한 나머지 호랑이한테 잡아먹히겠다며 산을 넘어가는데, 도중에 진짜 호랑이를 만났어요. 막상 호랑이를 만나 겁이 난 나무꾼은 위기를 모면하기 위해 호랑이에게 이렇게 말했어요.“아이고 형님! 어머니께서 말씀하시길 저에게 형이 하나 있는데 죽어서 호랑이가 되었다고 하더니 바로 그 형님이시군요!” 그러면서 어머님이 형님을 그리워하니 당장 뵈러 가자고 하였답니다.\n결과: 그러자 호랑이는 나무꾼의 말을 믿고 화들짝 놀라며 그를 따라 마을로 내려갔어요.\n###\n동화: 옛날 숲속에 신데렐라와 피터팬이 살았어요. 둘은 서로 친구였죠. 그러던 어느 날 신데렐라는 숲 속으로 놀러 갔다가 길을 잃고 말았어요. 한참을 헤매던 신데렐라는 그만 발을 헛디뎌서 연못에 빠지고 말았어요. 그때 마침 그곳을 지나던 피터팬이 물에 빠진 신데렐라를 구해주었어요.\n결과: 하지만 신데렐라는 계속해서 깨어나지 않았어요.\n###\n동화:';
 export const requestMiddleSentence = async currentText => {
