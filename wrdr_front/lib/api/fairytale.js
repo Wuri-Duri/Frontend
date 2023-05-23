@@ -179,7 +179,8 @@ export const requestMiddleSentence = async currentText => {
     );
 
     const result = response.data.result.outputText;
-    const sentences = result.match(/[^.!?]+[.!?]+/g);
+    const pattern = /([^.!?]+[.!?]+["']?)\s*/g;
+    const sentences = result.match(pattern).filter(sentence => sentence.trim() !== '');
     console.log(sentences);
     return sentences[0];
   } catch (error) {
@@ -220,7 +221,8 @@ export const requestMiddleSentence2 = async currentText => {
     );
 
     const result = response.data.result.outputText;
-    const sentences = result.match(/[^.!?]+[.!?]+/g);
+    const pattern = /([^.!?]+[.!?]+["']?)\s*/g;
+    const sentences = result.match(pattern).filter(sentence => sentence.trim() !== '');
     console.log(sentences);
     return sentences[0];
   } catch (error) {
@@ -262,9 +264,11 @@ export const requestLastSentence = currentText => {
       )
       .then(response => {
         const result = response.data.result.outputText;
-        const sentences = result.match(/[^.!?]+[.!?]+/g);
+        const pattern = /([^.!?]+[.!?]+["']?)\s*/g;
+        const sentences = result.match(pattern).filter(sentence => sentence.trim() !== '');
         console.log(sentences);
-        resolve(sentences[0] + sentences[1]);
+
+        resolve(sentences[0]);
       })
       .catch(error => {
         console.error('HYPERCLOVA LAST API request fail: ', error);
