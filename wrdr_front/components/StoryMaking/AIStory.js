@@ -353,7 +353,7 @@ const AIStory = ({
                   console.log('text ', text);
                   setTypingStart(true);
                 }}
-                maxLength={50}
+                maxLength={60}
               >
                 {isCorrected ? correctedText : recordVoice}
               </VoiceText>

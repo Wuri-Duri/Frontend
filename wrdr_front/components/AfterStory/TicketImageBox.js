@@ -74,7 +74,7 @@ const TicketImageBox = ({ ticketInfo, pageType, setTicketInfo, title, setTitle }
           {pageType === 'storyTitle' ? (
             <TitleInput
               onChange={event => {
-                const text = event.nativeEvent.text;
+                const text = event.nativeEvent.text.replace(/\n$/, '');
                 setTitle(text);
                 setTicketInfo(ticketInfo => ({
                   ...ticketInfo,

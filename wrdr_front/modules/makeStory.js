@@ -182,7 +182,23 @@ export default function makestoryReducer(state = initState, action) {
       console.log('수정된 문장: ', action.typedText);
       return { ...state, typedText: action.typedText };
     case 'makeStory/INIT_TEXT':
-      return { aiText: initState.aiText, userText: initState.userText, num: initState.num, dalleUrl: initState.dalleUrl, allText: initState.allText, allImageList: initState.allImageList };
+      return {
+        aiText: initState.aiText,
+        userText: initState.userText,
+        num: initState.num,
+        dalleUrl: initState.dalleUrl,
+        allText: initState.allText,
+        allImageList: initState.allImageList,
+        randomNum: initState.randomNum,
+        selectText1: initState.selectText1,
+        selectText2: initState.selectText2,
+        selectedText: initState.selectedText,
+        correctedText: initState.correctedText,
+        recordVoice: initState.recordVoice,
+        question: initState.question,
+        typingText: initState.typingText,
+        typedText: initState.typedText,
+      };
     default:
       return state;
   }

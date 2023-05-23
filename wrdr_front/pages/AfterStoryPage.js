@@ -12,15 +12,7 @@ const Container = Styled.View`
   bottom: 0;
 `;
 
-const AfterStoryPage = ({ pageType, setPageType, bookInfo, setBookInfo, imageDalle, setImageDalle, images, setImages }) => {
-  const [ticketInfo, setTicketInfo] = useState({
-    ticketImage: [''],
-    storyTitle: null,
-    isActive: {
-      ticketImage: false,
-      storyTitle: false,
-    },
-  });
+const AfterStoryPage = ({ ticketInfo, setTicketInfo, pageType, setPageType, bookInfo, setBookInfo, imageDalle, setImageDalle, images, setImages }) => {
 
   const [title, setTitle] = useState('');
 

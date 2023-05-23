@@ -48,6 +48,7 @@ export const requestPAPAGOAPI = async madeText => {
 };
 
 export const requestDALLEAPI = async engText => {
+  console.log('달리 들어와 ', engText);
   try {
     const response = await axios.post(
       config.DALLE_URL,

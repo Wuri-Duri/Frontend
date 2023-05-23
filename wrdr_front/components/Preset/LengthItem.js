@@ -30,7 +30,7 @@ const LengthItem = ({ id, imageUrl, title, bookInfo, setBookInfo }) => {
   };
 
   return (
-    <SelectArea isActive={bookInfo.length == id} onPress={onPressLenBtn}>
+    <SelectArea isActive={bookInfo.length === id} onPress={onPressLenBtn}>
       <Image source={imageUrl} />
       <IconText>{title}</IconText>
     </SelectArea>
