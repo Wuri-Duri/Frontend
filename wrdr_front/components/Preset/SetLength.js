@@ -16,8 +16,8 @@ const Container = styled.View`
 const SetLength = ({ bookInfo, setBookInfo }) => {
   const lengthList = [
     { key: 5, image: require('../../assets/Preset/SetLength/len1.png'), title: '짧은 이야기' },
-    { key: 13, image: require('../../assets/Preset/SetLength/len2.png'), title: '중간 이야기' },
-    { key: 17, image: require('../../assets/Preset/SetLength/len3.png'), title: '긴 이야기' },
+    { key: 11, image: require('../../assets/Preset/SetLength/len2.png'), title: '중간 이야기' },
+    { key: 31, image: require('../../assets/Preset/SetLength/len3.png'), title: '긴 이야기' },
   ];
 
   return (

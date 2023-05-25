@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import TicketItem from './TicketItem';
 import LastTicketForAdd from './LastTicketForAdd';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Container = styled.View`
   position: relative;
@@ -21,14 +22,23 @@ const InsideContainer = styled.View`
   margin-right: 50;
 `;
 
-const TicketList = ({ tickets, pageType, setPageType }) => {
+const TicketList = ({ setGetIdx, setTitle, tickets, pageType, setPageType, setPressTicket }) => {
+  const _onPressTicket = (title, getIdx) => {
+    setPressTicket(true);
+    console.log(title);
+    setTitle(title);
+    setGetIdx(getIdx);
+  };
+
   return (
     <Container>
       <ScrollContainer horizontal={true} centerContent={true} showsHorizontalScrollIndicator={false}>
         <InsideContainer>
           {tickets &&
             tickets.map((ticket, index) => (
-              <TicketItem key={ticket.id} idx={ticket.idx} number={index + 1} image={ticket.coverImage} title={ticket.title} pageType={pageType} setPageType={setPageType} />
+              <TouchableOpacity onPress={() => _onPressTicket(ticket.title, ticket.idx)}>
+                <TicketItem key={ticket.id} idx={ticket.idx} number={index + 1} image={ticket.coverImage} title={ticket.title} pageType={pageType} setPageType={setPageType} />
+              </TouchableOpacity>
             ))}
           <LastTicketForAdd pageType={pageType} setPageType={setPageType} />
         </InsideContainer>

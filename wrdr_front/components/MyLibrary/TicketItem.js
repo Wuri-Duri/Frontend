@@ -52,15 +52,10 @@ const TitleText = styled.Text`
   color: #2e3236;
 `;
 
-const TicketItem = ({ idx, number, title, image, setPageType }) => {
-  const dispatch = useDispatch();
-  const onPressTicket = () => {
-    setPageType('readstory');
-    dispatch(getTicketIdx(idx));
-  };
+const TicketItem = ({ number, title, image }) => {
   return (
     <Container>
-      <TicketContainer onPress={onPressTicket}>
+      <TicketContainer>
         <ImageContainer>
           <TicketImage src={image} />
         </ImageContainer>

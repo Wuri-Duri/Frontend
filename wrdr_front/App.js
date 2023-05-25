@@ -50,6 +50,15 @@ const App = ({ props }) => {
     },
   });
 
+  const [ticketInfo, setTicketInfo] = useState({
+    ticketImage: [''],
+    storyTitle: null,
+    isActive: {
+      ticketImage: false,
+      storyTitle: false,
+    },
+  });
+
   return (
     <MainContainer>
       <MainBackgroundImg source={BackgroundImage} resizeMode="cover">
@@ -68,6 +77,7 @@ const App = ({ props }) => {
             setPageType={setPageType}
             bookInfo={bookInfo}
             setBookInfo={setBookInfo}
+            setTicketInfo={setTicketInfo}
             imageDalle={imageDalle}
             setImageDalle={setImageDalle}
             images={images}
@@ -85,6 +95,8 @@ const App = ({ props }) => {
             setImageDalle={setImageDalle}
             images={images}
             setImages={setImages}
+            setTicketInfo={setTicketInfo}
+            ticketInfo={ticketInfo}
           />
         ) : (
           ''

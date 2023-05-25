@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { initText, getAIText, getStoryImage, getAllText } from '../../modules/makeStory';
 import { initPreset } from '../../modules/presetStory';
 import { getTicketIdx } from '../../modules/ticket';
-import { requestFirstSentence, requestPAPAGOAPI, requestDALLEAPI, postPresetInfo, postTicketCover } from '../../lib/api/fairytale';
+import { requestFirstSentence2, requestFirstSentence, requestPAPAGOAPI, requestDALLEAPI, postPresetInfo, postTicketCover } from '../../lib/api/fairytale';
 
 const HomeButtonContainer = styled.TouchableOpacity`
   width: ${props => props.size || '95'};
@@ -69,10 +69,18 @@ const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, setTicketInf
 
       dispatch(getTicketIdx(ticketIdx));
 
-      const firstSentence = await requestFirstSentence(
-        charName.map(character => character.name),
-        bg,
-      );
+      let firstSentence;
+      if (bookInfo.characters.length === 1) {
+        firstSentence = await requestFirstSentence(
+          charName.map(character => character.name),
+          bg,
+        );
+      } else {
+        firstSentence = await requestFirstSentence2(
+          charName.map(character => character.name),
+          bg,
+        );
+      }
 
       dispatch(getAIText(firstSentence));
       dispatch(getAllText(firstSentence));
