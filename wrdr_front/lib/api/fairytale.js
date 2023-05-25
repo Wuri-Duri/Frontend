@@ -373,7 +373,7 @@ export const requestLastSentence = currentText => {
         const sentences = result.match(pattern).filter(sentence => sentence.trim() !== '');
         console.log(sentences);
 
-        resolve(sentences[0]);
+        resolve('마침내, ' + sentences[0]);
       })
       .catch(error => {
         console.error('HYPERCLOVA LAST API request fail: ', error);
