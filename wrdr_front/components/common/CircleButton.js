@@ -45,6 +45,30 @@ const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, setTicketInf
 
   const dispatch = useDispatch();
 
+  const initBookInfo = () => {
+    setBookInfo({
+      characters: [],
+      place: null,
+      length: null,
+      isActive: {
+        character: false,
+        place: false,
+        length: false,
+      },
+    });
+  };
+
+  const initTicketInfo = () => {
+    setTicketInfo({
+      ticketImage: null,
+      fairyTaleTitle: null,
+      isActive: {
+        ticketImage: false,
+        fairyTaleTitle: false,
+      },
+    });
+  };
+
   const onPressMainBtn = async () => {
     if (pageType === 'mylibrary') {
       setPageType('character');
@@ -92,34 +116,25 @@ const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, setTicketInf
       setPageType('ticketImage');
     } else if (ticketInfo.isActive.ticketImage && pageType === 'ticketImage') {
       setPageType('storyTitle');
-    } else if (ticketInfo.isActive.storyTitle && pageType === 'storyTitle') {
+    } else if (ticketInfo.isActive.fairyTaleTitle && pageType === 'storyTitle') {
       postTicketCover(ticketId, ticketTitle, ticketInfo.ticketImage);
 
       setFinish((finish: boolean) => !finish);
+
       setTimeout(() => {
         setPageType('mylibrary');
+
+        dispatch(initText());
+        dispatch(initPreset());
+
+        setTimeout(() => {
+          initBookInfo();
+          initTicketInfo();
+          console.log('ticketInfo ', ticketInfo, ' bookInfo ', bookInfo);
+        }, 0);
       }, 1500);
 
-      dispatch(initText());
-      dispatch(initPreset());
-      setBookInfo(bookInfo => ({
-        characters: [],
-        place: null,
-        length: null,
-        isActive: {
-          character: false,
-          place: false,
-          length: false,
-        },
-      }));
-      setTicketInfo(ticketInfo => ({
-        ticketImage: [],
-        storyTitle: null,
-        isActive: {
-          ticketImage: false,
-          storyTitle: false,
-        },
-      }));
+      console.log('ticketInfo ', ticketInfo, ' bookInfo ', bookInfo);
     }
   };
 
@@ -148,7 +163,7 @@ const MainButton = ({ pageType, setPageType, bookInfo, setBookInfo, setTicketInf
       ) : pageType === 'ticketImage' && !show ? (
         ''
       ) : pageType === 'storyTitle' && !finish ? (
-        <ButtonContainer isActive={ticketInfo.isActive.storyTitle} pageType={pageType} finish={finish} setFinish={setFinish}>
+        <ButtonContainer isActive={ticketInfo.isActive.fairyTaleTitle} pageType={pageType} finish={finish} setFinish={setFinish}>
           <Icon source={check} />
         </ButtonContainer>
       ) : pageType === 'storyTitle' && finish ? (

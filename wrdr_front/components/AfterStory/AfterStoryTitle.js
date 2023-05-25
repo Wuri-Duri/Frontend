@@ -13,9 +13,10 @@ const TitleText = Styled.Text`
   font-size: 47;
   font-weight: bold;
   font-family: jalnan;
+  text-align: center;
 `;
 
-const AfterStoryTitle = ({ pageType, show }) => {
+const AfterStoryTitle = ({ pageType, show, finish }) => {
   return (
     <>
       <TitleContianer>
@@ -24,8 +25,10 @@ const AfterStoryTitle = ({ pageType, show }) => {
             ? '우리가 만든 이야기가 완성됐어요!'
             : pageType === 'ticketImage'
             ? '이야기 티켓의 그림을 골라볼까요?'
-            : pageType === 'storyTitle'
+            : pageType === 'storyTitle' && !finish
             ? '이야기의 제목을 정해볼까요?'
+            : pageType === 'storyTitle'
+            ? '이야기 티켓 완성!\n언제든 다시 볼 수 있어요.'
             : ''}
         </TitleText>
       </TitleContianer>

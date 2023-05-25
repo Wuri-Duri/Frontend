@@ -78,17 +78,17 @@ const TicketImageBox = ({ ticketInfo, pageType, setTicketInfo, title, setTitle }
                 setTitle(text);
                 setTicketInfo(ticketInfo => ({
                   ...ticketInfo,
-                  storyTitle: text,
+                  fairyTaleTitle: text,
                   isActive: {
                     ...ticketInfo.isActive,
-                    storyTitle: true,
+                    fairyTaleTitle: true,
                   },
                 }));
                 dispatch(getTicketTitle(text));
               }}
               multiline
               placeholder="이곳을 클릭해 제목을 입력해주세요!"
-              maxLength={20}
+              maxLength={10}
             />
           ) : (
             <TitleInput editable={false} />
