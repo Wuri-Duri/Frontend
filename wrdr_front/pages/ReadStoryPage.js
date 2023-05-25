@@ -5,6 +5,11 @@ import { getFairyTale } from '../lib/api/fairytale';
 import { useSelector } from 'react-redux';
 import nextButton from '../assets/nextButton.png';
 import finishButton from '../assets/finishButton.png';
+import clearButton from '../assets/XButton.png';
+
+const PageContainer = Styled.View`
+  flex: 1;
+`;
 
 const Container = Styled.ImageBackground`
   flex: 1;
@@ -52,6 +57,22 @@ width: 90;
 height: 90;
 `;
 
+const XButtonContainer = Styled.TouchableOpacity`
+  align-items: flex-start;
+  position: absolute;
+  width: 100;
+  height: 60;
+  zIndex: 1;
+
+`;
+
+const XButton = Styled.Image`
+  width: 100%;
+  height: 100%;
+  margin-top: 30%;
+  margin-left: 10%;
+`;
+
 const ReadStoryPage = ({ setPageType }) => {
   const idx = useSelector(state => state.ticket.ticketIdx);
   const [storyData, setStoryData] = useState(['']);
@@ -78,27 +99,35 @@ const ReadStoryPage = ({ setPageType }) => {
   const _goMyLibrary = () => {
     setPageType('mylibrary');
   };
-  // <Container source={{ uri: storyData[index].img }}>
-  //<Container source={require('../assets/seaBg.png')}>
+
+  const _onPressXButtonRead = () => {
+    setPageType('mylibrary');
+  };
+
   return (
     <>
-      <Container source={{ uri: storyData[index].img }}>
-        <TextView>
-          <TextContainer>
-            <StoryText multiline={true}>{storyData[index].text}</StoryText>
-          </TextContainer>
-        </TextView>
-        <Nothing />
-        {index < storyData.length - 1 ? (
-          <ButtonContainer onPress={_goNextPage}>
-            <ButtonImage source={nextButton} />
-          </ButtonContainer>
-        ) : (
-          <ButtonContainer onPress={_goMyLibrary}>
-            <ButtonImage source={finishButton} />
-          </ButtonContainer>
-        )}
-      </Container>
+      <PageContainer>
+        <XButtonContainer onPress={_onPressXButtonRead}>
+          <XButton source={clearButton} />
+        </XButtonContainer>
+        <Container source={{ uri: storyData[index].img }}>
+          <TextView>
+            <TextContainer>
+              <StoryText multiline={true}>{storyData[index].text}</StoryText>
+            </TextContainer>
+          </TextView>
+          <Nothing />
+          {index < storyData.length - 1 ? (
+            <ButtonContainer onPress={_goNextPage}>
+              <ButtonImage source={nextButton} />
+            </ButtonContainer>
+          ) : (
+            <ButtonContainer onPress={_goMyLibrary}>
+              <ButtonImage source={finishButton} />
+            </ButtonContainer>
+          )}
+        </Container>
+      </PageContainer>
     </>
   );
 };

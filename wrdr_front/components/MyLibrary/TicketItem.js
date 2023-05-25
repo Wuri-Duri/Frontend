@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { useDispatch } from 'react-redux';
-import { getTicketIdx } from '../../modules/ticket';
 
 const Container = styled.View`
   width: 300;

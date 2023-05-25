@@ -13,7 +13,6 @@ const Container = Styled.View`
 `;
 
 const AfterStoryPage = ({ ticketInfo, setTicketInfo, pageType, setPageType, bookInfo, setBookInfo, imageDalle, setImageDalle, images, setImages }) => {
-
   const [title, setTitle] = useState('');
 
   const [finish, setFinish] = useState(false);
