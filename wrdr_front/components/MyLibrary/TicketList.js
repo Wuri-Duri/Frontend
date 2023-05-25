@@ -46,5 +46,5 @@ const TicketList = ({ setGetIdx, setTitle, tickets, pageType, setPageType, setPr
     </Container>
   );
 };
-//TicketItem 안에다 넣어 - id 받아와서 하는거
+
 export default TicketList;

@@ -16,7 +16,6 @@ import { grammarCorrect, postStoryText, requestMiddleSentence, requestLastSenten
 
 const PageContainer = Styled.View`
   flex: 1;
-
 `;
 
 const MainContainer = Styled.View`
@@ -86,7 +85,6 @@ const StoryMakingPage = ({ setPageType, setBookInfo, setTicketInfo, imageDalle, 
   const stackedText = useSelector(state => state.makeStory.allText);
   const selectedText = useSelector(state => state.makeStory.selectedText);
   const correctedText = useSelector(state => state.makeStory.correctedText);
-  const recordVoice = useSelector(state => state.makeStory.recordVoice);
   const allImageList = useSelector(state => state.makeStory.allImageList);
   const selectText2 = useSelector(state => state.makeStory.selectText2);
   const questionText = useSelector(state => state.makeStory.question);
@@ -264,7 +262,7 @@ const StoryMakingPage = ({ setPageType, setBookInfo, setTicketInfo, imageDalle, 
         storyTitle: false,
       },
     }));
-  }
+  };
 
   return (
     <PageContainer>
