@@ -1,6 +1,6 @@
 import React from 'react';
 import Styled from 'styled-components/native';
-import { FlatList, View } from 'react-native';
+import { View } from 'react-native';
 import ImageItem from './ImageItem';
 import TicketImageBox from './TicketImageBox';
 import { useSelector } from 'react-redux';
@@ -44,7 +44,7 @@ const ChooseTicketImage = ({ ticketInfo, setTicketInfo, show, setShow }) => {
   return (
     <>
       {!show ? (
-        <StoryFin>'우리가 만든 이야기가 완성됐어요!'</StoryFin>
+        ''
       ) : (
         <Container>
           <TicketImageBox ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} />

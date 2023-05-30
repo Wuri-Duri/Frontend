@@ -10,10 +10,10 @@ const Container = styled.View`
   bottom: 0;
 `;
 
-const BottomBar = ({ pageType, setPageType }) => {
+const BottomBar = ({ pageType, setPageType, setTicketInfo, setBookInfo, bookInfo, ticketInfo }) => {
   return (
     <Container>
-      <CircleButton pageType={pageType} setPageType={setPageType} />
+      <CircleButton pageType={pageType} setPageType={setPageType} setTicketInfo={setTicketInfo} ticketInfo={ticketInfo} setBookInfo={setBookInfo} bookInfo={bookInfo} />
       <BackgroundBar />
     </Container>
   );

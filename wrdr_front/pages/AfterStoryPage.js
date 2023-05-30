@@ -20,7 +20,7 @@ const AfterStoryPage = ({ ticketInfo, setTicketInfo, pageType, setPageType, book
 
   return (
     <>
-      <AfterStoryTitle pageType={pageType} setPageType={setPageType} show={show} setShow={setShow} />
+      <AfterStoryTitle pageType={pageType} setPageType={setPageType} show={show} setShow={setShow} finish={finish} />
       {pageType === 'ticketImage' ? (
         <ChooseTicketImage
           pageType={pageType}
@@ -55,6 +55,7 @@ const AfterStoryPage = ({ ticketInfo, setTicketInfo, pageType, setPageType, book
           bookInfo={bookInfo}
           setBookInfo={setBookInfo}
           ticketInfo={ticketInfo}
+          setTicketInfo={setTicketInfo}
           finish={finish}
           setFinish={setFinish}
           show={show}

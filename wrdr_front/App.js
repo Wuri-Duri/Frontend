@@ -51,11 +51,11 @@ const App = ({ props }) => {
   });
 
   const [ticketInfo, setTicketInfo] = useState({
-    ticketImage: [''],
-    storyTitle: null,
+    ticketImage: null,
+    fairyTaleTitle: null,
     isActive: {
       ticketImage: false,
-      storyTitle: false,
+      fairyTaleTitle: false,
     },
   });
 

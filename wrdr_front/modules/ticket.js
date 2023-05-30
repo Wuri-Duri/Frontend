@@ -2,6 +2,7 @@
 const GET_TICKET_IMAGE = 'ticket/GET_TICKET_IMAGE';
 const GET_TICKET_TITLE = 'ticket/GET_TICKET_TITLE';
 const GET_TICKET_IDX = 'ticket/GET_TICKET_IDX';
+const INIT_TICKET = 'ticket/INIT_TICKET';
 
 //Action Creators
 export const getTicketImage = ticketImage => {
@@ -25,6 +26,12 @@ export const getTicketIdx = ticketIdx => {
   };
 };
 
+export function initTicket() {
+  return {
+    type: INIT_TICKET,
+  };
+}
+
 //initialize
 const initState = {
   ticketImage: [''],
@@ -41,6 +48,8 @@ export default function ticketReducer(state = initState, action) {
       return { ...state, storyTitle: action.storyTitle };
     case 'ticket/GET_TICKET_IDX':
       return { ...state, ticketIdx: action.ticketIdx };
+    case 'ticket/INIT_TICKET':
+      return { ...initState };
     default:
       return state;
   }

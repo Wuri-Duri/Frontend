@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { initText, getQuestion, getAllText, getPageNum, getUserText, getStoryImage, getAIText, getRandomNum, getSelectText1, getSelectText2, getGrammarCorrect } from '../modules/makeStory';
 import { initPreset } from '../modules/presetStory';
 import { grammarCorrect, postStoryText, requestMiddleSentence, requestLastSentence, requestDALLEAPI, requestPAPAGOAPI, requestQuestion, requestMiddleSentence2 } from '../lib/api/fairytale';
+import { initTicket } from '../modules/ticket';
 
 const PageContainer = Styled.View`
   flex: 1;
@@ -244,6 +245,7 @@ const StoryMakingPage = ({ setPageType, setBookInfo, setTicketInfo, imageDalle, 
     setPageType('mylibrary');
     dispatch(initText());
     dispatch(initPreset());
+    dispatch(initTicket());
     setBookInfo(bookInfo => ({
       characters: [],
       place: null,
@@ -255,11 +257,11 @@ const StoryMakingPage = ({ setPageType, setBookInfo, setTicketInfo, imageDalle, 
       },
     }));
     setTicketInfo(ticketInfo => ({
-      ticketImage: [],
-      storyTitle: null,
+      ticketImage: null,
+      fairyTaleTitle: null,
       isActive: {
         ticketImage: false,
-        storyTitle: false,
+        fairyTaleTitle: false,
       },
     }));
   };
