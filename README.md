@@ -10,7 +10,7 @@
 ### <b>우리 둘이 만들어가는 이야기, "우리두리"</b>
 
 > 우리두리의 프론트 코드 저장소입니다.
-> <br/>개발자 : [김지윤](https://github.com/nouyeej), [장세영](https://github.com/Say-young)
+> <br/>개발자 : [김지윤](https://github.com/nuoyeej), [장세영](https://github.com/Say-young)
 > <br/>v 1.1.0 배포 : 06/05/23<br/>
 
 <br/>
